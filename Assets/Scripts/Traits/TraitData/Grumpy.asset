@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 587f102ba2a10f04fb328ea4d8c1e53f, type: 3}
+  m_Name: Grumpy
+  m_EditorClassIdentifier: 
+  name: Grumpy
+  description: 
+  blockingTrait: {fileID: 11400000, guid: e7a239031a649db46adbf89e4f0a3537, type: 2}
+  effects:
+  - traitEffectData: {fileID: 11400000, guid: 8f362fc3a57c780419c1891a6c09703e, type: 2}
+  - traitEffectData: {fileID: 11400000, guid: 54539a5a0a346234f8ee619a04faf4de, type: 2}
