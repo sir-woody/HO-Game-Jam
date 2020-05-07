@@ -1,4 +1,6 @@
 ﻿using System;
+using System.CodeDom;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +14,7 @@ using UnityEngine;
 /// An <see cref="Event"/> will allways happen at the end of a <see cref="Map.Road"/> segment.
 /// <see cref="Event"/>s might also happen throughout a <see cref="Map.Road"/> segment.
 /// </summary>
-public class Event : MonoBehaviour
+public abstract class Event : MonoBehaviour
 {
-    
+    public abstract IEnumerator Perform(GameplayManager.ClimbResult climbResult);
 }

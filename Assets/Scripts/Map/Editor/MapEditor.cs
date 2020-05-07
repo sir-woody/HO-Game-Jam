@@ -15,6 +15,7 @@ public class MapEditor : OdinEditor
     protected override void OnEnable()
     {
         map = target as Map;
+        map.FixCurves();
     }
     private void OnSceneGUI()
     {

@@ -9,7 +9,7 @@ public class Map : MonoBehaviour
     [Serializable]
     public class Road
     {
-        public EventScriptableObject eventScriptableObject;
+        public Event eventPrefab;
         public int nextNodeIndex;
         public float crossDuration = 5f;
         public BezierCurve roadCurve;
@@ -91,6 +91,7 @@ public class Map : MonoBehaviour
                     Debug.LogError($"Node [{i}] pointing to a index out of range (index: {road}, nodes.Length: {nodes.Count})");
                     continue;
                 }
+                road.roadCurve.name = $"Curve {i}:{road.nextNodeIndex}";
                 road.roadCurve.points[0] = (Vector3)beg.localPosition;
                 road.roadCurve.points[3] = (Vector3)end.localPosition;
                 road.roadCurve.transform.localPosition = Vector3.zero;

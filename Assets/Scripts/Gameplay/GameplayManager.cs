@@ -11,7 +11,7 @@ public class GameplayManager : MonoBehaviour
 {
     public class ClimbResult
     {
-        public EventScriptableObject eventScriptableObject;
+        public Event eventPrefab;
         public bool hasReachedCrossroads;
         public Vector2 markerPosition;
         public int crossroadsCount;
@@ -21,7 +21,14 @@ public class GameplayManager : MonoBehaviour
     [SerializeField]
     private MapManager mapManager = null;
     [SerializeField]
+    private FadeManager fade = null;
+    [SerializeField]
+    private RectTransform eventParent = null;
+
+    [SerializeField]
     private float distancePerSecond = 1;
+    [SerializeField]
+    private Event restEventPrefab = null;
     [SerializeField]
     private Transform marker = null;
 
@@ -49,14 +56,14 @@ public class GameplayManager : MonoBehaviour
             /// Update marker's position
             marker.transform.position = climbResult.markerPosition;
 
-            if (climbResult.hasReachedCrossroads == false && climbResult.eventScriptableObject == null)
+            if (climbResult.hasReachedCrossroads == false && climbResult.eventPrefab == null)
             {
                 /// We are in the middle of the road, no event nor crossroads are close.
                 /// Checking whether the user has issued Rest order.
                 if (restWasIssued == true)
                 {
                     /// Rest order was issued, performing Rest action.
-                    yield return StartCoroutine(RestCoroutine());
+                    yield return StartCoroutine(RestCoroutine(climbResult));
                     restWasIssued = false;
                 }
                 else
@@ -67,10 +74,12 @@ public class GameplayManager : MonoBehaviour
                 continue;
             }
 
-            if (climbResult.eventScriptableObject != null)
+            if (climbResult.eventPrefab != null)
             {
                 /// We have encountered an event
+                /// Perform it, then clear
                 yield return StartCoroutine(EventCoroutine(climbResult));
+                climbResult.eventPrefab = null;
             }
 
             if (climbResult.hasReachedCrossroads == false)
@@ -102,26 +111,50 @@ public class GameplayManager : MonoBehaviour
         result.crossroadsCount = mapManager.GetCrossroadsCount();
         do
         {
-            result.hasReachedCrossroads = mapManager.HasReachedCrossroad();
             result.markerPosition = mapManager.Move(distancePerSecond);
-            result.eventScriptableObject = mapManager.GetUpcommingEvent();
+            result.hasReachedCrossroads = mapManager.HasReachedCrossroad();
+            result.eventPrefab = mapManager.GetUpcommingEvent();
             yield return result;
         }
         while (result.hasReachedCrossroads == false);
     }
 
-    private IEnumerator RestCoroutine()
+    private IEnumerator RestCoroutine(ClimbResult climbResult)
     {
         Debug.Log("Performing rest");
-        yield return new WaitForSeconds(1);
+
+        yield return StartCoroutine(fade.FadeOut());
+        Event eventObject = Instantiate(restEventPrefab, eventParent);
+        mapManager.Hide();
+        yield return StartCoroutine(fade.FadeIn());
+
+        yield return StartCoroutine(eventObject.Perform(climbResult));
+
+        yield return StartCoroutine(fade.FadeOut());
+        Destroy(eventObject.gameObject);
+        mapManager.Show();
+        yield return StartCoroutine(fade.FadeIn());
+
+
         Debug.Log("Rest performed");
     }
 
     private IEnumerator EventCoroutine(ClimbResult climbResult)
     {
         Debug.Log("Performing new event");
-        yield return new WaitForSeconds(1);
-        climbResult.selectedCrossroad = UnityEngine.Random.Range(0, climbResult.crossroadsCount);
+
+        yield return StartCoroutine(fade.FadeOut());
+        Event eventObject = Instantiate(climbResult.eventPrefab, eventParent);
+        mapManager.Hide();
+        yield return StartCoroutine(fade.FadeIn());
+
+        yield return StartCoroutine(eventObject.Perform(climbResult));
+
+        yield return StartCoroutine(fade.FadeOut());
+        Destroy(eventObject.gameObject);
+        mapManager.Show();
+        yield return StartCoroutine(fade.FadeIn());
+
         Debug.Log("Event performed");
     }
 

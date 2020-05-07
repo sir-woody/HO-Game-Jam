@@ -9,6 +9,8 @@ public class MapManager : MonoBehaviour
 {
     [SerializeField]
     private Map map = null;
+    [SerializeField]
+    private RectTransform visuals = null;
 
     private Map.Node currentNode;
     private Map.Node nextNode;
@@ -56,11 +58,11 @@ public class MapManager : MonoBehaviour
     /// Otherwise, returns null.
     /// Should be checked every frame.
     /// </summary>
-    public EventScriptableObject GetUpcommingEvent()
+    public Event GetUpcommingEvent()
     {
         if (currentDistance == currentRoad.crossDuration)
         {
-            return currentRoad.eventScriptableObject;
+            return currentRoad.eventPrefab;
         }
         else
         {
@@ -94,5 +96,15 @@ public class MapManager : MonoBehaviour
         currentRoad = nextNode.roads[roadIndex];
         nextNode = map.Nodes[currentRoad.nextNodeIndex];
         currentDistance = 0;
+    }
+
+    public void Show()
+    {
+        visuals.gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        visuals.gameObject.SetActive(false);
     }
 }
