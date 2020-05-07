@@ -11,6 +11,7 @@ public class Map : MonoBehaviour
     {
         public EventScriptableObject eventScriptableObject;
         public int nextNodeIndex;
+        public float crossDuration = 5f;
         public BezierCurve roadCurve;
         public ColorRef color;
     }

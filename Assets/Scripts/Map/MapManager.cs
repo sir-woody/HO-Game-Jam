@@ -9,8 +9,6 @@ public class MapManager : MonoBehaviour
 {
     [SerializeField]
     private Map map = null;
-    [SerializeField]
-    private float distanceBetweenNodes = 10;
 
     private Map.Node currentNode;
     private Map.Node nextNode;
@@ -31,7 +29,7 @@ public class MapManager : MonoBehaviour
     public Vector2 Move(float distancePerSecond)
     {
         float distance = distancePerSecond * Time.deltaTime;
-        currentDistance = Mathf.Min(currentDistance + distance, distanceBetweenNodes);
+        currentDistance = Mathf.Min(currentDistance + distance, currentRoad.crossDuration);
 
         Vector2 currentPoint = GetCurrentCursorPosition();
         return currentPoint;
@@ -42,9 +40,17 @@ public class MapManager : MonoBehaviour
     /// </summary>
     public Vector2 GetCurrentCursorPosition()
     {
-        return currentRoad.roadCurve.GetPoint(currentDistance / distanceBetweenNodes);
+        return currentRoad.roadCurve.GetPoint(currentDistance / currentRoad.crossDuration);
     }
 
+    /// <summary>
+    /// Returns true if the distance traveled is equal to the length of the road.
+    /// The road can be traveled using <see cref="Move(float)"/> method.
+    /// </summary>
+    public bool HasReachedCrossroad()
+    {
+        return currentDistance == currentRoad.crossDuration;
+    }
     /// <summary>
     /// This method returns a <see cref="EventScriptableObject"/> if an event should appear.
     /// Otherwise, returns null.
@@ -52,7 +58,7 @@ public class MapManager : MonoBehaviour
     /// </summary>
     public EventScriptableObject GetUpcommingEvent()
     {
-        if (currentDistance == distanceBetweenNodes)
+        if (currentDistance == currentRoad.crossDuration)
         {
             return currentRoad.eventScriptableObject;
         }
@@ -67,14 +73,14 @@ public class MapManager : MonoBehaviour
     /// Returns the numer of available roads on the next node.
     /// Use in pair with <see cref="MoveToNextRoad(int)"/>.
     /// </summary>
-    public int GetAvailableRoadCount()
+    public int GetCrossroadsCount()
     {
         return nextNode.roads.Count;
     }
 
     /// <summary>
     /// Call after finishing an <see cref="Event"/> retrieved from <see cref="GetUpcommingEvent"/>.
-    /// To get the cout of available roads, call <see cref="GetAvailableRoadCount"/>.
+    /// To get the cout of available roads, call <see cref="GetCrossroadsCount"/>.
     /// </summary>
     public void MoveToNextRoad(int roadIndex)
     {
@@ -87,5 +93,6 @@ public class MapManager : MonoBehaviour
         currentNode = nextNode;
         currentRoad = nextNode.roads[roadIndex];
         nextNode = map.Nodes[currentRoad.nextNodeIndex];
+        currentDistance = 0;
     }
 }
