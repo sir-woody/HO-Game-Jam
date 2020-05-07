@@ -159,14 +159,10 @@ MonoBehaviour:
   - traitData: {fileID: 0}
     isVisible: 0
   alltraits:
-  - traitData: {fileID: 11400000, guid: ef2df7a8ee0f19442a8155b7795c907e, type: 2}
-    isVisible: 0
-  - traitData: {fileID: 11400000, guid: be45f20dd486a8947834e330764c4869, type: 2}
-    isVisible: 0
-  - traitData: {fileID: 11400000, guid: e7a239031a649db46adbf89e4f0a3537, type: 2}
-    isVisible: 0
-  - traitData: {fileID: 11400000, guid: 329a702ea0dad9946be29b5d1fee6b74, type: 2}
-    isVisible: 0
+  - {fileID: 11400000, guid: e7a239031a649db46adbf89e4f0a3537, type: 2}
+  - {fileID: 11400000, guid: ef2df7a8ee0f19442a8155b7795c907e, type: 2}
+  - {fileID: 11400000, guid: 329a702ea0dad9946be29b5d1fee6b74, type: 2}
+  - {fileID: 11400000, guid: be45f20dd486a8947834e330764c4869, type: 2}
 --- !u!1 &4060027098812233519
 GameObject:
   m_ObjectHideFlags: 0
