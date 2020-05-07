@@ -3,18 +3,21 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public new string name;
+    public string description;
+    Stat[] stats;
+    TraitController TraitController;
+
     float baseSpeed = 1;
     [SerializeField] GameObject equipment;
-    [SerializeField] Trait[] traits;
-    [SerializeField] Stat[] stats;
 
-    void Initialize()
+    void Start()
     {
-        foreach (var stat in stats)
-        {
-            stat.ApplyTraitEffect(Trait.SumarizeEffect(traits, stat.name));
-            stat.Initialize();
-        }
+        stats = GetComponents<Stat>();
+        //traits = GetComponents<Trait>();
+        TraitController = GetComponent<TraitController>();
+        TraitController.ApplyEffects(EffectType.Initial);
+        GetItems().ToList().ForEach(Equip);
     }
 
     //Item management
@@ -39,10 +42,10 @@ public class Character : MonoBehaviour
 
     float GetCurrentSpeed() => baseSpeed * GetStatPercentage("health") * GetStatPercentage("stamina");
 
+    public Character[] GetTeamMembers() => transform.parent.GetComponentsInChildren<Character>();
 
     //Deplete stats during travel
     bool isClimbing;
-
     void Climb()
     {
         isClimbing = true;
@@ -51,14 +54,20 @@ public class Character : MonoBehaviour
     {
         isClimbing = false;
     }
-
     void Update()
     {
         if (isClimbing)
         {
+            TraitController.ApplyEffects(EffectType.Continous);
+            
             foreach (var stat in stats)
             {
-                stat.Deplete(Time.deltaTime);
+                stat.Deplete();
+            }
+           
+            foreach (var item in GetItems().Where(x=>x.continousEffect))
+            {
+                item.Use(this);
             }
         }
     }
