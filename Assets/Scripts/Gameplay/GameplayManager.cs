@@ -147,11 +147,13 @@ public class GameplayManager : MonoBehaviour
         }
         yield return new WaitForSeconds(1f);
 
+        Team.Instance.StartClimbing();
         Debug.Log("Character selection performed");
     }
     private IEnumerator RestCoroutine(ClimbResult climbResult)
     {
         Debug.Log("Performing rest");
+        Team.Instance.StopClimbing();
 
         yield return StartCoroutine(fade.FadeOut());
         mapManager.Hide();
@@ -167,13 +169,14 @@ public class GameplayManager : MonoBehaviour
         mapManager.Show();
         yield return StartCoroutine(fade.FadeIn());
 
-
+        Team.Instance.StartClimbing();
         Debug.Log("Rest performed");
     }
 
     private IEnumerator EventCoroutine(ClimbResult climbResult)
     {
         Debug.Log("Performing new event");
+        Team.Instance.StopClimbing();
 
         yield return StartCoroutine(fade.FadeOut());
         mapManager.Hide();
@@ -188,7 +191,8 @@ public class GameplayManager : MonoBehaviour
         Destroy(eventObject.gameObject);
         mapManager.Show();
         yield return StartCoroutine(fade.FadeIn());
-
+        
+        Team.Instance.StartClimbing();
         Debug.Log("Event performed");
     }
 

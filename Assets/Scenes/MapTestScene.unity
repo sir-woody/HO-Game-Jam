@@ -492,10 +492,10 @@ MonoBehaviour:
   mapManager: {fileID: 842511816}
   fade: {fileID: 1394374386}
   eventParent: {fileID: 1090494549}
-  distancePerSecond: 1
   restEventPrefab: {fileID: 9038974790115596739, guid: 190ab011e70a0f74aacd6e9050555e1f,
     type: 3}
   marker: {fileID: 1877304638}
+  distancePerSecond: 1
 --- !u!4 &1612118671
 Transform:
   m_ObjectHideFlags: 0
@@ -710,16 +710,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1949463617}
     m_Modifications:
-    - target: {fileID: 5096218917060726720, guid: 2d11cf76d0ef5154b98885010b3780a0,
-        type: 3}
-      propertyPath: points.Array.data[0].x
-      value: 1.9926114
-      objectReference: {fileID: 0}
-    - target: {fileID: 5096218917060726720, guid: 2d11cf76d0ef5154b98885010b3780a0,
-        type: 3}
-      propertyPath: points.Array.data[0].y
-      value: -0.40544468
-      objectReference: {fileID: 0}
     - target: {fileID: 5096218917808724632, guid: 2d11cf76d0ef5154b98885010b3780a0,
         type: 3}
       propertyPath: m_Name
@@ -829,79 +819,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5096218918105517437, guid: 2d11cf76d0ef5154b98885010b3780a0,
-        type: 3}
-      propertyPath: nodes.Array.data[0].roads.Array.data[0].eventPrefab
-      value: 
-      objectReference: {fileID: 9038974790115596739, guid: 190ab011e70a0f74aacd6e9050555e1f,
-        type: 3}
-    - target: {fileID: 5096218918105517437, guid: 2d11cf76d0ef5154b98885010b3780a0,
-        type: 3}
-      propertyPath: nodes.Array.data[1].roads.Array.data[0].eventPrefab
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5096218918105517437, guid: 2d11cf76d0ef5154b98885010b3780a0,
-        type: 3}
-      propertyPath: nodes.Array.data[1].roads.Array.data[1].eventPrefab
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5096218918105517437, guid: 2d11cf76d0ef5154b98885010b3780a0,
-        type: 3}
-      propertyPath: nodes.Array.data[1].roads.Array.data[2].eventPrefab
-      value: 
-      objectReference: {fileID: 4390942942381450035, guid: 9aab40e434e53934e8850a7904df5512,
-        type: 3}
-    - target: {fileID: 5096218918105517437, guid: 2d11cf76d0ef5154b98885010b3780a0,
-        type: 3}
-      propertyPath: nodes.Array.data[4].localPosition.x
-      value: 1.9472466
-      objectReference: {fileID: 0}
-    - target: {fileID: 5096218918105517437, guid: 2d11cf76d0ef5154b98885010b3780a0,
-        type: 3}
-      propertyPath: nodes.Array.data[2].localPosition.x
-      value: 1.841701
-      objectReference: {fileID: 0}
-    - target: {fileID: 5096218918105517437, guid: 2d11cf76d0ef5154b98885010b3780a0,
-        type: 3}
-      propertyPath: nodes.Array.data[2].localPosition.y
-      value: 4.026147
-      objectReference: {fileID: 0}
-    - target: {fileID: 5096218918105517437, guid: 2d11cf76d0ef5154b98885010b3780a0,
-        type: 3}
-      propertyPath: nodes.Array.data[0].localPosition.y
-      value: -0.23603106
-      objectReference: {fileID: 0}
-    - target: {fileID: 5096218918105517437, guid: 2d11cf76d0ef5154b98885010b3780a0,
-        type: 3}
-      propertyPath: nodes.Array.data[0].localPosition.x
-      value: 2.0942569
-      objectReference: {fileID: 0}
-    - target: {fileID: 5096218918105517437, guid: 2d11cf76d0ef5154b98885010b3780a0,
-        type: 3}
-      propertyPath: nodes.Array.data[3].roads.Array.data[0].eventPrefab
-      value: 
-      objectReference: {fileID: 4390942942381450035, guid: 9aab40e434e53934e8850a7904df5512,
-        type: 3}
-    - target: {fileID: 5096218918442131241, guid: 2d11cf76d0ef5154b98885010b3780a0,
-        type: 3}
-      propertyPath: m_Name
-      value: Curve 1:4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5096218918442131246, guid: 2d11cf76d0ef5154b98885010b3780a0,
-        type: 3}
-      propertyPath: points.Array.data[2].x
-      value: 3.8969235
-      objectReference: {fileID: 0}
-    - target: {fileID: 5096218918442131246, guid: 2d11cf76d0ef5154b98885010b3780a0,
-        type: 3}
-      propertyPath: points.Array.data[3].x
-      value: 1.9472466
-      objectReference: {fileID: 0}
-    - target: {fileID: 5096218918442131246, guid: 2d11cf76d0ef5154b98885010b3780a0,
-        type: 3}
-      propertyPath: points.Array.data[2].y
-      value: 5.0344944
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d11cf76d0ef5154b98885010b3780a0, type: 3}

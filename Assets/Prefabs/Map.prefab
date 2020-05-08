@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: 0, y: 0, z: 0}
+  - {x: 2.0942569, y: -0.23603106, z: 0}
   - {x: 0, y: 0.3, z: 0}
   - {x: 0, y: 0.7, z: 0}
   - {x: 0.6469423, y: 1.4078025, z: 0}
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: 1.4363608, y: 3.857255, z: 0}
+  - {x: 1.841701, y: 4.026147, z: 0}
   - {x: 0.67272663, y: 3.6929743, z: 0}
   - {x: 0.67272663, y: 4.092974, z: 0}
   - {x: 0.06159091, y: 5.241185, z: 0}
@@ -258,7 +258,7 @@ MonoBehaviour:
   - {x: 0.06159091, y: 5.241185, z: 0}
   - {x: 1.589848, y: 5.4057703, z: 0}
   - {x: 1.589848, y: 5.80577, z: 0}
-  - {x: 2.0365748, y: 7.8295965, z: 0}
+  - {x: 1.9472466, y: 7.8295965, z: 0}
   color:
     value: {r: 0, g: 0.52882004, b: 1, a: 1}
 --- !u!1 &5096218918105517436
@@ -286,8 +286,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5096218918105517436}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -128.52, y: -402.84, z: -9720}
-  m_LocalScale: {x: 108, y: 108, z: 108}
+  m_LocalPosition: {x: -128.52, y: -402.84, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5096218917060726721}
   - {fileID: 5096218918385076357}
@@ -311,11 +311,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodes:
-  - localPosition: {x: 0, y: 0}
+  - localPosition: {x: 2.0942569, y: -0.23603106}
     roads:
-    - eventPrefab: {fileID: 0}
+    - eventPrefab: {fileID: -2718312660367445720, guid: 11f97b3af02281d4382df97f4175faef,
+        type: 3}
       nextNodeIndex: 1
       crossDuration: 5
+      performEventOnBacktrack: 0
       roadCurve: {fileID: 5096218917060726720}
       color:
         value: {r: 0, g: 0.36409092, b: 1, a: 1}
@@ -324,38 +326,45 @@ MonoBehaviour:
     - eventPrefab: {fileID: 0}
       nextNodeIndex: 2
       crossDuration: 5
+      performEventOnBacktrack: 0
       roadCurve: {fileID: 5096218918385076356}
       color:
         value: {r: 1, g: 0.96253836, b: 0, a: 1}
     - eventPrefab: {fileID: 0}
       nextNodeIndex: 3
       crossDuration: 5
+      performEventOnBacktrack: 0
       roadCurve: {fileID: 5096218918115760813}
       color:
         value: {r: 1, g: 0.68975794, b: 0.3160377, a: 1}
-    - eventPrefab: {fileID: 0}
+    - eventPrefab: {fileID: 4390942942381450035, guid: 9aab40e434e53934e8850a7904df5512,
+        type: 3}
       nextNodeIndex: 4
       crossDuration: 5
+      performEventOnBacktrack: 0
       roadCurve: {fileID: 5096218918442131246}
       color:
         value: {r: 0, g: 1, b: 0.40958595, a: 1}
-  - localPosition: {x: 1.4363608, y: 3.857255}
+  - localPosition: {x: 1.841701, y: 4.026147}
     roads:
     - eventPrefab: {fileID: 0}
       nextNodeIndex: 3
       crossDuration: 5
+      performEventOnBacktrack: 0
       roadCurve: {fileID: 5096218917339412120}
       color:
         value: {r: 0, g: 1, b: 0.71857023, a: 1}
   - localPosition: {x: 0.06159091, y: 5.241185}
     roads:
-    - eventPrefab: {fileID: 0}
+    - eventPrefab: {fileID: 4390942942381450035, guid: 9aab40e434e53934e8850a7904df5512,
+        type: 3}
       nextNodeIndex: 4
       crossDuration: 5
+      performEventOnBacktrack: 0
       roadCurve: {fileID: 5096218918094226626}
       color:
         value: {r: 0, g: 0.52882004, b: 1, a: 1}
-  - localPosition: {x: 2.0365748, y: 7.8295965}
+  - localPosition: {x: 1.9472466, y: 7.8295965}
     roads: []
 --- !u!1 &5096218918115760812
 GameObject:
@@ -454,7 +463,7 @@ MonoBehaviour:
   - {x: 0.6469423, y: 1.4078025, z: 0}
   - {x: 1.7475766, y: 1.9438369, z: 0}
   - {x: 1.7475766, y: 2.343837, z: 0}
-  - {x: 1.4363608, y: 3.857255, z: 0}
+  - {x: 1.841701, y: 4.026147, z: 0}
   color:
     value: {r: 1, g: 0.96253836, b: 0, a: 1}
 --- !u!1 &5096218918442131241
@@ -468,7 +477,7 @@ GameObject:
   - component: {fileID: 5096218918442131247}
   - component: {fileID: 5096218918442131246}
   m_Layer: 0
-  m_Name: Curve 1:0
+  m_Name: Curve 1:4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -503,8 +512,8 @@ MonoBehaviour:
   points:
   - {x: 0.6469423, y: 1.4078025, z: 0}
   - {x: 2.6253045, y: 1.4613489, z: 0}
-  - {x: 5.720954, y: 5.169608, z: 0}
-  - {x: 2.0365748, y: 7.8295965, z: 0}
+  - {x: 3.8969235, y: 5.0344944, z: 0}
+  - {x: 1.9472466, y: 7.8295965, z: 0}
   color:
     value: {r: 0, g: 1, b: 0.40958595, a: 1}
 --- !u!1 &8208124255182399092
