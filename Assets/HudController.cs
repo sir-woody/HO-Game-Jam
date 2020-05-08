@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
-public class RestHudController : MonoBehaviour
+public class HudController : MonoBehaviour
 {
     [SerializeField] GameObject statBarPrefab;
     [Space]
@@ -16,6 +17,12 @@ public class RestHudController : MonoBehaviour
 
     public void BindStats(Character character, int statContainerId)
     {
+        var characterNameTextField = statContainers[statContainerId].transform.parent.GetComponentInChildren<TMP_Text>();
+        if (characterNameTextField != null)
+        {
+            characterNameTextField.text = character.name;
+        }
+
         var stats = character.GetComponent<StatController>().stats;
 
         foreach (var stat in stats)
@@ -31,5 +38,15 @@ public class RestHudController : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+    }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
     }
 }

@@ -31,6 +31,7 @@ public class Stat
     internal void Initialize()
     {
         if (startingFull) value = maxValue;
+        OnChange?.Invoke(value, maxValue);
     }
 
     float MaxValue => maxValue * maxValueModifier;

@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0b05d6ac3cf35d4a8571aaaeac84384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
+  name: Gustav
   description: 
   sprites:
   - idle: {fileID: 21300000, guid: 5db392c18f3b50d408e4214fd6d1ea98, type: 3}

@@ -34,7 +34,7 @@ public class RestEvent : Event
 
     public override void Show()
     {
-        var restHudController = GetComponentInChildren<RestHudController>();
+        var restHudController = GetComponentInChildren<HudController>();
         List<Sprite> spritesIdle = new List<Sprite>(Team.Instance.GetCharacterSprites(Character.SpriteType.Idle));
         List<Sprite> spritesHoover = new List<Sprite>(Team.Instance.GetCharacterSprites(Character.SpriteType.Hoover));
         List<Character> characters = new List<Character>(Team.Instance.characters);

@@ -20,6 +20,8 @@ public class GameplayManager : MonoBehaviour
     }
 
     [SerializeField]
+    private HudController hudController = null;
+    [SerializeField]
     private MapManager mapManager = null;
     [SerializeField]
     private FadeManager fade = null;
@@ -141,11 +143,13 @@ public class GameplayManager : MonoBehaviour
     {
         Debug.Log("Performing character selection");
 
+        var i = 0;
         List<Character> availableCharacters = Team.Instance.GetPrefabs();
         foreach (Character character in availableCharacters)
         {
             Character characterInstance = Instantiate(character);
             Team.Instance.characters.Add(characterInstance);
+            hudController.BindStats(characterInstance, i++);
         }
         yield return new WaitForSeconds(1f);
 
@@ -157,6 +161,7 @@ public class GameplayManager : MonoBehaviour
 
         yield return StartCoroutine(fade.FadeOut());
         mapManager.Hide();
+        hudController.Hide();
         Event eventObject = Instantiate(restEventPrefab, eventParent);
         eventObject.Show();
         yield return StartCoroutine(fade.FadeIn());
@@ -167,6 +172,7 @@ public class GameplayManager : MonoBehaviour
         eventObject.Hide();
         Destroy(eventObject.gameObject);
         mapManager.Show();
+        hudController.Show();
         yield return StartCoroutine(fade.FadeIn());
 
         Debug.Log("Rest performed");
@@ -178,6 +184,7 @@ public class GameplayManager : MonoBehaviour
 
         yield return StartCoroutine(fade.FadeOut());
         mapManager.Hide();
+        hudController.Hide();
         Event eventObject = Instantiate(climbResult.eventPrefab, eventParent);
         eventObject.Show();
         yield return StartCoroutine(fade.FadeIn());
@@ -188,6 +195,7 @@ public class GameplayManager : MonoBehaviour
         eventObject.Hide();
         Destroy(eventObject.gameObject);
         mapManager.Show();
+        hudController.Show();
         yield return StartCoroutine(fade.FadeIn());
         
         Debug.Log("Event performed");

@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0b05d6ac3cf35d4a8571aaaeac84384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
+  name: Backbeard
   description: 
   sprites:
   - idle: {fileID: 21300000, guid: 01b31054bb15496499284d992a26e5b7, type: 3}
