@@ -17,4 +17,12 @@ public class WinEvent : Event
         }
     }
 
+    public override void Show()
+    {
+
+    }
+    public override void Hide()
+    {
+
+    }
 }

@@ -47,8 +47,10 @@ public class GameplayManager : MonoBehaviour
     private IEnumerator LoopCoroutine()
     {
         mapManager.InitializeRoad();
-        IEnumerator<ClimbResult> enumerator = ClimbCoroutine();
 
+        yield return StartCoroutine(CharacterSelectionCoroutine());
+
+        IEnumerator<ClimbResult> enumerator = ClimbCoroutine();
         while (enumerator.MoveNext() == true)
         {
             ClimbResult climbResult = enumerator.Current;
@@ -119,18 +121,34 @@ public class GameplayManager : MonoBehaviour
         while (result.hasReachedCrossroads == false);
     }
 
+    private IEnumerator CharacterSelectionCoroutine()
+    {
+        Debug.Log("Performing character selection");
+
+        List<Character> availableCharacters = Team.Instance.GetPrefabs();
+        foreach (Character character in availableCharacters)
+        {
+            Character characterInstance = Instantiate(character);
+            Team.Instance.characters.Add(characterInstance);
+        }
+        yield return new WaitForSeconds(1f);
+
+        Debug.Log("Character selection performed");
+    }
     private IEnumerator RestCoroutine(ClimbResult climbResult)
     {
         Debug.Log("Performing rest");
 
         yield return StartCoroutine(fade.FadeOut());
-        Event eventObject = Instantiate(restEventPrefab, eventParent);
         mapManager.Hide();
+        Event eventObject = Instantiate(restEventPrefab, eventParent);
+        eventObject.Show();
         yield return StartCoroutine(fade.FadeIn());
 
         yield return StartCoroutine(eventObject.Perform(climbResult));
 
         yield return StartCoroutine(fade.FadeOut());
+        eventObject.Hide();
         Destroy(eventObject.gameObject);
         mapManager.Show();
         yield return StartCoroutine(fade.FadeIn());
@@ -144,13 +162,15 @@ public class GameplayManager : MonoBehaviour
         Debug.Log("Performing new event");
 
         yield return StartCoroutine(fade.FadeOut());
-        Event eventObject = Instantiate(climbResult.eventPrefab, eventParent);
         mapManager.Hide();
+        Event eventObject = Instantiate(climbResult.eventPrefab, eventParent);
+        eventObject.Show();
         yield return StartCoroutine(fade.FadeIn());
 
         yield return StartCoroutine(eventObject.Perform(climbResult));
 
         yield return StartCoroutine(fade.FadeOut());
+        eventObject.Hide();
         Destroy(eventObject.gameObject);
         mapManager.Show();
         yield return StartCoroutine(fade.FadeIn());

@@ -1,10 +1,25 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    [Serializable]
+    public class SpriteGroup
+    {
+        public Sprite idle;
+        public Sprite hoover;
+    }
+    public enum SpriteType
+    {
+        Idle,
+        Hoover,
+    }
+
     public new string name;
     public string description;
+    public List<SpriteGroup> sprites;
     Stat[] stats;
     TraitController TraitController;
 
@@ -46,11 +61,11 @@ public class Character : MonoBehaviour
 
     //Deplete stats during travel
     bool isClimbing;
-    void Climb()
+    public void StartClimbing()
     {
         isClimbing = true;
     }
-    void StopClimbing()
+    public void StopClimbing()
     {
         isClimbing = false;
     }
@@ -69,6 +84,30 @@ public class Character : MonoBehaviour
             {
                 item.Use(this);
             }
+        }
+    }
+
+    /// <summary>
+    /// Character was clicked during <see cref="RestEvent"/>.
+    /// Start a dialog
+    /// </summary>
+    public void OnCharacterClicked()
+    {
+
+    }
+
+    /// <summary>
+    /// TODO: change <see cref="sprite"/> to a list of sprites,
+    /// select a sprite depending on current character status (healthy, sick, tired, etc.).
+    /// </summary>
+    public Sprite GetSprite(SpriteType spriteType)
+    {
+        int spriteIndex = 0;
+        switch (spriteType)
+        {
+            case SpriteType.Idle: return sprites[spriteIndex].idle;
+            case SpriteType.Hoover: return sprites[spriteIndex].hoover;
+            default: return null;
         }
     }
 }

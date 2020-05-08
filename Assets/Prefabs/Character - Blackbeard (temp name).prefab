@@ -1,0 +1,228 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4060027098640074919
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4060027098640074917}
+  - component: {fileID: 4060027098640074916}
+  - component: {fileID: 7029258054393665202}
+  - component: {fileID: 5024125739072723589}
+  - component: {fileID: 2764890359634676445}
+  - component: {fileID: 2262605616996242697}
+  - component: {fileID: 8302996816488250501}
+  - component: {fileID: 2009405334}
+  m_Layer: 0
+  m_Name: Character - Blackbeard (temp name)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4060027098640074917
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060027098640074919}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4060027098812233516}
+  - {fileID: 4060027099972010805}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4060027098640074916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060027098640074919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b05d6ac3cf35d4a8571aaaeac84384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  description: 
+  sprites:
+  - idle: {fileID: 21300000, guid: 01b31054bb15496499284d992a26e5b7, type: 3}
+    hoover: {fileID: 21300000, guid: d29134f006a96c44d8f62c630c40bd59, type: 3}
+  equipment: {fileID: 4060027099972010804}
+--- !u!114 &7029258054393665202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060027098640074919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84bb08086253ce84aa95e12a3ef31dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Health
+  description: 
+  maxValue: 100
+  usePerSecond: 0
+  startingFull: 1
+--- !u!114 &5024125739072723589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060027098640074919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84bb08086253ce84aa95e12a3ef31dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Stamina
+  description: 
+  maxValue: 100
+  usePerSecond: 1
+  startingFull: 1
+--- !u!114 &2764890359634676445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060027098640074919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84bb08086253ce84aa95e12a3ef31dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Hunger
+  description: 
+  maxValue: 100
+  usePerSecond: 1
+  startingFull: 0
+--- !u!114 &2262605616996242697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060027098640074919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84bb08086253ce84aa95e12a3ef31dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Thirst
+  description: 
+  maxValue: 100
+  usePerSecond: 1
+  startingFull: 0
+--- !u!114 &8302996816488250501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060027098640074919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84bb08086253ce84aa95e12a3ef31dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Morale
+  description: 
+  maxValue: 100
+  usePerSecond: 1
+  startingFull: 1
+--- !u!114 &2009405334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060027098640074919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ca8f844cc517743b74a3e7d2397506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  traits:
+  - traitData: {fileID: 11400000, guid: ef2df7a8ee0f19442a8155b7795c907e, type: 2}
+    isVisible: 0
+  - traitData: {fileID: 0}
+    isVisible: 0
+  - traitData: {fileID: 0}
+    isVisible: 0
+  alltraits:
+  - {fileID: 11400000, guid: e7a239031a649db46adbf89e4f0a3537, type: 2}
+  - {fileID: 11400000, guid: ef2df7a8ee0f19442a8155b7795c907e, type: 2}
+  - {fileID: 11400000, guid: 329a702ea0dad9946be29b5d1fee6b74, type: 2}
+  - {fileID: 11400000, guid: be45f20dd486a8947834e330764c4869, type: 2}
+--- !u!1 &4060027098812233519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4060027098812233516}
+  m_Layer: 0
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4060027098812233516
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060027098812233519}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4060027098640074917}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4060027099972010804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4060027099972010805}
+  m_Layer: 0
+  m_Name: Equipment
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4060027099972010805
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060027099972010804}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4060027098640074917}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
