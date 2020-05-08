@@ -13,6 +13,7 @@ public class GameplayManager : MonoBehaviour
     {
         public Event eventPrefab;
         public bool hasReachedCrossroads;
+        public bool hasBacktrackedCrossroads;
         public Vector2 markerPosition;
         public int crossroadsCount;
         public int selectedCrossroad;
@@ -26,12 +27,11 @@ public class GameplayManager : MonoBehaviour
     private RectTransform eventParent = null;
 
     [SerializeField]
-    private float distancePerSecond = 1;
-    [SerializeField]
     private Event restEventPrefab = null;
     [SerializeField]
     private Transform marker = null;
 
+    public float distancePerSecond = 1;
     private bool restWasIssued;
 
     private void Start()
@@ -42,6 +42,9 @@ public class GameplayManager : MonoBehaviour
     private void Update()
     {
         restWasIssued = restWasIssued || Input.GetKeyDown(KeyCode.Space);
+        distancePerSecond =
+            (Input.GetKey(KeyCode.UpArrow) == true ? 1 : 0) +
+            (Input.GetKey(KeyCode.DownArrow) == true ? -1 : 0);
     }
 
     private IEnumerator LoopCoroutine()
@@ -58,7 +61,7 @@ public class GameplayManager : MonoBehaviour
             /// Update marker's position
             marker.transform.position = climbResult.markerPosition;
 
-            if (climbResult.hasReachedCrossroads == false && climbResult.eventPrefab == null)
+            if (climbResult.hasReachedCrossroads == false && climbResult.hasBacktrackedCrossroads == false && climbResult.eventPrefab == null)
             {
                 /// We are in the middle of the road, no event nor crossroads are close.
                 /// Checking whether the user has issued Rest order.
@@ -84,12 +87,18 @@ public class GameplayManager : MonoBehaviour
                 climbResult.eventPrefab = null;
             }
 
-            if (climbResult.hasReachedCrossroads == false)
+            if (climbResult.hasReachedCrossroads == false && climbResult.hasBacktrackedCrossroads == false)
             {
                 /// We have encountered an event in the middle of the road,
                 /// but we haven't reached the crossroad yet.
                 /// Continue moving along the road.
                 continue;
+            }
+            else if (climbResult.hasBacktrackedCrossroads == true)
+            {
+                /// We have backtracked.
+                /// Moving to the previous road.
+                mapManager.MoveToPreviousRoad();
             }
             else if (mapManager.GetCrossroadsCount() == 0)
             {
@@ -101,6 +110,7 @@ public class GameplayManager : MonoBehaviour
                 /// We've reached the end of the road.
                 /// Passing onto the next road.
                 mapManager.MoveToNextRoad(climbResult.selectedCrossroad);
+                
                 enumerator = ClimbCoroutine();
             }
         }
@@ -111,10 +121,14 @@ public class GameplayManager : MonoBehaviour
     {
         ClimbResult result = new ClimbResult();
         result.crossroadsCount = mapManager.GetCrossroadsCount();
+        /// Setting the <see cref="ClimbResult.selectedCrossroad"/> to -1 because this value indicated that
+        /// no crossroad has been selected yet or there is no change in previous selection (this is important in backtracking)
+        result.selectedCrossroad = -1;
         do
         {
             result.markerPosition = mapManager.Move(distancePerSecond);
             result.hasReachedCrossroads = mapManager.HasReachedCrossroad();
+            result.hasBacktrackedCrossroads = mapManager.HasBacktrackedCrossroad();
             result.eventPrefab = mapManager.GetUpcommingEvent();
             yield return result;
         }

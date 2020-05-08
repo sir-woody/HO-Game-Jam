@@ -12,6 +12,7 @@ public class Map : MonoBehaviour
         public Event eventPrefab;
         public int nextNodeIndex;
         public float crossDuration = 5f;
+        public bool performEventOnBacktrack = false;
         public BezierCurve roadCurve;
         public ColorRef color;
     }

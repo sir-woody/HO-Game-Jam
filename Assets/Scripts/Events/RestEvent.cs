@@ -58,9 +58,10 @@ public class RestEvent : Event
             (seat.targetGraphic as Image).sprite = spriteIdle;
             SpriteState spriteState = seat.spriteState;
             spriteState.highlightedSprite = spriteHoover;
-            spriteState.selectedSprite = spriteHoover;
-            /// Replacing pressedSprite with null for better visual effect
+            /// Replacing pressedSprite and selectedSprite with null for better visual effect
+            //spriteState.selectedSprite = spriteHoover;
             //spriteState.pressedSprite = spriteHoover;
+            spriteState.selectedSprite = null;
             spriteState.pressedSprite = null;
             seat.spriteState = spriteState;
 
