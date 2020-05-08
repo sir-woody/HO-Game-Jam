@@ -111,6 +111,7 @@ public class GameplayManager : MonoBehaviour
     {
         ClimbResult result = new ClimbResult();
         result.crossroadsCount = mapManager.GetCrossroadsCount();
+        Team.Instance.StartClimbing();
         do
         {
             result.markerPosition = mapManager.Move(distancePerSecond);
@@ -138,6 +139,7 @@ public class GameplayManager : MonoBehaviour
     private IEnumerator RestCoroutine(ClimbResult climbResult)
     {
         Debug.Log("Performing rest");
+        Team.Instance.StopClimbing();
 
         yield return StartCoroutine(fade.FadeOut());
         mapManager.Hide();
@@ -153,6 +155,7 @@ public class GameplayManager : MonoBehaviour
         mapManager.Show();
         yield return StartCoroutine(fade.FadeIn());
 
+        Team.Instance.StartClimbing();
 
         Debug.Log("Rest performed");
     }
@@ -160,6 +163,7 @@ public class GameplayManager : MonoBehaviour
     private IEnumerator EventCoroutine(ClimbResult climbResult)
     {
         Debug.Log("Performing new event");
+        Team.Instance.StopClimbing();
 
         yield return StartCoroutine(fade.FadeOut());
         mapManager.Hide();
@@ -174,6 +178,8 @@ public class GameplayManager : MonoBehaviour
         Destroy(eventObject.gameObject);
         mapManager.Show();
         yield return StartCoroutine(fade.FadeIn());
+        
+        Team.Instance.StartClimbing();
 
         Debug.Log("Event performed");
     }

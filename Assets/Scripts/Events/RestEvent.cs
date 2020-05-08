@@ -34,6 +34,7 @@ public class RestEvent : Event
 
     public override void Show()
     {
+        var restHudController = GetComponentInChildren<RestHudController>();
         List<Sprite> spritesIdle = new List<Sprite>(Team.Instance.GetCharacterSprites(Character.SpriteType.Idle));
         List<Sprite> spritesHoover = new List<Sprite>(Team.Instance.GetCharacterSprites(Character.SpriteType.Hoover));
         List<Character> characters = new List<Character>(Team.Instance.characters);
@@ -44,6 +45,7 @@ public class RestEvent : Event
             seatTopLeft,
             seatTopRight,
         };
+        var seatsCopy = new List<Button>(seats);
 
         while (characters.Count > 0)
         {
@@ -54,6 +56,7 @@ public class RestEvent : Event
             spritesHoover.RemoveAt(characterIndex);
 
             RemoveRandom(seats, out Button seat);
+            restHudController.BindStats(character, seatsCopy.IndexOf(seat));
 
             (seat.targetGraphic as Image).sprite = spriteIdle;
             SpriteState spriteState = seat.spriteState;
@@ -89,6 +92,16 @@ public class RestEvent : Event
         element = list[random];
         list.RemoveAt(random);
         return random;
+    }
+
+    public void FinishRest()
+    {
+        isDone = true;
+    }
+
+    public void PerformActions()
+    {
+        Debug.LogError($"{nameof(PerformActions)} not implemented");
     }
 
 }

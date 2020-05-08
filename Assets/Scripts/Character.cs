@@ -28,7 +28,7 @@ public class Character : MonoBehaviour
 
     void Start()
     {
-        stats = GetComponents<Stat>();
+        stats = GetComponent<StatController>().stats;
         //traits = GetComponents<Trait>();
         TraitController = GetComponent<TraitController>();
         TraitController.ApplyEffects(EffectType.Initial);

@@ -10,12 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4060027098640074917}
   - component: {fileID: 4060027098640074916}
-  - component: {fileID: 7029258054393665202}
-  - component: {fileID: 5024125739072723589}
-  - component: {fileID: 2764890359634676445}
-  - component: {fileID: 2262605616996242697}
-  - component: {fileID: 8302996816488250501}
   - component: {fileID: 2009405334}
+  - component: {fileID: 2568805057305931811}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -53,92 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   description: 
+  sprites: []
   equipment: {fileID: 4060027099972010804}
---- !u!114 &7029258054393665202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4060027098640074919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84bb08086253ce84aa95e12a3ef31dc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Health
-  description: 
-  maxValue: 100
-  usePerSecond: 0
-  startingFull: 1
---- !u!114 &5024125739072723589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4060027098640074919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84bb08086253ce84aa95e12a3ef31dc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Stamina
-  description: 
-  maxValue: 100
-  usePerSecond: 1
-  startingFull: 1
---- !u!114 &2764890359634676445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4060027098640074919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84bb08086253ce84aa95e12a3ef31dc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Hunger
-  description: 
-  maxValue: 100
-  usePerSecond: 1
-  startingFull: 0
---- !u!114 &2262605616996242697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4060027098640074919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84bb08086253ce84aa95e12a3ef31dc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Thirst
-  description: 
-  maxValue: 100
-  usePerSecond: 1
-  startingFull: 0
---- !u!114 &8302996816488250501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4060027098640074919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84bb08086253ce84aa95e12a3ef31dc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Morale
-  description: 
-  maxValue: 100
-  usePerSecond: 1
-  startingFull: 1
 --- !u!114 &2009405334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +75,44 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ef2df7a8ee0f19442a8155b7795c907e, type: 2}
   - {fileID: 11400000, guid: 329a702ea0dad9946be29b5d1fee6b74, type: 2}
   - {fileID: 11400000, guid: be45f20dd486a8947834e330764c4869, type: 2}
+--- !u!114 &2568805057305931811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060027098640074919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de4119b090ee81045a03d05412338c5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats:
+  - name: Health
+    description: 
+    maxValue: 100
+    usePerSecond: 0
+    startingFull: 1
+  - name: Stamina
+    description: 
+    maxValue: 100
+    usePerSecond: 1
+    startingFull: 1
+  - name: Hunger
+    description: 
+    maxValue: 100
+    usePerSecond: 1
+    startingFull: 0
+  - name: Thirst
+    description: 
+    maxValue: 100
+    usePerSecond: 1
+    startingFull: 0
+  - name: Morale
+    description: 
+    maxValue: 100
+    usePerSecond: 1
+    startingFull: 1
 --- !u!1 &4060027098812233519
 GameObject:
   m_ObjectHideFlags: 0
