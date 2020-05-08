@@ -55,7 +55,8 @@ public class MapManager : MonoBehaviour
     public Vector2 GetCurrentCursorPosition()
     {
         float clampedDistance = Mathf.Clamp(currentDistance, 0, this.currentRoad.crossDuration);
-        return this.currentRoad.roadCurve.GetPoint(clampedDistance / this.currentRoad.crossDuration);
+        Vector2 point = this.currentRoad.roadCurve.GetPoint(clampedDistance / this.currentRoad.crossDuration);
+        return point;
     }
 
     /// <summary>

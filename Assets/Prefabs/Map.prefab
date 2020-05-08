@@ -44,10 +44,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: 2.0942569, y: -0.23603106, z: 0}
-  - {x: 0, y: 0.3, z: 0}
-  - {x: 0, y: 0.7, z: 0}
-  - {x: 0.6469423, y: 1.4078025, z: 0}
+  - {x: 54.428352, y: -109.84778, z: 0}
+  - {x: 145.33784, y: -36.03447, z: 0}
+  - {x: 99.919685, y: 56.715576, z: 0}
+  - {x: 69.86179, y: 152.01248, z: 0}
   color:
     value: {r: 0, g: 0.36409092, b: 1, a: 1}
 --- !u!1 &5096218917339412123
@@ -94,10 +94,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: 1.841701, y: 4.026147, z: 0}
-  - {x: 0.67272663, y: 3.6929743, z: 0}
-  - {x: 0.67272663, y: 4.092974, z: 0}
-  - {x: 0.06159091, y: 5.241185, z: 0}
+  - {x: 198.85172, y: 434.69708, z: 0}
+  - {x: 134.97035, y: 490.0681, z: 0}
+  - {x: 33.33956, y: 504.98663, z: 0}
+  - {x: 6.6629944, y: 565.95703, z: 0}
   color:
     value: {r: 0, g: 1, b: 0.71857023, a: 1}
 --- !u!1 &5096218917413294263
@@ -255,10 +255,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: 0.06159091, y: 5.241185, z: 0}
-  - {x: 1.589848, y: 5.4057703, z: 0}
-  - {x: 1.589848, y: 5.80577, z: 0}
-  - {x: 1.9472466, y: 7.8295965, z: 0}
+  - {x: 6.6629944, y: 565.95703, z: 0}
+  - {x: 8.849373, y: 745.85736, z: 0}
+  - {x: 179.44334, y: 742.62775, z: 0}
+  - {x: 210.24753, y: 845.3457, z: 0}
   color:
     value: {r: 0, g: 0.52882004, b: 1, a: 1}
 --- !u!1 &5096218918105517436
@@ -286,7 +286,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5096218918105517436}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -128.52, y: -402.84, z: 0}
+  m_LocalPosition: {x: -171, y: -412, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5096218917060726721}
@@ -311,7 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodes:
-  - localPosition: {x: 2.0942569, y: -0.23603106}
+  - localPosition: {x: 54.428352, y: -109.84778}
     roads:
     - eventPrefab: {fileID: -2718312660367445720, guid: 11f97b3af02281d4382df97f4175faef,
         type: 3}
@@ -321,7 +321,7 @@ MonoBehaviour:
       roadCurve: {fileID: 5096218917060726720}
       color:
         value: {r: 0, g: 0.36409092, b: 1, a: 1}
-  - localPosition: {x: 0.6469423, y: 1.4078025}
+  - localPosition: {x: 69.86179, y: 152.01248}
     roads:
     - eventPrefab: {fileID: 0}
       nextNodeIndex: 2
@@ -345,7 +345,7 @@ MonoBehaviour:
       roadCurve: {fileID: 5096218918442131246}
       color:
         value: {r: 0, g: 1, b: 0.40958595, a: 1}
-  - localPosition: {x: 1.841701, y: 4.026147}
+  - localPosition: {x: 198.85172, y: 434.69708}
     roads:
     - eventPrefab: {fileID: 0}
       nextNodeIndex: 3
@@ -354,7 +354,7 @@ MonoBehaviour:
       roadCurve: {fileID: 5096218917339412120}
       color:
         value: {r: 0, g: 1, b: 0.71857023, a: 1}
-  - localPosition: {x: 0.06159091, y: 5.241185}
+  - localPosition: {x: 6.6629944, y: 565.95703}
     roads:
     - eventPrefab: {fileID: 4390942942381450035, guid: 9aab40e434e53934e8850a7904df5512,
         type: 3}
@@ -364,7 +364,7 @@ MonoBehaviour:
       roadCurve: {fileID: 5096218918094226626}
       color:
         value: {r: 0, g: 0.52882004, b: 1, a: 1}
-  - localPosition: {x: 1.9472466, y: 7.8295965}
+  - localPosition: {x: 210.24753, y: 845.3457}
     roads: []
 --- !u!1 &5096218918115760812
 GameObject:
@@ -410,10 +410,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: 0.6469423, y: 1.4078025, z: 0}
-  - {x: -0.84666777, y: 2.834553, z: 0}
-  - {x: -0.72958374, y: 4.649742, z: 0}
-  - {x: 0.06159091, y: 5.241185, z: 0}
+  - {x: 69.86179, y: 152.01248, z: 0}
+  - {x: -4.476433, y: 242.39236, z: 0}
+  - {x: -200.36116, y: 356.72726, z: 0}
+  - {x: 6.6629944, y: 565.95703, z: 0}
   color:
     value: {r: 1, g: 0.68975794, b: 0.3160377, a: 1}
 --- !u!1 &5096218918385076359
@@ -460,10 +460,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: 0.6469423, y: 1.4078025, z: 0}
-  - {x: 1.7475766, y: 1.9438369, z: 0}
-  - {x: 1.7475766, y: 2.343837, z: 0}
-  - {x: 1.841701, y: 4.026147, z: 0}
+  - {x: 69.86179, y: 152.01248, z: 0}
+  - {x: 100.15334, y: 298.67514, z: 0}
+  - {x: 254.57474, y: 285.4497, z: 0}
+  - {x: 198.85172, y: 434.69708, z: 0}
   color:
     value: {r: 1, g: 0.96253836, b: 0, a: 1}
 --- !u!1 &5096218918442131241
@@ -510,10 +510,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: 0.6469423, y: 1.4078025, z: 0}
-  - {x: 2.6253045, y: 1.4613489, z: 0}
-  - {x: 3.8969235, y: 5.0344944, z: 0}
-  - {x: 1.9472466, y: 7.8295965, z: 0}
+  - {x: 69.86179, y: 152.01248, z: 0}
+  - {x: 402.21204, y: 163.12448, z: 0}
+  - {x: 794.2413, y: 590.8506, z: 0}
+  - {x: 210.24753, y: 845.3457, z: 0}
   color:
     value: {r: 0, g: 1, b: 0.40958595, a: 1}
 --- !u!1 &8208124255182399092

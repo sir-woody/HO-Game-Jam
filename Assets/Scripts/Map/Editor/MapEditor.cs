@@ -32,7 +32,7 @@ public class MapEditor : OdinEditor
 
         Map.Node currentNode = map.Nodes[currentNodeIndex];
 
-        Vector2 newPosition = UnityEditor.Handles.PositionHandle((Vector3)currentNode.localPosition + map.MapOffset + map.transform.position, Quaternion.identity) - map.MapOffset - map.transform.position;
+        Vector2 newPosition = map.transform.InverseTransformPoint(UnityEditor.Handles.PositionHandle((Vector3) map.transform.TransformPoint(currentNode.localPosition) + map.MapOffset, Quaternion.identity) - map.MapOffset);
         if (currentNode.roads != null)
         {
             for (int i = 0; i < currentNode.roads.Count; i++)
@@ -46,10 +46,10 @@ public class MapEditor : OdinEditor
                         roadCurve.color.value = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
                     }
                     Handles.DrawBezier(
-                        roadCurve.points[0] + map.MapOffset + map.transform.position,
-                        roadCurve.points[3] + map.MapOffset + map.transform.position,
-                        roadCurve.points[1] + map.MapOffset + map.transform.position,
-                        roadCurve.points[2] + map.MapOffset + map.transform.position, roadCurve.color.value, null, 2f);
+                        map.transform.TransformPoint(roadCurve.points[0]) + map.MapOffset,
+                        map.transform.TransformPoint(roadCurve.points[3]) + map.MapOffset,
+                        map.transform.TransformPoint(roadCurve.points[1]) + map.MapOffset,
+                        map.transform.TransformPoint(roadCurve.points[2]) + map.MapOffset, roadCurve.color.value, null, 2f);
                 }
             }
         }
