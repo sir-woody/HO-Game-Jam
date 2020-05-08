@@ -850,7 +850,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6470346850084235823}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdbb7408da0d236439c1b029e2c0cd41, type: 3}
+  m_Script: {fileID: 11500000, guid: 1570fee37d4bfa94b93327588c3719b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   statBarPrefab: {fileID: 351984265625299247, guid: 2150bd3dd64b6fe45bdd4fee208e1f8f,
