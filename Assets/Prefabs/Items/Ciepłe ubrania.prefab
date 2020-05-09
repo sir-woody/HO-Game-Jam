@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3028681392916260288
+--- !u!1 &9119264909746494851
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3028681392916260290}
-  - component: {fileID: 3028681392916260289}
+  - component: {fileID: 9119264909746494849}
+  - component: {fileID: 9119264909746494848}
   m_Layer: 0
-  m_Name: Book
+  m_Name: "Ciep\u0142e ubrania"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3028681392916260290
+--- !u!4 &9119264909746494849
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3028681392916260288}
+  m_GameObject: {fileID: 9119264909746494851}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3028681393402278566}
+  - {fileID: 9119264910971944415}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3028681392916260289
+--- !u!114 &9119264909746494848
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3028681392916260288}
+  m_GameObject: {fileID: 9119264909746494851}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30571fb7cc2de8b4a9446eb289b88a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   description: 
-  affectedStat: Morale
-  effect: 10
-  weight: 0
-  continousEffect: 0
+  affectedStat: Energia
+  effect: 1
+  continousEffect: 1
   expires: 0
---- !u!1 &3028681393402278565
+  weight: 7
+--- !u!1 &9119264910971944414
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3028681393402278566}
+  - component: {fileID: 9119264910971944415}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -66,17 +66,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3028681393402278566
+--- !u!4 &9119264910971944415
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3028681393402278565}
+  m_GameObject: {fileID: 9119264910971944414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3028681392916260290}
+  m_Father: {fileID: 9119264909746494849}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
