@@ -1865,6 +1865,8 @@ MonoBehaviour:
   characterPrefabs:
   - {fileID: 4060027098640074916, guid: a7f0bdf405fbe0046ae2d864ea50b494, type: 3}
   - {fileID: 4060027098640074916, guid: 93f7c66fecde5ba49b76b7fd7f5f5f78, type: 3}
+  - {fileID: 4060027098640074916, guid: 428c47bd19974e743a8d5cbea10eacb8, type: 3}
+  - {fileID: 4060027098640074916, guid: 91644d11cc11d7a4d84e558c155e594a, type: 3}
   characters: []
 --- !u!4 &1490181104
 Transform:
