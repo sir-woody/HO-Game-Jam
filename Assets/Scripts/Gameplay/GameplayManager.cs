@@ -11,7 +11,7 @@ public class GameplayManager : MonoBehaviour
 {
     public class ClimbResult
     {
-        public Event eventPrefab;
+        public EventBase eventPrefab;
         public bool hasReachedCrossroads;
         public bool hasBacktrackedCrossroads;
         public Vector2 markerPosition;
@@ -29,11 +29,13 @@ public class GameplayManager : MonoBehaviour
     private RectTransform eventParent = null;
 
     [SerializeField]
-    private Event restEventPrefab = null;
+    private EventBase restEventPrefab = null;
     [SerializeField]
     private Transform marker = null;
+    [SerializeField]
+    private float defaultSpeed = 1;
 
-    public float distancePerSecond = 1;
+    private float distancePerSecond = 1;
     private bool restWasIssued;
 
     private void Start()
@@ -45,8 +47,8 @@ public class GameplayManager : MonoBehaviour
     {
         restWasIssued = restWasIssued || Input.GetKeyDown(KeyCode.Space);
         distancePerSecond =
-            (Input.GetKey(KeyCode.UpArrow) == true ? 1 : 0) +
-            (Input.GetKey(KeyCode.DownArrow) == true ? -1 : 0);
+            (Input.GetKey(KeyCode.UpArrow) == true ? defaultSpeed : 0) +
+            (Input.GetKey(KeyCode.DownArrow) == true ? -defaultSpeed : 0);
         
         if (distancePerSecond != 0) Team.Instance.StartClimbing(); else Team.Instance.StopClimbing();
     }
@@ -162,7 +164,7 @@ public class GameplayManager : MonoBehaviour
         yield return StartCoroutine(fade.FadeOut());
         mapManager.Hide();
         hudController.Hide();
-        Event eventObject = Instantiate(restEventPrefab, eventParent);
+        EventBase eventObject = Instantiate(restEventPrefab, eventParent);
         eventObject.Show();
         yield return StartCoroutine(fade.FadeIn());
 
@@ -185,7 +187,7 @@ public class GameplayManager : MonoBehaviour
         yield return StartCoroutine(fade.FadeOut());
         mapManager.Hide();
         hudController.Hide();
-        Event eventObject = Instantiate(climbResult.eventPrefab, eventParent);
+        EventBase eventObject = Instantiate(climbResult.eventPrefab, eventParent);
         eventObject.Show();
         yield return StartCoroutine(fade.FadeIn());
 

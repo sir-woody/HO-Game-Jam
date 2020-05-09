@@ -37,7 +37,8 @@ public class MapManager : MonoBehaviour
     public Vector2 Move(float distancePerSecond)
     {
         float distance = distancePerSecond * Time.deltaTime;
-        currentDistance = currentDistance + distance;
+        Vector2 currentPoint = (Vector2)currentRoad.roadCurve.MoveAlongSpline(ref currentDistance, distance, 5) + map.mapOffset;
+        //currentDistance = currentDistance + distance;
 
         if (currentNode == map.Nodes[0])
         {
@@ -45,7 +46,7 @@ public class MapManager : MonoBehaviour
             currentDistance = Mathf.Max(currentDistance, 0);
         }
 
-        Vector2 currentPoint = GetCurrentCursorPosition();
+        //Vector2 currentPoint = GetCurrentCursorPosition();
         return currentPoint;
     }
 
@@ -54,8 +55,8 @@ public class MapManager : MonoBehaviour
     /// </summary>
     public Vector2 GetCurrentCursorPosition()
     {
-        float clampedDistance = Mathf.Clamp(currentDistance, 0, this.currentRoad.crossDuration);
-        Vector2 point = this.currentRoad.roadCurve.GetPoint(clampedDistance / this.currentRoad.crossDuration);
+        float clampedDistance = Mathf.Clamp(currentDistance, 0, 1);
+        Vector2 point = this.currentRoad.roadCurve.GetPoint(clampedDistance);
         return point;
     }
 
@@ -65,7 +66,7 @@ public class MapManager : MonoBehaviour
     /// </summary>
     public bool HasReachedCrossroad()
     {
-        return currentDistance > currentRoad.crossDuration;
+        return currentDistance > 1;
     }
     public bool HasBacktrackedCrossroad()
     {
@@ -76,9 +77,9 @@ public class MapManager : MonoBehaviour
     /// Otherwise, returns null.
     /// Should be checked every frame.
     /// </summary>
-    public Event GetUpcommingEvent()
+    public EventBase GetUpcommingEvent()
     {
-        if (currentDistance > currentRoad.crossDuration)
+        if (currentDistance > 1)
         {
             if (currentRoad != currentPath[currentPath.Count - 1])
             {
@@ -108,7 +109,7 @@ public class MapManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Call after finishing an <see cref="Event"/> retrieved from <see cref="GetUpcommingEvent"/>.
+    /// Call after finishing an <see cref="EventBase"/> retrieved from <see cref="GetUpcommingEvent"/>.
     /// To get the cout of available roads, call <see cref="GetCrossroadsCount"/>.
     /// </summary>
     public void MoveToNextRoad(int roadIndex)
@@ -178,7 +179,7 @@ public class MapManager : MonoBehaviour
         {
             currentNode = map.Nodes[currentPath[currentRoadIndex - 2].nextNodeIndex];
         }
-        currentDistance = currentRoad.crossDuration;
+        currentDistance = 1;
     }
 
     public void Show()

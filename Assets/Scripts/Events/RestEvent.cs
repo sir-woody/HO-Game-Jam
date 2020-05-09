@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RestEvent : Event
+public class RestEvent : EventBase
 {
     [SerializeField]
     private Button seatBottomLeft = null;

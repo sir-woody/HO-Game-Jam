@@ -32,24 +32,24 @@ public class MapEditor : OdinEditor
 
         Map.Node currentNode = map.Nodes[currentNodeIndex];
 
-        Vector2 newPosition = map.transform.InverseTransformPoint(UnityEditor.Handles.PositionHandle((Vector3) map.transform.TransformPoint(currentNode.localPosition) + map.MapOffset, Quaternion.identity) - map.MapOffset);
+        Vector2 newPosition = map.transform.InverseTransformPoint((Vector2)UnityEditor.Handles.PositionHandle((Vector2)map.transform.TransformPoint(currentNode.localPosition) + map.mapOffset, Quaternion.identity) - map.mapOffset);
         if (currentNode.roads != null)
         {
             for (int i = 0; i < currentNode.roads.Count; i++)
             {
-                BezierCurve roadCurve = currentNode.roads[i].roadCurve;
+                BezierSolution.BezierSpline roadCurve = currentNode.roads[i].roadCurve;
 
                 if (roadCurve != null)
                 {
-                    if (roadCurve.color.value.a == 0)
+                    if (roadCurve.gizmoColor.value.a == 0)
                     {
-                        roadCurve.color.value = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
+                        roadCurve.gizmoColor.value = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
                     }
                     Handles.DrawBezier(
-                        map.transform.TransformPoint(roadCurve.points[0]) + map.MapOffset,
-                        map.transform.TransformPoint(roadCurve.points[3]) + map.MapOffset,
-                        map.transform.TransformPoint(roadCurve.points[1]) + map.MapOffset,
-                        map.transform.TransformPoint(roadCurve.points[2]) + map.MapOffset, roadCurve.color.value, null, 2f);
+                        (Vector2)roadCurve[0].position + map.mapOffset,
+                        (Vector2)roadCurve[1].position + map.mapOffset,
+                        (Vector2)roadCurve[0].followingControlPointPosition + map.mapOffset,
+                        (Vector2)roadCurve[1].precedingControlPointPosition + map.mapOffset, roadCurve.gizmoColor.value, null, 2f);
                 }
             }
         }

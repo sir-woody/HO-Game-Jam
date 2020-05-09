@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class CrossroadsEvent : Event
+public class CrossroadsEvent : EventBase
 {
     [SerializeField]
     private int selectedRoad = -1;
@@ -29,4 +29,8 @@ public class CrossroadsEvent : Event
     {
     }
 
+    public void SelectRoad(int road)
+    {
+        selectedRoad = road;
+    }
 }

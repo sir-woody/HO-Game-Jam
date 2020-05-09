@@ -9,11 +9,10 @@ public class Map : MonoBehaviour
     [Serializable]
     public class Road
     {
-        public Event eventPrefab;
+        public EventBase eventPrefab;
         public int nextNodeIndex;
-        public float crossDuration = 5f;
         public bool performEventOnBacktrack = false;
-        public BezierCurve roadCurve;
+        public BezierSolution.BezierSpline roadCurve;
         public ColorRef color;
     }
 
@@ -56,11 +55,17 @@ public class Map : MonoBehaviour
     [SerializeField]
     private List<Node> nodes = null;
 
-    public Vector3 MapOffset { get; set; }
+    public Vector2 mapOffset;
+
     public List<Node> Nodes => nodes;
 
 
 #if UNITY_EDITOR
+
+    private void OnValidate()
+    {
+        FixCurves();
+    }
 
     public void FixCurves()
     {
@@ -78,13 +83,13 @@ public class Map : MonoBehaviour
                 if (road.roadCurve == null)
                 {
                     UnityEditor.Undo.RecordObject(gameObject, "Setting bezier curve");
-                    road.roadCurve = new GameObject($"Curve {i}:{road.nextNodeIndex}").AddComponent<BezierCurve>();
-                    road.roadCurve.color = road.color;
+                    road.roadCurve = new GameObject($"Curve {i}:{road.nextNodeIndex}").AddComponent<BezierSolution.BezierSpline>();
+                    road.roadCurve.gizmoColor = road.color;
                     road.roadCurve.transform.SetParent(this.transform, false);
-                    road.roadCurve.points[0] = (Vector3)beg.localPosition;
-                    road.roadCurve.points[3] = (Vector3)end.localPosition;
-                    road.roadCurve.points[1] = Vector3.Lerp(road.roadCurve.points[0], road.roadCurve.points[3], 0.3f);
-                    road.roadCurve.points[2] = Vector3.Lerp(road.roadCurve.points[0], road.roadCurve.points[3], 0.7f);
+                    road.roadCurve[0].localPosition = (Vector3)beg.localPosition;
+                    road.roadCurve[1].localPosition = (Vector3)end.localPosition;
+                    road.roadCurve[0].followingControlPointLocalPosition = (road.roadCurve[1].localPosition - road.roadCurve[0].localPosition) * 0.3f;
+                    road.roadCurve[1].followingControlPointLocalPosition = (road.roadCurve[1].localPosition - road.roadCurve[0].localPosition) * 0.3f;
                     UnityEditor.Undo.RegisterCreatedObjectUndo(road.roadCurve, $"Undo adding bezier curve {road}");
                 }
                 if (j < 0 || j >= nodes.Count)
@@ -93,8 +98,8 @@ public class Map : MonoBehaviour
                     continue;
                 }
                 road.roadCurve.name = $"Curve {i}:{road.nextNodeIndex}";
-                road.roadCurve.points[0] = (Vector3)beg.localPosition;
-                road.roadCurve.points[3] = (Vector3)end.localPosition;
+                road.roadCurve[0].localPosition = (Vector3)beg.localPosition;
+                road.roadCurve[1].localPosition = (Vector3)end.localPosition;
                 road.roadCurve.transform.localPosition = Vector3.zero;
             }
         }
