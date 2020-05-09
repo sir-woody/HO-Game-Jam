@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class WinEvent : EventBase
 {
+    public override SoundManager.AmbientType AmbientSoundType => SoundManager.AmbientType.Unchanged;
     public override IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult)
     {
         Debug.Log("You win!");

@@ -8,14 +8,19 @@ using UnityEngine;
 
 public class CharacterSelectionEvent : EventBase
 {
+    [SerializeField]
+    private int maxTeamSize = 4;
+
+    public override SoundManager.AmbientType AmbientSoundType => SoundManager.AmbientType.Inside;
+
     public override IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult)
     {
-        List<Character> availableCharacters = Team.Instance.GetPrefabs();
-        for (int i = 0; i < availableCharacters.Count; i++)
+        List<Character> availableCharacters = TeamManager.Instance.GetPrefabs();
+        for (int i = 0; i < Mathf.Min(availableCharacters.Count, maxTeamSize); i++)
         {
             Character character = availableCharacters[i];
             Character characterInstance = Instantiate(character);
-            Team.Instance.characters.Add(characterInstance);
+            TeamManager.Instance.characters.Add(characterInstance);
             gameplayManager.HudController.BindStats(characterInstance, i);
         }
 

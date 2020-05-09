@@ -16,6 +16,7 @@ using UnityEngine;
 /// </summary>
 public abstract class EventBase : MonoBehaviour
 {
+    public abstract SoundManager.AmbientType AmbientSoundType { get; }
     public abstract IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult);
     public abstract void Show();
     public abstract void Hide();

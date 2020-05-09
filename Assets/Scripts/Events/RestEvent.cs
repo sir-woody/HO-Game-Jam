@@ -22,6 +22,8 @@ public class RestEvent : EventBase
     [SerializeField]
     private bool isDone = false;
 
+    public override SoundManager.AmbientType AmbientSoundType => SoundManager.AmbientType.Inside;
+
 
     public override IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult)
     {
@@ -35,9 +37,9 @@ public class RestEvent : EventBase
     public override void Show()
     {
         var restHudController = GetComponentInChildren<HudController>();
-        List<Sprite> spritesIdle = new List<Sprite>(Team.Instance.GetCharacterSprites(Character.SpriteType.Idle));
-        List<Sprite> spritesHoover = new List<Sprite>(Team.Instance.GetCharacterSprites(Character.SpriteType.Hoover));
-        List<Character> characters = new List<Character>(Team.Instance.characters);
+        List<Sprite> spritesIdle = new List<Sprite>(TeamManager.Instance.GetCharacterSprites(Character.SpriteType.Idle));
+        List<Sprite> spritesHoover = new List<Sprite>(TeamManager.Instance.GetCharacterSprites(Character.SpriteType.Hoover));
+        List<Character> characters = new List<Character>(TeamManager.Instance.characters);
         List<Button> seats = new List<Button>()
         {
             seatBottomLeft,

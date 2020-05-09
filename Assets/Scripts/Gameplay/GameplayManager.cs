@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class GameplayManager : MonoBehaviour
@@ -44,30 +39,34 @@ public class GameplayManager : MonoBehaviour
     private float distancePerSecond = 1;
     private bool restWasIssued;
 
-    public HudController HudController => hudController;
+    public HudController HudController
+    {
+        get
+        {
+            return hudController;
+        }
+    }
 
     private void Start()
     {
         StartCoroutine(LoopCoroutine());
     }
 
-    private void Update()
-    {
-        restWasIssued = restWasIssued || Input.GetKeyDown(KeyCode.Space);
-        distancePerSecond =
-            (Input.GetKey(KeyCode.UpArrow) == true ? defaultSpeed : 0) +
-            (Input.GetKey(KeyCode.DownArrow) == true ? -defaultSpeed : 0);
-        
-        if (distancePerSecond != 0) Team.Instance.StartClimbing(); else Team.Instance.StopClimbing();
-    }
+
 
     private IEnumerator LoopCoroutine()
     {
+        /// Initialize Map
         mapManager.InitializeRoad();
         marker.transform.position = mapManager.Move(0);
 
+        /// Initialize sounds
+        SoundManager.Instance.PlayAmbient(SoundManager.AmbientType.Outside);
+
+        /// Begin character selection
         yield return StartCoroutine(EventCoroutine(null, characterSelectionEventPrefab, true));
 
+        /// Begin climb
         IEnumerator<ClimbResult> enumerator = ClimbCoroutine();
         while (enumerator.MoveNext() == true)
         {
@@ -114,6 +113,7 @@ public class GameplayManager : MonoBehaviour
                 /// We have backtracked.
                 /// Moving to the previous road.
                 mapManager.MoveToPreviousRoad();
+                climbResult.selectedCrossroad = -1;
             }
             else if (mapManager.GetCrossroadsCount() == 0)
             {
@@ -125,8 +125,7 @@ public class GameplayManager : MonoBehaviour
                 /// We've reached the end of the road.
                 /// Passing onto the next road.
                 mapManager.MoveToNextRoad(climbResult.selectedCrossroad);
-                
-                enumerator = ClimbCoroutine();
+                climbResult.selectedCrossroad = -1;
             }
         }
 
@@ -141,55 +140,48 @@ public class GameplayManager : MonoBehaviour
         result.selectedCrossroad = -1;
         do
         {
+            HandleMapInput();
+
             result.markerPosition = mapManager.Move(distancePerSecond);
             result.hasReachedCrossroads = mapManager.HasReachedCrossroad();
             result.hasBacktrackedCrossroads = mapManager.HasBacktrackedCrossroad();
             result.eventPrefab = mapManager.GetUpcommingEvent();
+
             yield return result;
         }
-        while (result.hasReachedCrossroads == false);
+        while (true);
     }
 
-    private IEnumerator CharacterSelectionCoroutine(ClimbResult climbResult)
+    private void HandleMapInput()
     {
-        Debug.Log("Performing character selection");
+        restWasIssued = restWasIssued || Input.GetKeyDown(KeyCode.Space);
+        distancePerSecond =
+            (Input.GetKey(KeyCode.UpArrow) == true ? defaultSpeed : 0) +
+            (Input.GetKey(KeyCode.DownArrow) == true ? -defaultSpeed : 0);
 
-        mapManager.Hide();
-        hudController.Hide();
-        EventBase eventObject = Instantiate(characterSelectionEventPrefab, eventParent);
-        eventObject.Show();
-        yield return StartCoroutine(fade.FadeIn());
-
-        yield return StartCoroutine(eventObject.Perform(this, climbResult));
-
-        yield return StartCoroutine(fade.FadeOut());
-        eventObject.Hide();
-        Destroy(eventObject.gameObject);
-        mapManager.Show();
-        hudController.Show();
-        yield return StartCoroutine(fade.FadeIn());
-
-
-        //var i = 0;
-        //List<Character> availableCharacters = Team.Instance.GetPrefabs();
-        //foreach (Character character in availableCharacters)
-        //{
-        //    Character characterInstance = Instantiate(character);
-        //    Team.Instance.characters.Add(characterInstance);
-        //    hudController.BindStats(characterInstance, i++);
-        //}
-
-        Debug.Log("Character selection performed");
+        if (distancePerSecond != 0)
+        {
+            TeamManager.Instance.StartClimbing();
+        }
+        else
+        {
+            TeamManager.Instance.StopClimbing();
+        }
     }
 
     private IEnumerator EventCoroutine(ClimbResult climbResult, EventBase eventPrefab, bool skipFirstFade = false)
     {
         Debug.Log("Performing new event");
 
+
+
+        SoundManager.Instance.PlayAmbient(eventPrefab.AmbientSoundType, fade.FadeDuration * 2);
         if (skipFirstFade == false)
         {
             yield return StartCoroutine(fade.FadeOut());
         }
+
+        TeamManager.Instance.StopClimbing();
         mapManager.Hide();
         hudController.Hide();
         EventBase eventObject = Instantiate(eventPrefab, eventParent);
@@ -198,13 +190,15 @@ public class GameplayManager : MonoBehaviour
 
         yield return StartCoroutine(eventObject.Perform(this, climbResult));
 
+
+        SoundManager.Instance.PlayAmbient(SoundManager.AmbientType.Outside, fade.FadeDuration * 2);
         yield return StartCoroutine(fade.FadeOut());
         eventObject.Hide();
         Destroy(eventObject.gameObject);
         mapManager.Show();
         hudController.Show();
         yield return StartCoroutine(fade.FadeIn());
-        
+
         Debug.Log("Event performed");
     }
 

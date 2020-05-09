@@ -13,6 +13,9 @@ public class CrossroadsEvent : EventBase
     [SerializeField]
     private int roadsCount = 2;
 
+    public override SoundManager.AmbientType AmbientSoundType => SoundManager.AmbientType.Outside;
+
+
     public override IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult)
     {
         while (selectedRoad < 0 || selectedRoad >= roadsCount)

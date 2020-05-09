@@ -14,6 +14,19 @@ public class FadeManager : MonoBehaviour
     [SerializeField]
     private CanvasGroup fadeCanvasGroup = null;
 
+    public float FadeDuration
+    {
+        get
+        {
+            return this.fadeDuration;
+        }
+
+        set
+        {
+            this.fadeDuration = value;
+        }
+    }
+
     public void SetFade(float fade)
     {
         fadeCanvasGroup.alpha = fade;
@@ -21,10 +34,10 @@ public class FadeManager : MonoBehaviour
     public IEnumerator FadeOut()
     {
         float duration = 0;
-        while (duration < fadeDuration)
+        while (duration < FadeDuration)
         {
-            duration = Mathf.Min(duration + Time.deltaTime, fadeDuration);
-            fadeCanvasGroup.alpha = duration / fadeDuration;
+            duration = Mathf.Min(duration + Time.deltaTime, FadeDuration);
+            fadeCanvasGroup.alpha = duration / FadeDuration;
             yield return null;
         }
     }
@@ -32,10 +45,10 @@ public class FadeManager : MonoBehaviour
     public IEnumerator FadeIn()
     {
         float duration = 0;
-        while (duration < fadeDuration)
+        while (duration < FadeDuration)
         {
-            duration = Mathf.Min(duration + Time.deltaTime, fadeDuration);
-            fadeCanvasGroup.alpha = 1 - (duration / fadeDuration);
+            duration = Mathf.Min(duration + Time.deltaTime, FadeDuration);
+            fadeCanvasGroup.alpha = 1 - (duration / FadeDuration);
             yield return null;
         }
     }
