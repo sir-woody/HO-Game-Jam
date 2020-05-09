@@ -14,6 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 150105089965149655, guid: e10345e34bf92724496651bdb00b490b,
         type: 3}
+      propertyPath: onClickSounds.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 150105089965149655, guid: e10345e34bf92724496651bdb00b490b,
+        type: 3}
       propertyPath: OnClickSounds.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 680364ee2caf2754b90d5e3627690a8e, type: 3}
@@ -25,6 +30,21 @@ PrefabInstance:
     - target: {fileID: 150105089965149655, guid: e10345e34bf92724496651bdb00b490b,
         type: 3}
       propertyPath: OnClickSounds.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 680364ee2caf2754b90d5e3627690a8e, type: 3}
+    - target: {fileID: 150105089965149655, guid: e10345e34bf92724496651bdb00b490b,
+        type: 3}
+      propertyPath: onClickSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 229d647ccbdf0a84d963879bc88e4110, type: 3}
+    - target: {fileID: 150105089965149655, guid: e10345e34bf92724496651bdb00b490b,
+        type: 3}
+      propertyPath: onClickSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: da4f3d990c69a71468e3f7d8860323d0, type: 3}
+    - target: {fileID: 150105089965149655, guid: e10345e34bf92724496651bdb00b490b,
+        type: 3}
+      propertyPath: onClickSounds.Array.data[2]
       value: 
       objectReference: {fileID: 8300000, guid: 680364ee2caf2754b90d5e3627690a8e, type: 3}
     - target: {fileID: 4060027098640074916, guid: e10345e34bf92724496651bdb00b490b,

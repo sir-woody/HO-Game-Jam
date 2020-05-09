@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 150105089965149655, guid: e10345e34bf92724496651bdb00b490b,
         type: 3}
       propertyPath: onClickSounds.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 150105089965149655, guid: e10345e34bf92724496651bdb00b490b,
         type: 3}

@@ -13,9 +13,7 @@ public class MapManager : MonoBehaviour
     private RectTransform visuals = null;
 
     private Map.Node currentNode;
-    private Map.Node nextNode;
     private Map.Road currentRoad;
-
     private List<Map.Road> currentPath;
 
     private float currentDistance = 0;
@@ -24,7 +22,6 @@ public class MapManager : MonoBehaviour
     {
         currentNode = map.Nodes[0];
         currentRoad = currentNode.roads[0];
-        nextNode = map.Nodes[currentRoad.nextNodeIndex];
         currentPath = new List<Map.Road>()
         {
             currentRoad,
@@ -126,13 +123,13 @@ public class MapManager : MonoBehaviour
             }
             else
             {
-                for (int i = currentRoadIndex + 1; i < currentPath.Count; i++)
+                int patchSize = currentPath.Count - 1;
+                for (int i = currentRoadIndex; i < patchSize; i++)
                 {
                     currentPath.RemoveAt(currentRoadIndex + 1);
                 }
                 currentRoad = currentNode.roads[roadIndex];
                 currentPath.Add(currentRoad);
-                nextNode = map.Nodes[currentRoad.nextNodeIndex];
             }
             currentDistance = 0;
             /// Not setting the value of nextNode because it is always set to the furthest node on our current path, event after we backtrack.
@@ -140,22 +137,21 @@ public class MapManager : MonoBehaviour
         else
         {
             /// Entering a new crossroads
-            if (nextNode.roads.Count == 1)
+            if (map.Nodes[currentRoad.nextNodeIndex].roads.Count == 1)
             {
                 /// Param <param name="roadIndex"/> was set to -1 meaning no path was chosen
                 /// The crossroad has only a single path - this path will be chosen
                 roadIndex = 0;
             }
-            else if (roadIndex < 0 || roadIndex >= nextNode.roads.Count)
+            else if (roadIndex < 0 || roadIndex >= map.Nodes[currentRoad.nextNodeIndex].roads.Count)
             {
                 Debug.LogError($"Road index out of range (roadIndex: {roadIndex}, node roads count: {currentNode.roads.Count})");
                 return;
             }
 
-            currentNode = nextNode;
+            currentNode = map.Nodes[currentRoad.nextNodeIndex];
             currentRoad = currentNode.roads[roadIndex];
             currentPath.Add(currentRoad);
-            nextNode = map.Nodes[currentRoad.nextNodeIndex];
             currentDistance = 0;
         }
     }

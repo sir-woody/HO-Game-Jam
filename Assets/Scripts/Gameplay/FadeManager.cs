@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEditor.Rendering;
 using UnityEngine;
 
-public class FadeManager : MonoBehaviour
+public class FadeManager : Singleton<FadeManager>
 {
     [SerializeField]
     private float fadeDuration = 0.2f;
@@ -31,24 +31,42 @@ public class FadeManager : MonoBehaviour
     {
         fadeCanvasGroup.alpha = fade;
     }
-    public IEnumerator FadeOut()
+    public IEnumerator FadeOut(float duration = -1)
     {
-        float duration = 0;
-        while (duration < FadeDuration)
+        if (duration == 0)
         {
-            duration = Mathf.Min(duration + Time.deltaTime, FadeDuration);
-            fadeCanvasGroup.alpha = duration / FadeDuration;
+            fadeCanvasGroup.alpha = 1;
+            yield break;
+        }
+        float time = 0;
+        if (duration < 0)
+        {
+            duration = FadeDuration;
+        }
+        while (time < duration)
+        {
+            time = Mathf.Min(time + Time.deltaTime, duration);
+            fadeCanvasGroup.alpha = time / duration;
             yield return null;
         }
     }
 
-    public IEnumerator FadeIn()
+    public IEnumerator FadeIn(float duration = -1)
     {
-        float duration = 0;
-        while (duration < FadeDuration)
+        if (duration == 0)
         {
-            duration = Mathf.Min(duration + Time.deltaTime, FadeDuration);
-            fadeCanvasGroup.alpha = 1 - (duration / FadeDuration);
+            fadeCanvasGroup.alpha = 0;
+            yield break;
+        }
+        float time = 0;
+        if (duration < 0)
+        {
+            duration = FadeDuration;
+        }
+        while (time < duration)
+        {
+            time = Mathf.Min(time + Time.deltaTime, duration);
+            fadeCanvasGroup.alpha = 1 - (time / duration);
             yield return null;
         }
     }

@@ -17,8 +17,6 @@ public class GameplayManager : MonoBehaviour
     [Header("Canvas")]
     [SerializeField]
     private HudController hudController = null;
-    [SerializeField]
-    private FadeManager fade = null;
 
     [Header("Events")]
     [SerializeField]
@@ -47,11 +45,11 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
-    private void Start()
+
+    public void StartGame()
     {
         StartCoroutine(LoopCoroutine());
     }
-
 
 
     private IEnumerator LoopCoroutine()
@@ -60,9 +58,6 @@ public class GameplayManager : MonoBehaviour
         mapManager.InitializeRoad();
         marker.transform.position = mapManager.Move(0);
 
-        /// Initialize sounds
-        SoundManager.Instance.PlaySound(SoundManager.SoundType.Music, SoundManager.Instance.MainTheme);
-        SoundManager.Instance.PlayAmbient(SoundManager.AmbientType.Inside, 1);
 
         /// Begin character selection
         yield return StartCoroutine(EventCoroutine(null, characterSelectionEventPrefab, true));
@@ -178,8 +173,8 @@ public class GameplayManager : MonoBehaviour
 
         if (skipFirstFade == false)
         {
-            yield return StartCoroutine(fade.FadeOut());
-            SoundManager.Instance.PlayAmbient(eventPrefab.AmbientSoundType, fade.FadeDuration * 2);
+            yield return StartCoroutine(FadeManager.Instance.FadeOut());
+            SoundManager.Instance.PlayAmbient(eventPrefab.AmbientSoundType, FadeManager.Instance.FadeDuration * 2);
         }
 
         TeamManager.Instance.StopClimbing();
@@ -187,18 +182,18 @@ public class GameplayManager : MonoBehaviour
         hudController.Hide();
         EventBase eventObject = Instantiate(eventPrefab, eventParent);
         eventObject.Show();
-        yield return StartCoroutine(fade.FadeIn());
+        yield return StartCoroutine(FadeManager.Instance.FadeIn());
 
         yield return StartCoroutine(eventObject.Perform(this, climbResult));
 
 
-        SoundManager.Instance.PlayAmbient(SoundManager.AmbientType.Outside, fade.FadeDuration * 2);
-        yield return StartCoroutine(fade.FadeOut());
+        SoundManager.Instance.PlayAmbient(SoundManager.AmbientType.Outside, FadeManager.Instance.FadeDuration * 2);
+        yield return StartCoroutine(FadeManager.Instance.FadeOut());
         eventObject.Hide();
         Destroy(eventObject.gameObject);
         mapManager.Show();
         hudController.Show();
-        yield return StartCoroutine(fade.FadeIn());
+        yield return StartCoroutine(FadeManager.Instance.FadeIn());
 
         Debug.Log("Event performed");
     }
