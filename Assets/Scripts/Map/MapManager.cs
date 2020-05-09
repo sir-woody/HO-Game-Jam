@@ -37,7 +37,7 @@ public class MapManager : MonoBehaviour
     public Vector2 Move(float distancePerSecond)
     {
         float distance = distancePerSecond * Time.deltaTime;
-        Vector2 currentPoint = (Vector2)currentRoad.roadCurve.MoveAlongSpline(ref currentDistance, distance, 5) + map.mapOffset;
+        Vector2 currentPoint = (Vector2)currentRoad.roadCurve.MoveAlongSpline(ref currentDistance, distance) + map.mapOffset;
         //currentDistance = currentDistance + distance;
 
         if (currentNode == map.Nodes[0])
