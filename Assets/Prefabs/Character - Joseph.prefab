@@ -50,8 +50,8 @@ MonoBehaviour:
   name: Joseph
   description: 
   sprites:
-  - idle: {fileID: 21300000, guid: fb0756595f62c3247971eb9968c5f65e, type: 3}
-    hoover: {fileID: 21300000, guid: d9954ef536f658e42b397a9305c46c30, type: 3}
+  - idle: {fileID: 21300000, guid: 01b31054bb15496499284d992a26e5b7, type: 3}
+    hoover: {fileID: 21300000, guid: d29134f006a96c44d8f62c630c40bd59, type: 3}
   equipment: {fileID: 4060027099972010804}
 --- !u!114 &2009405334
 MonoBehaviour:
