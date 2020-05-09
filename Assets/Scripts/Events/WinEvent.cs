@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class WinEvent : EventBase
 {
-    public override IEnumerator Perform(GameplayManager.ClimbResult climbResult)
+    public override IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult)
     {
         Debug.Log("You win!");
         while (true)

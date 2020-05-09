@@ -62,13 +62,12 @@ public class Map : MonoBehaviour
 
 #if UNITY_EDITOR
 
-    private void OnValidate()
-    {
-        FixCurves();
-    }
-
     public void FixCurves()
     {
+        if (Application.isPlaying == true)
+        {
+            return;
+        }
         for (int i = 0; i < nodes.Count; i++)
         {
             Node beg = nodes[i];
@@ -80,8 +79,12 @@ public class Map : MonoBehaviour
             {
                 Road road = beg.roads[j];
                 Node end = nodes[road.nextNodeIndex];
-                if (road.roadCurve == null)
+                if (road.roadCurve == null || road.roadCurve.Count < 2)
                 {
+                    if (road.roadCurve != null)
+                    {
+                        DestroyImmediate(road.roadCurve.gameObject);
+                    }
                     UnityEditor.Undo.RecordObject(gameObject, "Setting bezier curve");
                     road.roadCurve = new GameObject($"Curve {i}:{road.nextNodeIndex}").AddComponent<BezierSolution.BezierSpline>();
                     road.roadCurve.gizmoColor = road.color;

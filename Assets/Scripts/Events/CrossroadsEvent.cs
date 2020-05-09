@@ -13,7 +13,7 @@ public class CrossroadsEvent : EventBase
     [SerializeField]
     private int roadsCount = 2;
 
-    public override IEnumerator Perform(GameplayManager.ClimbResult climbResult)
+    public override IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult)
     {
         while (selectedRoad < 0 || selectedRoad >= roadsCount)
         {

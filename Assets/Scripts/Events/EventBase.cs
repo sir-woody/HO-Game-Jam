@@ -16,7 +16,7 @@ using UnityEngine;
 /// </summary>
 public abstract class EventBase : MonoBehaviour
 {
-    public abstract IEnumerator Perform(GameplayManager.ClimbResult climbResult);
+    public abstract IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult);
     public abstract void Show();
     public abstract void Hide();
 }

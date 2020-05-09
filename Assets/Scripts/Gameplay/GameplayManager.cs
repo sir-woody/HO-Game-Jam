@@ -19,17 +19,23 @@ public class GameplayManager : MonoBehaviour
         public int selectedCrossroad;
     }
 
+    [Header("Canvas")]
     [SerializeField]
     private HudController hudController = null;
     [SerializeField]
-    private MapManager mapManager = null;
-    [SerializeField]
     private FadeManager fade = null;
+
+    [Header("Events")]
     [SerializeField]
     private RectTransform eventParent = null;
-
     [SerializeField]
-    private EventBase restEventPrefab = null;
+    private RestEvent restEventPrefab = null;
+    [SerializeField]
+    private CharacterSelectionEvent characterSelectionEventPrefab = null;
+
+    [Header("Map")]
+    [SerializeField]
+    private MapManager mapManager = null;
     [SerializeField]
     private Transform marker = null;
     [SerializeField]
@@ -37,6 +43,8 @@ public class GameplayManager : MonoBehaviour
 
     private float distancePerSecond = 1;
     private bool restWasIssued;
+
+    public HudController HudController => hudController;
 
     private void Start()
     {
@@ -56,8 +64,9 @@ public class GameplayManager : MonoBehaviour
     private IEnumerator LoopCoroutine()
     {
         mapManager.InitializeRoad();
+        marker.transform.position = mapManager.Move(0);
 
-        yield return StartCoroutine(CharacterSelectionCoroutine());
+        yield return StartCoroutine(EventCoroutine(null, characterSelectionEventPrefab, true));
 
         IEnumerator<ClimbResult> enumerator = ClimbCoroutine();
         while (enumerator.MoveNext() == true)
@@ -74,7 +83,7 @@ public class GameplayManager : MonoBehaviour
                 if (restWasIssued == true)
                 {
                     /// Rest order was issued, performing Rest action.
-                    yield return StartCoroutine(RestCoroutine(climbResult));
+                    yield return StartCoroutine(EventCoroutine(climbResult, restEventPrefab));
                     restWasIssued = false;
                 }
                 else
@@ -89,7 +98,7 @@ public class GameplayManager : MonoBehaviour
             {
                 /// We have encountered an event
                 /// Perform it, then clear
-                yield return StartCoroutine(EventCoroutine(climbResult));
+                yield return StartCoroutine(EventCoroutine(climbResult, climbResult.eventPrefab));
                 climbResult.eventPrefab = null;
             }
 
@@ -141,34 +150,17 @@ public class GameplayManager : MonoBehaviour
         while (result.hasReachedCrossroads == false);
     }
 
-    private IEnumerator CharacterSelectionCoroutine()
+    private IEnumerator CharacterSelectionCoroutine(ClimbResult climbResult)
     {
         Debug.Log("Performing character selection");
 
-        var i = 0;
-        List<Character> availableCharacters = Team.Instance.GetPrefabs();
-        foreach (Character character in availableCharacters)
-        {
-            Character characterInstance = Instantiate(character);
-            Team.Instance.characters.Add(characterInstance);
-            hudController.BindStats(characterInstance, i++);
-        }
-        yield return new WaitForSeconds(1f);
-
-        Debug.Log("Character selection performed");
-    }
-    private IEnumerator RestCoroutine(ClimbResult climbResult)
-    {
-        Debug.Log("Performing rest");
-
-        yield return StartCoroutine(fade.FadeOut());
         mapManager.Hide();
         hudController.Hide();
-        EventBase eventObject = Instantiate(restEventPrefab, eventParent);
+        EventBase eventObject = Instantiate(characterSelectionEventPrefab, eventParent);
         eventObject.Show();
         yield return StartCoroutine(fade.FadeIn());
 
-        yield return StartCoroutine(eventObject.Perform(climbResult));
+        yield return StartCoroutine(eventObject.Perform(this, climbResult));
 
         yield return StartCoroutine(fade.FadeOut());
         eventObject.Hide();
@@ -177,21 +169,34 @@ public class GameplayManager : MonoBehaviour
         hudController.Show();
         yield return StartCoroutine(fade.FadeIn());
 
-        Debug.Log("Rest performed");
+
+        //var i = 0;
+        //List<Character> availableCharacters = Team.Instance.GetPrefabs();
+        //foreach (Character character in availableCharacters)
+        //{
+        //    Character characterInstance = Instantiate(character);
+        //    Team.Instance.characters.Add(characterInstance);
+        //    hudController.BindStats(characterInstance, i++);
+        //}
+
+        Debug.Log("Character selection performed");
     }
 
-    private IEnumerator EventCoroutine(ClimbResult climbResult)
+    private IEnumerator EventCoroutine(ClimbResult climbResult, EventBase eventPrefab, bool skipFirstFade = false)
     {
         Debug.Log("Performing new event");
 
-        yield return StartCoroutine(fade.FadeOut());
+        if (skipFirstFade == false)
+        {
+            yield return StartCoroutine(fade.FadeOut());
+        }
         mapManager.Hide();
         hudController.Hide();
-        EventBase eventObject = Instantiate(climbResult.eventPrefab, eventParent);
+        EventBase eventObject = Instantiate(eventPrefab, eventParent);
         eventObject.Show();
         yield return StartCoroutine(fade.FadeIn());
 
-        yield return StartCoroutine(eventObject.Perform(climbResult));
+        yield return StartCoroutine(eventObject.Perform(this, climbResult));
 
         yield return StartCoroutine(fade.FadeOut());
         eventObject.Hide();

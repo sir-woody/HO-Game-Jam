@@ -23,7 +23,7 @@ public class RestEvent : EventBase
     private bool isDone = false;
 
 
-    public override IEnumerator Perform(GameplayManager.ClimbResult climbResult)
+    public override IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult)
     {
 
         while (isDone == false)
