@@ -15,8 +15,6 @@ public class Trait
             x.traitEffectData.effectType == effectType) ?? new List<TraitEffect>();
         foreach (var effect in effectsOfType)
         {
-            //Debug.Log("applied effect");
-
             effect.ApplyEffect(character);
         }
     }

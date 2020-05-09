@@ -31,7 +31,15 @@ public class TeamManager : Singleton<TeamManager>
 
     public bool TeamDied() => characters.All(x => x.IsDead());
 
-    public float GetTeamSpeed() => characters.Average(x => x.GetCurrentSpeed());
+    public float GetTeamSpeed()
+    {
+        var aliveCharacters = characters?.Where(x => !x.IsDead());
+        if (aliveCharacters.Any())
+        {
+            return aliveCharacters.Average(x => x.GetCurrentSpeed());
+        }
+        return 0f;
+    }
 
     public List<Sprite> GetCharacterSprites(Character.SpriteType spriteType)
     {

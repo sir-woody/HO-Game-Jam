@@ -42,7 +42,7 @@ public class Character : MonoBehaviour
     }
 
     //Item management
-    public Item[] GetItems() => equipment.GetComponentsInChildren<Item>();
+    public Item[] GetItems() => equipment.GetComponentsInChildren<Item>(true);
 
     public void Equip(Item item)
     {
@@ -89,6 +89,8 @@ public class Character : MonoBehaviour
                 item.Use(this);
             }
         }
+        //temporary solution to test putting items into backpack during debuging
+        //TODO remove after backpack is implemented
         GetItems().ToList().ForEach(Equip);
 
         if (GetStat("Zdrowie").IsDepleted()) Die();
