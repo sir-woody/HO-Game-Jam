@@ -150,7 +150,10 @@ public class GameplayManager : MonoBehaviour
 
     private void HandleMapInput()
     {
-        restWasIssued = restWasIssued || Input.GetKeyDown(KeyCode.Space);
+        if (restWasIssued == false && Input.GetKeyDown(KeyCode.Space))
+        {
+            restWasIssued = true;
+        }
         distancePerSecond =
             (Input.GetKey(KeyCode.UpArrow) == true ? defaultSpeed : 0) +
             (Input.GetKey(KeyCode.DownArrow) == true ? -defaultSpeed : 0);
@@ -170,6 +173,9 @@ public class GameplayManager : MonoBehaviour
         Debug.Log("Performing new event");
 
 
+        EventBase eventObject = Instantiate(eventPrefab, eventParent);
+        eventObject.gameObject.SetActive(false);
+        eventObject.PreShow();
 
         if (skipFirstFade == false)
         {
@@ -180,20 +186,27 @@ public class GameplayManager : MonoBehaviour
         TeamManager.Instance.StopClimbing();
         mapManager.Hide();
         hudController.Hide();
-        EventBase eventObject = Instantiate(eventPrefab, eventParent);
+        eventObject.gameObject.SetActive(true);
         eventObject.Show();
         yield return StartCoroutine(FadeManager.Instance.FadeIn());
+        
+        eventObject.PostShow();
 
         yield return StartCoroutine(eventObject.Perform(this, climbResult));
 
 
         SoundManager.Instance.PlayAmbient(SoundManager.AmbientType.Outside, FadeManager.Instance.FadeDuration * 2);
+        eventObject.PreHide();
+
         yield return StartCoroutine(FadeManager.Instance.FadeOut());
         eventObject.Hide();
-        Destroy(eventObject.gameObject);
+        eventObject.gameObject.SetActive(false);
         mapManager.Show();
         hudController.Show();
         yield return StartCoroutine(FadeManager.Instance.FadeIn());
+
+        eventObject.PostHide();
+        Destroy(eventObject.gameObject);
 
         Debug.Log("Event performed");
     }

@@ -20,6 +20,8 @@ public class RestEvent : EventBase
 
     [Space]
     [SerializeField]
+    private AudioClip tentUnpackSound = null;
+    [SerializeField]
     private bool isDone = false;
 
     public override SoundManager.AmbientType AmbientSoundType => SoundManager.AmbientType.Inside;
@@ -32,6 +34,12 @@ public class RestEvent : EventBase
         {
             yield return null;
         }
+    }
+
+    public override void PreShow()
+    {
+        SoundManager.SoundModel soundModel = SoundManager.Instance.PlaySound(SoundManager.SoundType.Event, tentUnpackSound);
+        soundModel.source.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
     }
 
     public override void Show()

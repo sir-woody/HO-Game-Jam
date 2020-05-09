@@ -35,7 +35,7 @@ public class SoundManager : Singleton<SoundManager>
     }
 
     [Serializable]
-    private struct SoundModel
+    public struct SoundModel
     {
         public AudioSource source;
         public float maxVolume;
@@ -150,12 +150,12 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
-    public void PlaySound(SoundType soundType, AudioClip clip)
+    public SoundModel PlaySound(SoundType soundType, AudioClip clip)
     {
         if (clip == null)
         {
             Debug.Log("Trying to play a null clip");
-            return;
+            return default;
         }
         if (soundModelDictionary.TryGetValue((AudioType)soundType, out SoundModel model) == true)
         {
@@ -167,10 +167,12 @@ public class SoundManager : Singleton<SoundManager>
             newModel.currentVolume = 1;
             playingSounds.Add(newModel);
             StartCoroutine(OnSoundFinished(newModel));
+            return newModel;
         }
         else
         {
             Debug.Log($"Sound AudioType.Sound not found in SoundManager");
+            return default;
         }
     }
 

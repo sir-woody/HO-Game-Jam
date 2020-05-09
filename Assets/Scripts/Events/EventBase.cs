@@ -18,6 +18,10 @@ public abstract class EventBase : MonoBehaviour
 {
     public abstract SoundManager.AmbientType AmbientSoundType { get; }
     public abstract IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult);
+    public virtual void PreShow() { }
     public abstract void Show();
+    public virtual void PostShow() { }
+    public virtual void PreHide() { }
     public abstract void Hide();
+    public virtual void PostHide() { }
 }
