@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public static class RemoveRandomExtension
+public static class EnumeratorExtension
 {
     public static int RemoveRandom<T>(this List<T> list, out T element)
     {
@@ -19,6 +19,13 @@ public static class RemoveRandomExtension
         element = list[random];
         list.RemoveAt(random);
         return random;
+    }
+
+    public static T GetRandom<T>(this List<T> list)
+    {
+        int random = UnityEngine.Random.Range(0, list.Count);
+        T item = list[random];
+        return item;
     }
 
 }

@@ -9,6 +9,7 @@ public class Item : MonoBehaviour
     [SerializeField] internal bool continousEffect;
     [SerializeField] bool expires = true;
     [SerializeField] float weight;
+    [SerializeField] Sprite sprite;
 
     public void Use(Character character)
     {
@@ -25,4 +26,5 @@ public class Item : MonoBehaviour
     }
     public bool CanUse() => !isUsed;
     public void MakeUsable() => isUsed = false;
+    public Sprite GetSprite() => sprite;
 }

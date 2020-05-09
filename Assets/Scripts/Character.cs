@@ -26,6 +26,7 @@ public class Character : MonoBehaviour
 
     float baseSpeed = 1;
     [SerializeField] GameObject equipment;
+    [SerializeField] List<BackpackManager.ItemType> startingItems = null;
 
     void Start()
     {
@@ -34,11 +35,14 @@ public class Character : MonoBehaviour
         VoiceController = GetComponent<VoiceController>();
         TraitController = GetComponent<TraitController>();
         TraitController.ApplyEffects(EffectType.Initial);
-        GetItems().ToList().ForEach(Equip);
+        foreach (BackpackManager.ItemType itemType in startingItems)
+        {
+            BackpackManager.Instance.SpawnItem(this, itemType);
+        }
     }
 
     //Item management
-    public Item[] GetItems() => equipment.GetComponentsInChildren<Item>();
+    public Item[] GetItems() => equipment.GetComponentsInChildren<Item>(true);
 
     public void Equip(Item item)
     {
