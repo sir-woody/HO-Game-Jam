@@ -24,6 +24,10 @@ public class GameplayManager : MonoBehaviour
     [SerializeField]
     private RestEvent restEventPrefab = null;
     [SerializeField]
+    private WinEvent winEventPrefab = null;
+    [SerializeField]
+    private GameOverEvent gameOverEventPrefab = null;
+    [SerializeField]
     private CharacterSelectionEvent characterSelectionEventPrefab = null;
 
     [Header("Map")]
@@ -31,8 +35,6 @@ public class GameplayManager : MonoBehaviour
     private MapManager mapManager = null;
     [SerializeField]
     private Transform marker = null;
-    [SerializeField]
-    private float defaultSpeed = 1;
 
     private float distancePerSecond = 1;
     private bool restWasIssued;
@@ -71,6 +73,8 @@ public class GameplayManager : MonoBehaviour
             /// Update marker's position
             marker.transform.position = climbResult.markerPosition;
 
+
+
             if (climbResult.hasReachedCrossroads == false && climbResult.hasBacktrackedCrossroads == false && climbResult.eventPrefab == null)
             {
                 /// We are in the middle of the road, no event nor crossroads are close.
@@ -80,6 +84,13 @@ public class GameplayManager : MonoBehaviour
                     /// Rest order was issued, performing Rest action.
                     yield return StartCoroutine(EventCoroutine(climbResult, restEventPrefab));
                     restWasIssued = false;
+                }
+                else if (TeamManager.Instance.TeamDied())
+                {
+                    /// Everyone died game is lost
+                    /// Perform it, then clear
+                    yield return StartCoroutine(EventCoroutine(climbResult, gameOverEventPrefab));
+                    break;
                 }
                 else
                 {
@@ -114,6 +125,7 @@ public class GameplayManager : MonoBehaviour
             else if (mapManager.GetCrossroadsCount() == 0)
             {
                 /// We've reached the end of the game
+                yield return StartCoroutine(EventCoroutine(climbResult, winEventPrefab));
                 break;
             }
             else
@@ -154,9 +166,12 @@ public class GameplayManager : MonoBehaviour
         {
             restWasIssued = true;
         }
+
+        var teamSpeed = TeamManager.Instance.GetTeamSpeed();
+
         distancePerSecond =
-            (Input.GetKey(KeyCode.UpArrow) == true ? defaultSpeed : 0) +
-            (Input.GetKey(KeyCode.DownArrow) == true ? -defaultSpeed : 0);
+            (Input.GetKey(KeyCode.UpArrow) == true ? teamSpeed : 0) +
+            (Input.GetKey(KeyCode.DownArrow) == true ? -teamSpeed : 0);
 
         if (distancePerSecond != 0)
         {

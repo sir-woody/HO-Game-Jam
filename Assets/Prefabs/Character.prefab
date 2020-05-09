@@ -51,6 +51,8 @@ MonoBehaviour:
   name: 
   description: 
   sprites: []
+  baseSpeed: 1
+  minSpeed: 0.1
   equipment: {fileID: 4060027099972010804}
 --- !u!114 &2009405334
 MonoBehaviour:
@@ -65,7 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   traits:
-  - traitData: {fileID: 11400000, guid: ef2df7a8ee0f19442a8155b7795c907e, type: 2}
+  - traitData: {fileID: 0}
     isVisible: 0
   - traitData: {fileID: 0}
     isVisible: 0
@@ -89,31 +91,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats:
-  - name: Health
+  - name: Zdrowie
     description: 
+    overflowTo: 
     maxValue: 100
     usePerSecond: 0
     startingFull: 1
-  - name: Stamina
+  - name: Energia
     description: 
+    overflowTo: Zdrowie
     maxValue: 100
-    usePerSecond: 1
+    usePerSecond: 7
     startingFull: 1
-  - name: Hunger
+  - name: "G\u0142\xF3d"
     description: 
+    overflowTo: Zdrowie
     maxValue: 100
-    usePerSecond: 1
+    usePerSecond: 5
     startingFull: 0
-  - name: Thirst
-    description: 
-    maxValue: 100
-    usePerSecond: 1
-    startingFull: 0
-  - name: Morale
-    description: 
-    maxValue: 100
-    usePerSecond: 1
-    startingFull: 1
 --- !u!114 &150105089965149655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minInterval: 5
-  OnClickSounds: []
+  onClickSounds: []
 --- !u!1 &4060027098812233519
 GameObject:
   m_ObjectHideFlags: 0

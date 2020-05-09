@@ -22,7 +22,7 @@ public class TraitController : MonoBehaviour
     {
         foreach (var trait in traits)
         {
-            trait.ApplyEffects(affectedCharacter, effectType, Time.deltaTime);
+            trait.ApplyEffects(affectedCharacter, effectType);
         }
     }
 

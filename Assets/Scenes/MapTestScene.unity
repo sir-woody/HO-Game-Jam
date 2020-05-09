@@ -1476,11 +1476,14 @@ MonoBehaviour:
   eventParent: {fileID: 1090494549}
   restEventPrefab: {fileID: 9038974790115596739, guid: 190ab011e70a0f74aacd6e9050555e1f,
     type: 3}
+  winEventPrefab: {fileID: 4390942942381450035, guid: 9aab40e434e53934e8850a7904df5512,
+    type: 3}
+  gameOverEventPrefab: {fileID: -7285453228474598033, guid: 2fd661e0adfd06545b8fca5f7875082a,
+    type: 3}
   characterSelectionEventPrefab: {fileID: 8113456180024803227, guid: b05aaa0e8651f7d428d54fb7579f4354,
     type: 3}
   mapManager: {fileID: 842511816}
   marker: {fileID: 397181741802428017}
-  defaultSpeed: 0.7
 --- !u!4 &1612118671
 Transform:
   m_ObjectHideFlags: 0

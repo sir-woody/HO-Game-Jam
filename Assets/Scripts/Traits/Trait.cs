@@ -9,13 +9,15 @@ public class Trait
     [SerializeField] internal TraitData traitData;
     [SerializeField] bool isVisible;
 
-    public void ApplyEffects(Character character, EffectType effectType, float elapsedTime)
+    public void ApplyEffects(Character character, EffectType effectType)
     {
         var effectsOfType = traitData?.effects?.Where(x => 
-            x.traitEffectData.effectType.HasFlag(effectType)) ?? new List<TraitEffect>();
+            x.traitEffectData.effectType == effectType) ?? new List<TraitEffect>();
         foreach (var effect in effectsOfType)
         {
-            effect.ApplyEffect(character, elapsedTime);
+            //Debug.Log("applied effect");
+
+            effect.ApplyEffect(character);
         }
     }
 

@@ -10,11 +10,13 @@ public class Character : MonoBehaviour
     {
         public Sprite idle;
         public Sprite hoover;
+        public Sprite dead;
     }
     public enum SpriteType
     {
         Idle,
         Hoover,
+        Dead
     }
 
     public new string name;
@@ -24,7 +26,9 @@ public class Character : MonoBehaviour
     TraitController TraitController;
     VoiceController VoiceController;
 
-    float baseSpeed = 1;
+    bool isDead;
+    [SerializeField] float baseSpeed = 1;
+    [SerializeField] float minSpeed = .1f;
     [SerializeField] GameObject equipment;
 
     void Start()
@@ -57,10 +61,7 @@ public class Character : MonoBehaviour
 
     internal float GetStatPercentage(string name) => GetStat(name)?.GetPercentage() ?? 0f;
 
-    float GetCurrentSpeed() => baseSpeed * GetStatPercentage("health") * GetStatPercentage("stamina");
-
-    public Character[] GetTeamMembers() => transform.parent.GetComponentsInChildren<Character>();
-
+    internal float GetCurrentSpeed() => Mathf.Clamp(baseSpeed * GetStatPercentage("Zdrowie") * GetStatPercentage("Energia"), minSpeed, 2 * baseSpeed);
 
     //Deplete stats during travel
     bool isClimbing;
@@ -77,18 +78,31 @@ public class Character : MonoBehaviour
         if (isClimbing)
         {
             TraitController.ApplyEffects(EffectType.Continous);
-            
+
             foreach (var stat in stats)
             {
                 stat.Deplete();
             }
-           
-            foreach (var item in GetItems().Where(x=>x.continousEffect))
+
+            foreach (var item in GetItems().Where(x => x.continousEffect))
             {
                 item.Use(this);
             }
         }
+        GetItems().ToList().ForEach(Equip);
+
+        if (GetStat("Zdrowie").IsDepleted()) Die();
     }
+
+    private void Die()
+    {
+        isDead = true;
+
+        //TODO Change sprite to gray,
+        //Debug.LogError($"{nameof(Die)} not implemented");
+    }
+
+    public bool IsDead() => isDead;
 
     /// <summary>
     /// Character was clicked during <see cref="RestEvent"/>.
@@ -110,6 +124,7 @@ public class Character : MonoBehaviour
         {
             case SpriteType.Idle: return sprites[spriteIndex].idle;
             case SpriteType.Hoover: return sprites[spriteIndex].hoover;
+            case SpriteType.Dead: return sprites[spriteIndex].dead;
             default: return null;
         }
     }
