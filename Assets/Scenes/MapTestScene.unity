@@ -1427,7 +1427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e38746318f8fb445b59cb389c710b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeDuration: 0.2
+  fadeDuration: 0.4
   fadeCanvasGroup: {fileID: 2058607360}
 --- !u!4 &1394374387
 Transform:
