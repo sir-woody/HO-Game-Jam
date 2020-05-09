@@ -16,8 +16,9 @@ public class SoundManager : Singleton<SoundManager>
         Inside,
         Outside,
 
-        Ui,
-        Voice,
+        Music       = 0x000100,
+        Ui          = 0x000200,
+        Voice       = 0x000300,
     }
     public enum AmbientType
     {
@@ -30,6 +31,7 @@ public class SoundManager : Singleton<SoundManager>
     {
         Ui = AudioType.Ui,
         Voice = AudioType.Voice,
+        Music = AudioType.Music,
     }
 
     [Serializable]
@@ -118,12 +120,13 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
-    public void PlaySound(SoundType soundType, AudioClip clip)
+    public void PlaySound(SoundType soundType)
     {
         if (soundModelDictionary.TryGetValue((AudioType)soundType, out SoundModel model) == true)
         {
             AudioSource source = Instantiate(model.source, model.source.transform, false).GetComponent<AudioSource>();
-            source.PlayOneShot(clip);
+            source.PlayOneShot(model.source.clip);
+            source.volume = 1;
             StartCoroutine(OnSoundFinished(source));
         }
         else

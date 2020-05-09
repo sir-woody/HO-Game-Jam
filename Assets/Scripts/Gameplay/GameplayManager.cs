@@ -61,7 +61,8 @@ public class GameplayManager : MonoBehaviour
         marker.transform.position = mapManager.Move(0);
 
         /// Initialize sounds
-        SoundManager.Instance.PlayAmbient(SoundManager.AmbientType.Outside);
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Music);
+        SoundManager.Instance.PlayAmbient(SoundManager.AmbientType.Inside, 1);
 
         /// Begin character selection
         yield return StartCoroutine(EventCoroutine(null, characterSelectionEventPrefab, true));
@@ -175,10 +176,10 @@ public class GameplayManager : MonoBehaviour
 
 
 
-        SoundManager.Instance.PlayAmbient(eventPrefab.AmbientSoundType, fade.FadeDuration * 2);
         if (skipFirstFade == false)
         {
             yield return StartCoroutine(fade.FadeOut());
+            SoundManager.Instance.PlayAmbient(eventPrefab.AmbientSoundType, fade.FadeDuration * 2);
         }
 
         TeamManager.Instance.StopClimbing();
