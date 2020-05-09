@@ -61,7 +61,7 @@ public class GameplayManager : MonoBehaviour
         marker.transform.position = mapManager.Move(0);
 
         /// Initialize sounds
-        SoundManager.Instance.PlaySound(SoundManager.SoundType.Music);
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Music, SoundManager.Instance.MainTheme);
         SoundManager.Instance.PlayAmbient(SoundManager.AmbientType.Inside, 1);
 
         /// Begin character selection

@@ -18,6 +18,9 @@ public class CrossroadsEvent : EventBase
 
     public override IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult)
     {
+        int random = UnityEngine.Random.Range(0, SoundManager.Instance.EventSounds.Count);
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Event, SoundManager.Instance.EventSounds[random]);
+
         while (selectedRoad < 0 || selectedRoad >= roadsCount)
         {
             yield return null;

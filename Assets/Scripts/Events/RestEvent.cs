@@ -51,13 +51,13 @@ public class RestEvent : EventBase
 
         while (characters.Count > 0)
         {
-            int characterIndex = RemoveRandom(characters, out Character character);
+            int characterIndex = characters.RemoveRandom(out Character character);
             Sprite spriteIdle = spritesIdle[characterIndex];
             Sprite spriteHoover = spritesHoover[characterIndex];
             spritesIdle.RemoveAt(characterIndex);
             spritesHoover.RemoveAt(characterIndex);
 
-            RemoveRandom(seats, out Button seat);
+            seats.RemoveRandom(out Button seat);
             restHudController.BindStats(character, seatsCopy.IndexOf(seat));
 
             (seat.targetGraphic as Image).sprite = spriteIdle;
@@ -83,19 +83,6 @@ public class RestEvent : EventBase
 
     }
 
-    private int RemoveRandom<T>(List<T> list, out T element)
-    {
-        if (list.Count == 0)
-        {
-            Debug.LogError("Trying to retrieve an element from an empty list");
-            element = default;
-            return -1;
-        }
-        int random = UnityEngine.Random.Range(0, list.Count);
-        element = list[random];
-        list.RemoveAt(random);
-        return random;
-    }
 
     public void FinishRest()
     {

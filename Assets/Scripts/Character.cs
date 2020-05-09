@@ -22,6 +22,7 @@ public class Character : MonoBehaviour
     public List<SpriteGroup> sprites;
     Stat[] stats;
     TraitController TraitController;
+    VoiceController VoiceController;
 
     float baseSpeed = 1;
     [SerializeField] GameObject equipment;
@@ -30,6 +31,7 @@ public class Character : MonoBehaviour
     {
         stats = GetComponent<StatController>().stats;
         //traits = GetComponents<Trait>();
+        VoiceController = GetComponent<VoiceController>();
         TraitController = GetComponent<TraitController>();
         TraitController.ApplyEffects(EffectType.Initial);
         GetItems().ToList().ForEach(Equip);
@@ -58,6 +60,7 @@ public class Character : MonoBehaviour
     float GetCurrentSpeed() => baseSpeed * GetStatPercentage("health") * GetStatPercentage("stamina");
 
     public Character[] GetTeamMembers() => transform.parent.GetComponentsInChildren<Character>();
+
 
     //Deplete stats during travel
     bool isClimbing;
@@ -93,7 +96,7 @@ public class Character : MonoBehaviour
     /// </summary>
     public void OnCharacterClicked()
     {
-
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Voice, VoiceController.GetOnClickSound());
     }
 
     /// <summary>

@@ -16,9 +16,9 @@ public class SoundManager : Singleton<SoundManager>
         Inside,
         Outside,
 
-        Music       = 0x000100,
-        Ui          = 0x000200,
-        Voice       = 0x000300,
+        Sound_Music         = 0x0000100,
+        Sound_Voice         = 0x0000200,
+        Sound_Event         = 0x0000300,
     }
     public enum AmbientType
     {
@@ -29,46 +29,74 @@ public class SoundManager : Singleton<SoundManager>
     }
     public enum SoundType
     {
-        Ui = AudioType.Ui,
-        Voice = AudioType.Voice,
-        Music = AudioType.Music,
+        Music = AudioType.Sound_Music,
+        Voice = AudioType.Sound_Voice,
+        Event = AudioType.Sound_Event,
     }
 
     [Serializable]
-    private class SoundModel
+    private struct SoundModel
     {
-        public AudioSource source = null;
-        public float maxVolume = 1;
+        public AudioSource source;
+        public float maxVolume;
         [HideInInspector]
-        public float targetVolume = 0;
+        public float targetVolume;
         [HideInInspector]
-        public float currentVolume = 0;
-        public float fadeDuration = 0.5f;
+        public float currentVolume;
+        public float fadeDuration;
     }
 
-
-    [SerializeField]
-    private SoundModelDictionary soundModelDictionary = null;
     [SerializeField]
     [Range(0, 1)]
     private float masterVolume = 1;
-    private Queue<AudioSource> sources = new Queue<AudioSource>();
+    [SerializeField]
+    private AudioClip mainTheme = null;
+    [SerializeField]
+    private List<AudioClip> eventSounds = null;
+
+    [Space]
+    [SerializeField]
+    private SoundModelDictionary soundModelDictionary = null;
+
+    private List<SoundModel> playingSounds = new List<SoundModel>();
+
+    public AudioClip MainTheme => mainTheme;
+    public IReadOnlyList<AudioClip> EventSounds => eventSounds;
+
     private AmbientType currentAmbientType = AmbientType.Undefined;
 
 
     private void Update()
     {
-        foreach (KeyValuePair<AudioType, SoundModel> model in soundModelDictionary)
+        List<AudioType> list = soundModelDictionary.Keys.ToList();
+        for (int i = 0; i < list.Count; i++)
         {
-            if (model.Value.fadeDuration <= 0)
+            AudioType type = list[i];
+            SoundModel model = soundModelDictionary[type];
+            if (model.fadeDuration <= 0)
             {
-                model.Value.currentVolume = model.Value.targetVolume * masterVolume * model.Value.maxVolume;
+                model.currentVolume = model.targetVolume * this.masterVolume * model.maxVolume;
             }
             else
             {
-                model.Value.currentVolume = Mathf.MoveTowards(model.Value.currentVolume, model.Value.targetVolume, Time.deltaTime / model.Value.fadeDuration) * masterVolume * model.Value.maxVolume;
+                model.currentVolume = Mathf.MoveTowards(model.currentVolume, model.targetVolume * this.masterVolume * model.maxVolume, Time.deltaTime / model.fadeDuration);
             }
-            model.Value.source.volume = model.Value.currentVolume;
+            soundModelDictionary[type] = model;
+            model.source.volume = model.currentVolume;
+        }
+        for (int i = 0; i < playingSounds.Count; i++)
+        {
+            SoundModel model = playingSounds[i];
+            if (model.fadeDuration <= 0)
+            {
+                model.currentVolume = model.targetVolume * masterVolume * model.maxVolume;
+            }
+            else
+            {
+                model.currentVolume = Mathf.MoveTowards(model.currentVolume, model.targetVolume * masterVolume * model.maxVolume, Time.deltaTime / model.fadeDuration);
+            }
+            playingSounds[i] = model;
+            model.source.volume = model.currentVolume;
         }
     }
 
@@ -97,6 +125,7 @@ public class SoundManager : Singleton<SoundManager>
                 StopAmbient(currentAmbientType, fadeDuration);
             }
             currentAmbientType = ambientType;
+            soundModelDictionary[(AudioType)ambientType] = model;
             Debug.Log($"Playing ambient: {currentAmbientType} previously: {lastAmbientType}");
         }
         else
@@ -113,6 +142,7 @@ public class SoundManager : Singleton<SoundManager>
                 model.fadeDuration = fadeDuration;
             }
             model.targetVolume = 0;
+            soundModelDictionary[(AudioType)ambientType] = model;
         }
         else
         {
@@ -120,28 +150,43 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
-    public void PlaySound(SoundType soundType)
+    public void PlaySound(SoundType soundType, AudioClip clip)
     {
+        if (clip == null)
+        {
+            Debug.Log("Trying to play a null clip");
+            return;
+        }
         if (soundModelDictionary.TryGetValue((AudioType)soundType, out SoundModel model) == true)
         {
-            AudioSource source = Instantiate(model.source, model.source.transform, false).GetComponent<AudioSource>();
-            source.PlayOneShot(model.source.clip);
-            source.volume = 1;
-            StartCoroutine(OnSoundFinished(source));
+            SoundModel newModel = model;
+            newModel.source = Instantiate(model.source, model.source.transform, false).GetComponent<AudioSource>();
+            newModel.source.clip = clip;
+            newModel.source.Play();
+            newModel.targetVolume = 1;
+            newModel.currentVolume = 1;
+            playingSounds.Add(newModel);
+            StartCoroutine(OnSoundFinished(newModel));
         }
         else
         {
-            Debug.Log($"Sound {soundType} not found in SoundManager");
+            Debug.Log($"Sound AudioType.Sound not found in SoundManager");
         }
     }
 
-    private IEnumerator OnSoundFinished(AudioSource source)
+    private IEnumerator OnSoundFinished(SoundModel model)
     {
-        while (source.isPlaying == true)
+        if (model.source.loop == true)
+        {
+            yield break;
+        }
+        while (model.source.isPlaying == true)
         {
             yield return null;
         }
-        Destroy(source.gameObject);
+        int index = playingSounds.FindIndex(x => x.source == model.source);
+        playingSounds.RemoveAt(index);
+        Destroy(model.source.gameObject);
     }
 
 }
