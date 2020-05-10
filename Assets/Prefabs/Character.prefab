@@ -53,7 +53,8 @@ MonoBehaviour:
   sprites:
     keyData: 
     valueData: []
-  backpackSize: 3
+  seatPosition: 0
+  backpackSize: 10
   baseSpeed: 1
   minSpeed: 0.1
   equipment: {fileID: 4060027099972010804}

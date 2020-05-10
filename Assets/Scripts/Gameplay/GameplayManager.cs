@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ public class GameplayManager : Singleton<GameplayManager>
     }
 
     [Header("Events")]
+    [SerializeField]
+    internal RectTransform tooltipParent = null;
     [SerializeField]
     internal RectTransform eventParent = null;
     [SerializeField]
@@ -194,6 +197,7 @@ public class GameplayManager : Singleton<GameplayManager>
     {
         Debug.Log("Performing new event");
 
+                ClearTooltips();
 
         EventBase eventObject = Instantiate(eventPrefab, eventParent);
         eventObject.gameObject.SetActive(false);
@@ -213,7 +217,7 @@ public class GameplayManager : Singleton<GameplayManager>
             SoundManager.Instance.StopAmbient(SoundManager.AmbientType.Outside, FadeManager.Instance.FadeDuration * 2);
             SoundManager.Instance.PlayAmbient(eventPrefab.AmbientSoundType, FadeManager.Instance.FadeDuration * 2);
         }
-
+        ClearTooltips();
         mapManager.Hide();
         StatManager.Instance.Hide();
         eventObject.gameObject.SetActive(true);
@@ -224,6 +228,7 @@ public class GameplayManager : Singleton<GameplayManager>
 
         yield return StartCoroutine(eventObject.Perform(this, climbResult));
 
+        ClearTooltips();
 
         SoundManager.Instance.StopAmbient(eventPrefab.AmbientSoundType, FadeManager.Instance.FadeDuration * 2);
         SoundManager.Instance.PlayAmbient(SoundManager.AmbientType.Outside, FadeManager.Instance.FadeDuration * 2);
@@ -238,8 +243,19 @@ public class GameplayManager : Singleton<GameplayManager>
 
         eventObject.PostHide();
         Destroy(eventObject.gameObject);
-
+        ClearTooltips();
+        
         Debug.Log("Event performed");
     }
 
+    private void ClearTooltips()
+    {
+        if (tooltipParent)
+        {
+            foreach (Transform child in tooltipParent)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+    }
 }
