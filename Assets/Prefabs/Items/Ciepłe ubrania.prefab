@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: 
   affectedStat: Energia
-  effect: 1
+  effect: 3
   continousEffect: 1
   expires: 0
   weight: 7

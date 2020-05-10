@@ -15,7 +15,8 @@ public class Item : MonoBehaviour
 
     public void Use(Character character)
     {
-        character.GetStat(affectedStat).Replenish(effect);
+        var value = continousEffect ? Time.deltaTime * effect : effect;
+        character.GetStat(affectedStat).Replenish(value);
         isUsed = true;
     }
 

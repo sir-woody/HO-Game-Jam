@@ -35,10 +35,8 @@ public class Stat
 
     internal void Initialize(Stat[] stats)
     {
-
         if (startingFull) value = MaxValue;
         overflowToStat = stats.FirstOrDefault(x => x.name == overflowTo);
-        //Debug.Log(name +" - " + overflowTo +" - " + overflowToStat?.name);
         OnChange?.Invoke(value, MaxValue);
         isInitialized = true;
     }
