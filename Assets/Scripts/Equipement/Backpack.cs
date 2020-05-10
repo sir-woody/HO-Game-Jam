@@ -21,7 +21,7 @@ public class Backpack : MonoBehaviour
         foreach (Item item in items)
         {
             ItemFrame frame = Instantiate(itemFramePrefab, gridLayoutGroup.transform, false);
-            frame.Initialize(item, raycaster);
+            frame.Initialize(this, item, raycaster);
             itemFrames.Add(frame);
         }
     }
@@ -35,4 +35,15 @@ public class Backpack : MonoBehaviour
         itemFrames.Clear();
     }
 
+    public ItemFrame AddEmptyFrameAt(int siblingIndex)
+    {
+        ItemFrame frame = Instantiate(itemFramePrefab, gridLayoutGroup.transform, false);
+        frame.Initialize(this, null, null);
+        frame.transform.SetSiblingIndex(siblingIndex);
+        return frame;
+    }
+    public void RemoveEmptyFrame(ItemFrame emptyItemFrame)
+    {
+        Destroy(emptyItemFrame.gameObject);
+    }
 }

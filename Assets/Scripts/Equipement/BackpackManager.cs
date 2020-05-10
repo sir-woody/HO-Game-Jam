@@ -14,14 +14,15 @@ public class BackpackManager : Singleton<BackpackManager>
 
     public enum ItemType
     {
-        Equipement,
+        Empty = -1,
+        Equipement = 10,
 
-        CandyBar,
-        Food,
-        Herbs,
+        CandyBar = 20,
+        Food = 30,
+        Herbs = 40,
 
-        FirstAidKit,
-        BandageAndPills,
+        FirstAidKit = 50,
+        BandageAndPills = 60,
     }
 
     [SerializeField]
@@ -63,5 +64,8 @@ public class BackpackManager : Singleton<BackpackManager>
         from.Unequip(item);
         to.Equip(item);
     }
+    public void UseItem(Item item)
+    {
 
+    }
 }

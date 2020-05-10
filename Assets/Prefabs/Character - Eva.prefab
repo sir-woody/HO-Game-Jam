@@ -34,6 +34,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4060027098640074916, guid: e10345e34bf92724496651bdb00b490b,
         type: 3}
+      propertyPath: startingItems.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060027098640074916, guid: e10345e34bf92724496651bdb00b490b,
+        type: 3}
       propertyPath: sprites.Array.data[0].idle
       value: 
       objectReference: {fileID: 21300000, guid: 679557a27211d0d4981255f405daf7e4,
@@ -48,6 +53,16 @@ PrefabInstance:
         type: 3}
       propertyPath: name
       value: Eva
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060027098640074916, guid: e10345e34bf92724496651bdb00b490b,
+        type: 3}
+      propertyPath: startingItems.Array.data[1]
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060027098640074916, guid: e10345e34bf92724496651bdb00b490b,
+        type: 3}
+      propertyPath: startingItems.Array.data[0]
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4060027098640074917, guid: e10345e34bf92724496651bdb00b490b,
         type: 3}

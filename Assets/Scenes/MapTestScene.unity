@@ -121,6 +121,62 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &97588584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 97588586}
+  - component: {fileID: 97588585}
+  m_Layer: 0
+  m_Name: BackpackManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &97588585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97588584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330e6b54558f14541858f7feef9d8763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backpackPrefab: {fileID: 1176851772682598987, guid: beb2ed153d480d845b711fdbc534fb63,
+    type: 3}
+  backpackSlot: {fileID: 1762448043}
+  raycaster: {fileID: 1949463618}
+  itemPrefabs:
+    keyData: 0a000000140000001e00000028000000320000003c000000
+    valueData:
+    - {fileID: 3588262979484044204, guid: 7c2148a7f59e9c54aa003849e71228fc, type: 3}
+    - {fileID: 3028681392916260289, guid: d17be0d6a8bd2fa40b0e509d36cf5725, type: 3}
+    - {fileID: 6269709679195045872, guid: d36d0d97b1fe060428dea70e1cf73dd5, type: 3}
+    - {fileID: 7558878642015427195, guid: 99bcb23f57d429c40a2d7c346bae5acd, type: 3}
+    - {fileID: 353923271477391404, guid: 1da528ac5bcfde647baf999ad93395e5, type: 3}
+    - {fileID: 353923271477391404, guid: 07bedc7eca23dd84bb776cd71eab35df, type: 3}
+--- !u!4 &97588586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97588584}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &108314991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1498,6 +1554,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1762448042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1762448043}
+  m_Layer: 5
+  m_Name: BackpackParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1762448043
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762448042}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1949463617}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1835065393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,6 +1807,7 @@ RectTransform:
   - {fileID: 888707588}
   - {fileID: 397181743505955932}
   - {fileID: 1090494549}
+  - {fileID: 1762448043}
   - {fileID: 2058607363}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -2019,7 +2111,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1949463617}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

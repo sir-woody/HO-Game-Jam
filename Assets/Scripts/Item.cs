@@ -11,6 +11,8 @@ public class Item : MonoBehaviour
     [SerializeField] float weight;
     [SerializeField] Sprite sprite;
 
+    public Character Owner { get; set; }
+
     public void Use(Character character)
     {
         character.GetStat(affectedStat).Replenish(effect);

@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class RestEvent : EventBase
 {
     [SerializeField]
-    private Button seatBottomLeft = null;
+    private Seat seatBottomLeft = null;
     [SerializeField]
-    private Button seatBottomRight = null;
+    private Seat seatBottomRight = null;
     [SerializeField]
-    private Button seatTopLeft = null;
+    private Seat seatTopLeft = null;
     [SerializeField]
-    private Button seatTopRight = null;
+    private Seat seatTopRight = null;
 
     [Space]
     [SerializeField]
@@ -24,8 +19,13 @@ public class RestEvent : EventBase
     [SerializeField]
     private bool isDone = false;
 
-    public override SoundManager.AmbientType AmbientSoundType => SoundManager.AmbientType.Inside;
-
+    public override SoundManager.AmbientType AmbientSoundType
+    {
+        get
+        {
+            return SoundManager.AmbientType.Inside;
+        }
+    }
 
     public override IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult)
     {
@@ -44,41 +44,23 @@ public class RestEvent : EventBase
 
     public override void Show()
     {
-        var restHudController = GetComponentInChildren<HudController>();
-        List<Sprite> spritesIdle = new List<Sprite>(TeamManager.Instance.GetCharacterSprites(Character.SpriteType.Idle));
-        List<Sprite> spritesHoover = new List<Sprite>(TeamManager.Instance.GetCharacterSprites(Character.SpriteType.Hoover));
+        HudController restHudController = GetComponentInChildren<HudController>();
         List<Character> characters = new List<Character>(TeamManager.Instance.characters);
-        List<Button> seats = new List<Button>()
+        List<Seat> seats = new List<Seat>()
         {
             seatBottomLeft,
             seatBottomRight,
             seatTopLeft,
             seatTopRight,
         };
-        var seatsCopy = new List<Button>(seats);
+        List<Seat> seatsCopy = new List<Seat>(seats);
 
         while (characters.Count > 0)
         {
-            int characterIndex = characters.RemoveRandom(out Character character);
-            Sprite spriteIdle = spritesIdle[characterIndex];
-            Sprite spriteHoover = spritesHoover[characterIndex];
-            spritesIdle.RemoveAt(characterIndex);
-            spritesHoover.RemoveAt(characterIndex);
-
-            seats.RemoveRandom(out Button seat);
+            characters.RemoveRandom(out Character character);
+            seats.RemoveRandom(out Seat seat);
             restHudController.BindStats(character, seatsCopy.IndexOf(seat));
-
-            (seat.targetGraphic as Image).sprite = spriteIdle;
-            SpriteState spriteState = seat.spriteState;
-            spriteState.highlightedSprite = spriteHoover;
-            /// Replacing pressedSprite and selectedSprite with null for better visual effect
-            //spriteState.selectedSprite = spriteHoover;
-            //spriteState.pressedSprite = spriteHoover;
-            spriteState.selectedSprite = null;
-            spriteState.pressedSprite = null;
-            seat.spriteState = spriteState;
-
-            seat.onClick.AddListener(character.OnCharacterClicked);
+            seat.SetCharacter(character);
         }
 
         for (int i = 0; i < seats.Count; i++)

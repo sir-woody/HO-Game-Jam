@@ -50,12 +50,14 @@ public class Character : MonoBehaviour
 
     public void Equip(Item item)
     {
+        item.Owner = this;
         item.gameObject.transform.parent = equipment.transform;
         item.gameObject.SetActive(false);
     }
 
     public void Unequip(Item item)
     {
+        item.Owner = null;
         item.gameObject.transform.parent = null;
         item.gameObject.SetActive(true);
     }
