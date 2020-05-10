@@ -60,7 +60,6 @@ public class Map : MonoBehaviour
     public List<Node> Nodes => nodes;
 
 
-#if UNITY_EDITOR
 
     public void FixCurves()
     {
@@ -90,7 +89,9 @@ public class Map : MonoBehaviour
                     {
                         if (child.name == curveName)
                         {
+#if UNITY_EDITOR
                             UnityEditor.Undo.RecordObject(gameObject, "Setting bezier curve");
+#endif
                             road.roadCurve = child.GetComponent<BezierSolution.BezierSpline>();
                             break;
                         }
@@ -104,7 +105,9 @@ public class Map : MonoBehaviour
                         road.roadCurve[1].localPosition = (Vector3)end.localPosition;
                         road.roadCurve[0].followingControlPointLocalPosition = (road.roadCurve[1].localPosition - road.roadCurve[0].localPosition) * 0.3f;
                         road.roadCurve[1].followingControlPointLocalPosition = (road.roadCurve[1].localPosition - road.roadCurve[0].localPosition) * 0.3f;
+#if UNITY_EDITOR
                         UnityEditor.Undo.RegisterCreatedObjectUndo(road.roadCurve, $"Undo adding bezier curve {road}");
+#endif
                     }
                 }
                 if (j < 0 || j >= nodes.Count)
@@ -119,7 +122,6 @@ public class Map : MonoBehaviour
             }
         }
     }
-#endif
 
 
 }

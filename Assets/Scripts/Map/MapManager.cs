@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class MapManager : MonoBehaviour
+public class MapManager : Singleton<MapManager>
 {
     [SerializeField]
     private Map map = null;
@@ -17,6 +17,11 @@ public class MapManager : MonoBehaviour
     private List<Map.Road> currentPath;
 
     private float currentDistance = 0;
+
+    private void Awake()
+    {
+        Hide();
+    }
 
     public void InitializeRoad()
     {

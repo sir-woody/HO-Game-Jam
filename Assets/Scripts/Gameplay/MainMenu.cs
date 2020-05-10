@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
     private Button startGameButton = null;
 
 
-    private void Awake()
+    private void Start()
     {
         startGameButton.onClick.AddListener(OnStartGameButtonClicked);
 

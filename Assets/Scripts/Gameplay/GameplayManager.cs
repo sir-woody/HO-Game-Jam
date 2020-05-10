@@ -59,9 +59,10 @@ public class GameplayManager : Singleton<GameplayManager>
     private IEnumerator LoopCoroutine()
     {
         /// Initialize Map
+        mapManager.Show();
         mapManager.InitializeRoad();
-        mapManager.Hide();
         marker.transform.position = mapManager.Move(0);
+        mapManager.Hide();
 
         /// Begin character selection
         yield return StartCoroutine(EventCoroutine(null, characterSelectionEventPrefab, true));
