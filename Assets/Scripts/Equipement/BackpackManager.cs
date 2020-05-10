@@ -37,7 +37,7 @@ public class BackpackManager : Singleton<BackpackManager>
 
     public Backpack Backpack { get; private set; }
 
-
+    [Button]
     public void SpawnBackpack(Character character)
     {
         /// Hide previously shown backpack

@@ -58,6 +58,10 @@ public class RestEvent : EventBase
         while (characters.Count > 0)
         {
             characters.RemoveRandom(out Character character);
+            if (character.IsDead() == true)
+            {
+                continue;
+            }
             seats.RemoveRandom(out Seat seat);
             restHudController.BindStats(character, seatsCopy.IndexOf(seat));
             seat.SetCharacter(character);

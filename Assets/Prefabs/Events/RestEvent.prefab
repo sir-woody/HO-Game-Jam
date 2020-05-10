@@ -1210,10 +1210,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6470346850520016258}
-  - {fileID: 6534958269168116125}
-  - {fileID: 7865686850793952225}
-  - {fileID: 5680531920297375873}
+  - {fileID: 6712956087861988772}
+  - {fileID: 6796681975497951675}
+  - {fileID: 7623177273907592135}
+  - {fileID: 5347798592084562087}
   m_Father: {fileID: 6470346850084235820}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1726,8 +1726,8 @@ RectTransform:
   m_Father: {fileID: 6324085110190815228}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.08942013, y: 0}
-  m_AnchorMax: {x: 0.91057986, y: 0.82111114}
+  m_AnchorMin: {x: 0.049083274, y: 0.049150623}
+  m_AnchorMax: {x: 0.95091665, y: 0.9508549}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2164,7 +2164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2150bd3dd64b6fe45bdd4fee208e1f8f, type: 3}
---- !u!224 &5680531920297375873 stripped
+--- !u!224 &5347798592084562087 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 351984265625299232, guid: 2150bd3dd64b6fe45bdd4fee208e1f8f,
     type: 3}
@@ -2349,7 +2349,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2150bd3dd64b6fe45bdd4fee208e1f8f, type: 3}
---- !u!224 &6470346850520016258 stripped
+--- !u!224 &6712956087861988772 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 351984265625299232, guid: 2150bd3dd64b6fe45bdd4fee208e1f8f,
     type: 3}
@@ -2559,7 +2559,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2150bd3dd64b6fe45bdd4fee208e1f8f, type: 3}
---- !u!224 &6534958269168116125 stripped
+--- !u!224 &6796681975497951675 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 351984265625299232, guid: 2150bd3dd64b6fe45bdd4fee208e1f8f,
     type: 3}
@@ -2769,7 +2769,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2150bd3dd64b6fe45bdd4fee208e1f8f, type: 3}
---- !u!224 &7865686850793952225 stripped
+--- !u!224 &7623177273907592135 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 351984265625299232, guid: 2150bd3dd64b6fe45bdd4fee208e1f8f,
     type: 3}

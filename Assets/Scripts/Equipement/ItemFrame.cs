@@ -29,6 +29,7 @@ public class ItemFrame : MonoBehaviour, IPointerDownHandler
     private GraphicRaycaster raycaster;
     private GrabData grab = null;
     private bool draggable;
+    private bool isGrabbed = false;
     private bool clickable => !draggable && TeamManager.Instance.CanEquip();
 
     public Image ItemImage => itemImage;
@@ -39,6 +40,7 @@ public class ItemFrame : MonoBehaviour, IPointerDownHandler
         this.item = item;
         this.raycaster = raycaster;
         this.draggable = draggable;
+        this.isGrabbed = false;
         if (item == null)
         {
             canvasGroup.blocksRaycasts = false;
@@ -66,6 +68,7 @@ public class ItemFrame : MonoBehaviour, IPointerDownHandler
             offset = Camera.main.ScreenToWorldPoint(eventData.position) - transform.position,
             emptyFramePlaceholder = backpack.AddEmptyFrameAt(transform.GetSiblingIndex()),
         };
+        isGrabbed = true;
         canvasGroup.blocksRaycasts = false;
         layoutElement.ignoreLayout = true;
     }
@@ -85,7 +88,7 @@ public class ItemFrame : MonoBehaviour, IPointerDownHandler
         {
             if (draggable)
             {
-                if (Input.GetMouseButtonUp(0) == true)
+                if (Input.GetMouseButtonUp(0) == true && isGrabbed == true)
                 {
                     Vector3 mousePosition = Input.mousePosition;
                     List<RaycastResult> results = new List<RaycastResult>();
@@ -120,11 +123,11 @@ public class ItemFrame : MonoBehaviour, IPointerDownHandler
                     }
                 }
 
-                if (Input.GetMouseButton(0) == false)
+                if (Input.GetMouseButton(0) == false || isGrabbed == false)
                 {
                     CancelGrab();
                 }
-                else
+                else if (isGrabbed == true)
                 {
                     Vector3 mousePosition = Input.mousePosition;
                     Vector3 position = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -147,10 +150,12 @@ public class ItemFrame : MonoBehaviour, IPointerDownHandler
 
     private void CancelGrab()
     {
+        isGrabbed = false;
+        canvasGroup.blocksRaycasts = true;
         Vector3 position = grab.emptyFramePlaceholder.transform.position;
         position.z = 0;
         transform.position = Vector3.Lerp(transform.position, position, lerpRatio);
-        if (Vector3.Distance(transform.position, position) < 0.1f)
+        if (Vector3.Distance(transform.position, position) < 0.001f)
         {
             ReturnFromGrab();
         }
@@ -160,7 +165,6 @@ public class ItemFrame : MonoBehaviour, IPointerDownHandler
     {
         backpack.RemoveEmptyFrame(grab.emptyFramePlaceholder);
         layoutElement.ignoreLayout = false;
-        canvasGroup.blocksRaycasts = true;
         grab = null;
     }
     private void RemoveFromBackpack()
