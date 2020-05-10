@@ -116,7 +116,7 @@ public class Stat
     {
         value += startingFull
             ? Math.Min(amount, MaxValue - value)
-            : -Math.Max(amount, value);
+            : -Math.Min(amount, value);
         OnChange?.Invoke(value, MaxValue);
     }
 
