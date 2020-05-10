@@ -8,7 +8,8 @@ public class StatBar : MonoBehaviour
     [SerializeField] Slider _slider;
     [SerializeField] TMP_Text statNameField;
     [SerializeField] Image statIcon;
-
+    [SerializeField] Image fill;
+    [SerializeField] Gradient _color = default;
     internal void Initialize(Stat stat)
     {
         _stat = stat;
@@ -22,6 +23,14 @@ public class StatBar : MonoBehaviour
     {
         _slider.maxValue = maxValue;
         _slider.value = value;
+        if (_stat.startingFull == true)
+        {
+            fill.color = _color.Evaluate(value / maxValue);
+        }
+        else
+        {
+            fill.color = _color.Evaluate(1 - value / maxValue);
+        }
     }
 
     void OnDestory()

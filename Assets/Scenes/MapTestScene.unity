@@ -155,7 +155,7 @@ MonoBehaviour:
   backpackSlot: {fileID: 1762448043}
   backpackSpawnOffset: {x: 0, y: -100, z: 0}
   raycaster: {fileID: 1949463618}
-  backpackSound: {fileID: 0}
+  backpackSound: {fileID: 8300000, guid: bfc68c25e601bfa46a5c999d3468012b, type: 3}
   itemPrefabs:
     keyData: 0a000000140000001e00000028000000320000003c000000
     valueData:
@@ -582,7 +582,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 0
+  m_Spacing: 10
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -726,7 +726,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 0
+  m_Spacing: 10
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -1047,7 +1047,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 0
+  m_Spacing: 10
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -1480,7 +1480,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 0
+  m_Spacing: 10
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
