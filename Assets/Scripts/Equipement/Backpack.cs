@@ -11,6 +11,8 @@ public class Backpack : MonoBehaviour
     [SerializeField]
     private ItemFrame itemFramePrefab = null;
     [SerializeField]
+    private Image backpackOwnerImage = null;
+    [SerializeField]
     private GridLayoutGroup gridLayoutGroup = null;
 
     private List<ItemFrame> itemFrames = new List<ItemFrame>();
@@ -19,6 +21,7 @@ public class Backpack : MonoBehaviour
     public void Show(Character character, GraphicRaycaster raycaster)
     {
         this.Owner = character;
+        backpackOwnerImage.sprite = character.GetSprite(Character.SpriteType.FrameDefault);
         Item[] items = character.GetItems();
         foreach (Item item in items)
         {

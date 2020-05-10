@@ -6,33 +6,32 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     [Serializable]
-    public class SpriteGroup
-    {
-        public Sprite idle;
-        public Sprite hoover;
-        public Sprite dead;
-    }
+    public class SpriteGroupSerializedDictionary : SerializedDictionary<SpriteType, Sprite> { }
+
     public enum SpriteType
     {
         Idle,
         Hoover,
-        Dead
+
+        FrameDefault,
+        FrameDeath,
+        FrameWarning0,
+        FrameWarning1,
     }
 
     public new string name;
     public string description;
-    public List<SpriteGroup> sprites;
-    Stat[] stats;
-    TraitController TraitController;
-    VoiceController VoiceController;
+    public SpriteGroupSerializedDictionary sprites;
+    private Stat[] stats;
+    private TraitController TraitController;
+    private VoiceController VoiceController;
+    private bool isDead;
+    [SerializeField] private float baseSpeed = 1;
+    [SerializeField] private float minSpeed = .1f;
+    [SerializeField] private GameObject equipment;
+    [SerializeField] private List<BackpackManager.ItemType> startingItems = null;
 
-    bool isDead;
-    [SerializeField] float baseSpeed = 1;
-    [SerializeField] float minSpeed = .1f;
-    [SerializeField] GameObject equipment;
-    [SerializeField] List<BackpackManager.ItemType> startingItems = null;
-
-    void Start()
+    private void Start()
     {
         stats = GetComponent<StatController>().stats;
         //traits = GetComponents<Trait>();
@@ -46,7 +45,10 @@ public class Character : MonoBehaviour
     }
 
     //Item management
-    public Item[] GetItems() => equipment.GetComponentsInChildren<Item>(true);
+    public Item[] GetItems()
+    {
+        return equipment.GetComponentsInChildren<Item>(true);
+    }
 
     public void Equip(Item item)
     {
@@ -63,14 +65,23 @@ public class Character : MonoBehaviour
     }
 
     //Stats
-    internal Stat GetStat(string name) => stats.FirstOrDefault(x => x.name == name);
+    internal Stat GetStat(string name)
+    {
+        return stats.FirstOrDefault(x => x.name == name);
+    }
 
-    internal float GetStatPercentage(string name) => GetStat(name)?.GetPercentage() ?? 0f;
+    internal float GetStatPercentage(string name)
+    {
+        return GetStat(name)?.GetPercentage() ?? 0f;
+    }
 
-    internal float GetCurrentSpeed() => Mathf.Clamp(baseSpeed * GetStatPercentage("Zdrowie") * GetStatPercentage("Energia"), minSpeed, 2 * baseSpeed);
+    internal float GetCurrentSpeed()
+    {
+        return Mathf.Clamp(baseSpeed * GetStatPercentage("Zdrowie") * GetStatPercentage("Energia"), minSpeed, 2 * baseSpeed);
+    }
 
     //Deplete stats during travel
-    bool isClimbing;
+    private bool isClimbing;
     public void StartClimbing()
     {
         isClimbing = true;
@@ -79,18 +90,19 @@ public class Character : MonoBehaviour
     {
         isClimbing = false;
     }
-    void Update()
+
+    private void Update()
     {
         if (isClimbing)
         {
             TraitController.ApplyEffects(EffectType.Continous);
 
-            foreach (var stat in stats)
+            foreach (Stat stat in stats)
             {
                 stat.Deplete();
             }
 
-            foreach (var item in GetItems().Where(x => x.continousEffect))
+            foreach (Item item in GetItems().Where(x => x.continousEffect))
             {
                 item.Use(this);
             }
@@ -99,7 +111,10 @@ public class Character : MonoBehaviour
         //TODO remove after backpack is implemented
         GetItems().ToList().ForEach(Equip);
 
-        if (GetStat("Zdrowie").IsDepleted()) Die();
+        if (GetStat("Zdrowie").IsDepleted())
+        {
+            Die();
+        }
     }
 
     private void Die()
@@ -110,7 +125,10 @@ public class Character : MonoBehaviour
         //Debug.LogError($"{nameof(Die)} not implemented");
     }
 
-    public bool IsDead() => isDead;
+    public bool IsDead()
+    {
+        return isDead;
+    }
 
     /// <summary>
     /// Character was clicked during <see cref="RestEvent"/>.
@@ -135,13 +153,6 @@ public class Character : MonoBehaviour
     /// </summary>
     public Sprite GetSprite(SpriteType spriteType)
     {
-        int spriteIndex = 0;
-        switch (spriteType)
-        {
-            case SpriteType.Idle: return sprites[spriteIndex].idle;
-            case SpriteType.Hoover: return sprites[spriteIndex].hoover;
-            case SpriteType.Dead: return sprites[spriteIndex].dead;
-            default: return null;
-        }
+        return sprites[spriteType];
     }
 }
