@@ -28,14 +28,17 @@ public class ItemFrame : MonoBehaviour, IPointerDownHandler
     private Backpack backpack = null;
     private GraphicRaycaster raycaster;
     private GrabData grab = null;
+    private bool draggable;
+    private bool clickable => !draggable && TeamManager.Instance.CanEquip();
 
     public Image ItemImage => itemImage;
 
-    public void Initialize(Backpack backpack, Item item, GraphicRaycaster raycaster)
+    public void Initialize(Backpack backpack, Item item, GraphicRaycaster raycaster, bool draggable = true)
     {
         this.backpack = backpack;
         this.item = item;
         this.raycaster = raycaster;
+        this.draggable = draggable;
         if (item == null)
         {
             canvasGroup.blocksRaycasts = false;
@@ -49,6 +52,11 @@ public class ItemFrame : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (!draggable)
+        {
+            eventData.position = transform.position;
+        }
+
         if (grab != null)
         {
             ReturnFromGrab();
@@ -64,56 +72,87 @@ public class ItemFrame : MonoBehaviour, IPointerDownHandler
 
     private void Update()
     {
+        if (!clickable)
+        {
+            ItemImage.GetComponent<Image>().color = new Color(60, 60, 60);
+        }
+        else
+        {
+            ItemImage.GetComponent<Image>().color = Color.white;
+        }
+
         if (grab != null)
         {
-            if (Input.GetMouseButtonUp(0) == true)
+            if (draggable)
             {
-                Vector3 mousePosition = Input.mousePosition;
-                List<RaycastResult> results = new List<RaycastResult>();
-                raycaster.Raycast(new PointerEventData(null) { position = mousePosition }, results);
-
-                foreach (RaycastResult item in results)
+                if (Input.GetMouseButtonUp(0) == true)
                 {
-                    Seat seat = item.gameObject.GetComponent<Seat>();
-                    if (seat != null && seat.Character != null)
+                    Vector3 mousePosition = Input.mousePosition;
+                    List<RaycastResult> results = new List<RaycastResult>();
+                    raycaster.Raycast(new PointerEventData(null) { position = mousePosition }, results);
+
+                    foreach (RaycastResult item in results)
                     {
-                        if (seat.Character == this.item.Owner)
+                        Seat seat = item.gameObject.GetComponent<Seat>();
+                        if (seat != null && seat.Character != null)
                         {
-                            Debug.Log($"Character {seat.Character.name} tries to use the item {this.item.name}");
-                            BackpackManager.Instance.UseItem(this.item);
-                            RemoveFromBackpack();
+                            if (seat.Character == this.item.Owner)
+                            {
+                                Debug.Log($"Character {seat.Character.name} tries to use the item {this.item.name}");
+                                BackpackManager.Instance.UseItem(this.item);
+                                RemoveFromBackpack();
+                            }
+                            else
+                            {
+                                if (seat.Character.CanEquip())
+                                {
+                                    Debug.Log($"Moved item {this.item.name} from {this.item.Owner.name} to {seat.Character.name}");
+                                    BackpackManager.Instance.MoveItem(this.item.Owner, seat.Character, this.item);
+                                    RemoveFromBackpack();
+                                }
+                                else
+                                {
+                                    CancelGrab();
+                                }
+                            }
+                            return;
                         }
-                        else
-                        {
-                            Debug.Log($"Moved item {this.item.name} from {this.item.Owner.name} to {seat.Character.name}");
-                            BackpackManager.Instance.MoveItem(this.item.Owner, seat.Character, this.item);
-                            RemoveFromBackpack();
-                        }
-                        return;
                     }
                 }
-            }
 
-            if (Input.GetMouseButton(0) == false)
-            {
-                Vector3 position = grab.emptyFramePlaceholder.transform.position;
-                position.z = 0;
-                transform.position = Vector3.Lerp(transform.position, position, lerpRatio);
-                if (Vector3.Distance(transform.position, position) < 0.1f)
+                if (Input.GetMouseButton(0) == false)
                 {
-                    ReturnFromGrab();
+                    CancelGrab();
                 }
+                else
+                {
+                    Vector3 mousePosition = Input.mousePosition;
+                    Vector3 position = Camera.main.ScreenToWorldPoint(mousePosition);
+                    position.z = 0;
+                    transform.position = Vector3.Lerp(transform.position, position, lerpRatio);
+                }
+            }
+            else if(clickable)
+            {
+                TeamManager.Instance.Equip(this.item);
+                RemoveFromBackpack();
+                ReturnFromGrab();
             }
             else
             {
-                Vector3 mousePosition = Input.mousePosition;
-                Vector3 position = Camera.main.ScreenToWorldPoint(mousePosition);
-                position.z = 0;
-                transform.position = Vector3.Lerp(transform.position, position, lerpRatio);
+                CancelGrab();
             }
+        }
+    }
 
-
-
+    private void CancelGrab()
+    {
+        Vector3 position = grab.emptyFramePlaceholder.transform.position;
+        position.z = 0;
+        transform.position = Vector3.Lerp(transform.position, position, lerpRatio);
+        if (Vector3.Distance(transform.position, position) < 0.1f)
+        {
+            ReturnFromGrab();
         }
     }
 

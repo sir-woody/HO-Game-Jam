@@ -51,6 +51,7 @@ MonoBehaviour:
   name: 
   description: 
   sprites: []
+  backpackSize: 3
   baseSpeed: 1
   minSpeed: 0.1
   equipment: {fileID: 4060027099972010804}

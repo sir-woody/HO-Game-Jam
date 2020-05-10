@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class Character : MonoBehaviour
@@ -22,19 +23,20 @@ public class Character : MonoBehaviour
     public new string name;
     public string description;
     public SpriteGroupSerializedDictionary sprites;
-    private Stat[] stats;
-    private TraitController TraitController;
-    private VoiceController VoiceController;
-    private bool isDead;
-    [SerializeField] private float baseSpeed = 1;
-    [SerializeField] private float minSpeed = .1f;
-    [SerializeField] private GameObject equipment;
-    [SerializeField] private List<BackpackManager.ItemType> startingItems = null;
+    Stat[] stats;
+    TraitController TraitController;
+    VoiceController VoiceController;
 
-    private void Start()
+    bool isDead;
+    [SerializeField] float backpackSize = 10;
+    [SerializeField] float baseSpeed = 1;
+    [SerializeField] float minSpeed = .1f;
+    [SerializeField] GameObject equipment;
+    [SerializeField] List<BackpackManager.ItemType> startingItems = null;
+
+    void Start()
     {
         stats = GetComponent<StatController>().stats;
-        //traits = GetComponents<Trait>();
         VoiceController = GetComponent<VoiceController>();
         TraitController = GetComponent<TraitController>();
         TraitController.ApplyEffects(EffectType.Initial);
@@ -45,18 +47,14 @@ public class Character : MonoBehaviour
     }
 
     //Item management
-    public Item[] GetItems()
-    {
-        return equipment.GetComponentsInChildren<Item>(true);
-    }
-
+    public bool CanEquip() => GetItems().Count() < backpackSize;
+    public Item[] GetItems() => equipment.GetComponentsInChildren<Item>(true);
     public void Equip(Item item)
     {
         item.Owner = this;
         item.gameObject.transform.parent = equipment.transform;
         item.gameObject.SetActive(false);
     }
-
     public void Unequip(Item item)
     {
         item.Owner = null;

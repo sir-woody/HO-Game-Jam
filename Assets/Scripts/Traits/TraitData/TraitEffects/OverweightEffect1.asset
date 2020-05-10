@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAffectingOthers: 0
   effectType: 0
-  affectedStat: Stamina
+  affectedStat: Energia
   effectValue: 25
   frequency: 0
