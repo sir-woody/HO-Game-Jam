@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class RestEvent : EventBase
 {
+
     [SerializeField]
-    private Seat seatBottomLeft = null;
-    [SerializeField]
-    private Seat seatBottomRight = null;
-    [SerializeField]
-    private Seat seatTopLeft = null;
-    [SerializeField]
-    private Seat seatTopRight = null;
+    private Seat.SeatSerializedDictionary seats = null;
 
     [Space]
     [SerializeField]
@@ -50,16 +45,13 @@ public class RestEvent : EventBase
 
     public override void Show()
     {
-        HudController restHudController = GetComponentInChildren<HudController>();
+        StatManager.Instance.Show();
         List<Character> characters = new List<Character>(TeamManager.Instance.characters);
-        List<Seat> seats = new List<Seat>()
+
+        foreach (KeyValuePair<Seat.SeatPosition, Seat> pair in seats)
         {
-            seatBottomLeft,
-            seatBottomRight,
-            seatTopLeft,
-            seatTopRight,
-        };
-        List<Seat> seatsCopy = new List<Seat>(seats);
+            pair.Value.gameObject.SetActive(false);
+        }
 
         while (characters.Count > 0)
         {
@@ -68,18 +60,15 @@ public class RestEvent : EventBase
             {
                 continue;
             }
-            seats.RemoveRandom(out Seat seat);
-            restHudController.BindStats(character, seatsCopy.IndexOf(seat));
+            Seat seat = seats[character.seatPosition];
+            seat.gameObject.SetActive(true);
             seat.SetCharacter(character);
         }
 
-        for (int i = 0; i < seats.Count; i++)
-        {
-            seats[i].gameObject.SetActive(false);
-        }
     }
     public override void Hide()
     {
+        StatManager.Instance.Hide();
         BackpackManager.Instance.HideBackpack();
     }
 

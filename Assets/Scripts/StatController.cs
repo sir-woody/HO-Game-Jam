@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 [RequireComponent(typeof(Character))]
@@ -8,9 +7,9 @@ public class StatController : MonoBehaviour
 {
     [SerializeField] internal Stat[] stats;
 
-    void Start()
+    public void Initialize()
     {
-        foreach (var stat in stats)
+        foreach (Stat stat in stats)
         {
             stat.Initialize(stats);
         }
@@ -23,48 +22,71 @@ public class Stat
     public string name;
     public string description;
     public string overflowTo;
-    Stat overflowToStat;
-    float value;
-    [SerializeField] float regeneration = 70f;
-    [SerializeField] float maxValue = 100f;
-    float maxValueModifier;
+    private Stat overflowToStat;
+    private float value;
+    [SerializeField] private float regeneration = 70f;
+    [SerializeField] private float maxValue = 100f;
+    private float maxValueModifier;
     [SerializeField] internal float usePerSecond = 1f;
     [SerializeField] internal bool startingFull;
     private bool isInitialized;
-    [SerializeField] Sprite sprite;
+    [SerializeField] private Sprite sprite;
 
     public event Action<float, float> OnChange;
 
-    public Sprite GetSprite() => sprite;
+    public Sprite GetSprite()
+    {
+        return sprite;
+    }
 
     internal void Initialize(Stat[] stats)
     {
-        if (startingFull) value = MaxValue;
+        if (startingFull)
+        {
+            value = MaxValue;
+        }
+
         overflowToStat = stats.FirstOrDefault(x => x.name == overflowTo);
         OnChange?.Invoke(value, MaxValue);
         isInitialized = true;
     }
 
-    float MaxValue => maxValue + maxValueModifier;
+    private float MaxValue
+    {
+        get
+        {
+            return maxValue + maxValueModifier;
+        }
+    }
 
-    public float GetPercentage() => value / MaxValue;
+    public float GetPercentage()
+    {
+        return value / MaxValue;
+    }
 
     internal void ApplyTraitEffect(float effect, EffectType traitType, bool resetStatValue = false)
     {
         if (traitType == EffectType.Initial)
         {
             maxValueModifier += effect;
-            if (resetStatValue) ResetStat();
+            if (resetStatValue)
+            {
+                ResetStat();
+            }
         }
         if (traitType == EffectType.Continous)
         {
-            if (resetStatValue) ResetStat();
+            if (resetStatValue)
+            {
+                ResetStat();
+            }
+
             value += effect;
         }
         OnChange?.Invoke(value, MaxValue);
     }
 
-    void ResetStat()
+    private void ResetStat()
     {
         if (startingFull)
         {
@@ -104,12 +126,18 @@ public class Stat
         OnChange?.Invoke(value, MaxValue);
     }
 
-    internal bool IsDepleted() => isInitialized && startingFull ? value <= 0 : value >= maxValue;
+    internal bool IsDepleted()
+    {
+        return isInitialized && startingFull ? value <= 0 : value >= maxValue;
+    }
 
     internal void Deplete()
     {
-        if (usePerSecond == 0) return;
-        
+        if (usePerSecond == 0)
+        {
+            return;
+        }
+
         Deplete(usePerSecond * Time.deltaTime);
     }
 

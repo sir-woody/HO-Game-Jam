@@ -23,6 +23,7 @@ public class Character : MonoBehaviour
     public new string name;
     public string description;
     public SpriteGroupSerializedDictionary sprites;
+    public Seat.SeatPosition seatPosition;
     Stat[] stats;
     TraitController TraitController;
     VoiceController VoiceController;
@@ -34,9 +35,11 @@ public class Character : MonoBehaviour
     [SerializeField] GameObject equipment;
     [SerializeField] List<BackpackManager.ItemType> startingItems = null;
 
-    void Start()
+    public void Initialize()
     {
-        stats = GetComponent<StatController>().stats;
+        StatController statController = GetComponent<StatController>();
+        statController.Initialize();
+        this.stats = statController.stats;
         VoiceController = GetComponent<VoiceController>();
         TraitController = GetComponent<TraitController>();
         TraitController.ApplyEffects(EffectType.Initial);

@@ -18,10 +18,12 @@ public class CharacterSelectionEvent : EventBase
         List<Character> availableCharacters = TeamManager.Instance.GetPrefabs();
         for (int i = 0; i < Mathf.Min(availableCharacters.Count, maxTeamSize); i++)
         {
-            Character character = availableCharacters[i];
-            Character characterInstance = Instantiate(character);
+            Character characterPrefab = availableCharacters[i];
+            Character characterInstance = Instantiate(characterPrefab);
+            characterInstance.seatPosition = (Seat.SeatPosition)i;
+            characterInstance.Initialize();
             TeamManager.Instance.characters.Add(characterInstance);
-            gameplayManager.HudController.BindStats(characterInstance, i);
+            StatManager.Instance.BindStats(characterInstance);
         }
 
         Debug.Log("TODO: add character selection implementation");

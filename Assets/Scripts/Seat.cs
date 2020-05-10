@@ -8,6 +8,17 @@ using UnityEngine.UI;
 
 public class Seat : MonoBehaviour
 {
+    [Serializable]
+    public class SeatSerializedDictionary : SerializedDictionary<Seat.SeatPosition, Seat> { }
+
+    public enum SeatPosition
+    {
+        TopLeft,
+        TopRight,
+        BottomLeft,
+        BottomRight,
+    }
+
     [SerializeField]
     private Image image = null;
     [SerializeField]

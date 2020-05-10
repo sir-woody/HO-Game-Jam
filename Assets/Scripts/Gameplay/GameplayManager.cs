@@ -14,10 +14,6 @@ public class GameplayManager : Singleton<GameplayManager>
         public int selectedCrossroad;
     }
 
-    [Header("Canvas")]
-    [SerializeField]
-    private HudController hudController = null;
-
     [Header("Events")]
     [SerializeField]
     private RectTransform eventParent = null;
@@ -41,13 +37,7 @@ public class GameplayManager : Singleton<GameplayManager>
     private float distancePerSecond = 1;
     private bool restWasIssued;
 
-    public HudController HudController
-    {
-        get
-        {
-            return hudController;
-        }
-    }
+
 
 
     public void StartGame()
@@ -216,7 +206,7 @@ public class GameplayManager : Singleton<GameplayManager>
         }
 
         mapManager.Hide();
-        hudController.Hide();
+        StatManager.Instance.Hide();
         eventObject.gameObject.SetActive(true);
         eventObject.Show();
         yield return StartCoroutine(FadeManager.Instance.FadeIn());
@@ -234,7 +224,7 @@ public class GameplayManager : Singleton<GameplayManager>
         eventObject.Hide();
         eventObject.gameObject.SetActive(false);
         mapManager.Show();
-        hudController.Show();
+        StatManager.Instance.Show();
         yield return StartCoroutine(FadeManager.Instance.FadeIn());
 
         eventObject.PostHide();
