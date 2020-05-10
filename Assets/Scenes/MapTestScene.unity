@@ -179,6 +179,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &98280498 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1708103983, guid: 8040e7f026052644e99e9e4a5b3b2d43,
+    type: 3}
+  m_PrefabInstance: {fileID: 7165129438572425464}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &98280504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98280498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 326ad6d05c0472c47a0473cec9e52b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: "Wspinaj si\u0119"
+  toolTipPrefab: {fileID: 3234914953724897287, guid: 714fc88b42bbef741be53f8c949351da,
+    type: 3}
+  tooltipDelay: 1
 --- !u!1 &155160108
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +267,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &229978882 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8856250477288631130, guid: 70775e346e89f6640a3b7f6dfd44e549,
+    type: 3}
+  m_PrefabInstance: {fileID: 8856250476232085255}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &229978887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229978882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 326ad6d05c0472c47a0473cec9e52b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: "Zacznij gr\u0119"
+  toolTipPrefab: {fileID: 3234914953724897287, guid: 714fc88b42bbef741be53f8c949351da,
+    type: 3}
+  tooltipDelay: 1
 --- !u!224 &287217171 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8856250475946449172, guid: 70775e346e89f6640a3b7f6dfd44e549,
@@ -281,6 +325,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &492007449 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 275449190, guid: 8040e7f026052644e99e9e4a5b3b2d43,
+    type: 3}
+  m_PrefabInstance: {fileID: 7165129438572425464}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &492007455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492007449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 326ad6d05c0472c47a0473cec9e52b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: "Zawr\xF3\u0107"
+  toolTipPrefab: {fileID: 3234914953724897287, guid: 714fc88b42bbef741be53f8c949351da,
+    type: 3}
+  tooltipDelay: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,6 +510,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1102256731 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3068381291708821289, guid: 8040e7f026052644e99e9e4a5b3b2d43,
+    type: 3}
+  m_PrefabInstance: {fileID: 7165129438572425464}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1102256737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102256731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 326ad6d05c0472c47a0473cec9e52b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Odpocznij
+  toolTipPrefab: {fileID: 3234914953724897287, guid: 714fc88b42bbef741be53f8c949351da,
+    type: 3}
+  tooltipDelay: 1
 --- !u!1 &1394374385
 GameObject:
   m_ObjectHideFlags: 0

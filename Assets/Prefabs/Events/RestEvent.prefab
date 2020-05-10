@@ -638,6 +638,7 @@ GameObject:
   - component: {fileID: 4399582037141123073}
   - component: {fileID: 4263479958616010963}
   - component: {fileID: 3938777531371834343}
+  - component: {fileID: 1741599258795483647}
   m_Layer: 5
   m_Name: PerformActions
   m_TagString: Untagged
@@ -755,6 +756,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1741599258795483647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5732439446426967906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 326ad6d05c0472c47a0473cec9e52b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Odpocznij i udaj sie na poszukiwania
+  toolTipPrefab: {fileID: 3234914953724897287, guid: 714fc88b42bbef741be53f8c949351da,
+    type: 3}
+  tooltipDelay: 1
 --- !u!1 &6281780892737918272
 GameObject:
   m_ObjectHideFlags: 0
@@ -1580,6 +1597,7 @@ GameObject:
   - component: {fileID: 6594057789135170356}
   - component: {fileID: 6201795163661649214}
   - component: {fileID: 1036408373736079391}
+  - component: {fileID: 2405722407953463007}
   m_Layer: 5
   m_Name: Exit
   m_TagString: Untagged
@@ -1697,3 +1715,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2405722407953463007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7214819676812449015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 326ad6d05c0472c47a0473cec9e52b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: "Zako\u0144cz przystanek"
+  toolTipPrefab: {fileID: 3234914953724897287, guid: 714fc88b42bbef741be53f8c949351da,
+    type: 3}
+  tooltipDelay: 1
