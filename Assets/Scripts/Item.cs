@@ -13,20 +13,16 @@ public class Item : MonoBehaviour
 
     public Character Owner { get; set; }
 
-    public void Use(Character character)
+    public void UseOn(Character character)
     {
         var value = continousEffect ? Time.deltaTime * effect : effect;
         character.GetStat(affectedStat).Replenish(value);
-        isUsed = true;
-    }
-
-    void LateUpdate()
-    {
-        if (expires && isUsed)
+        if (expires)
         {
             Destroy(this.gameObject);
         }
     }
+    
     public bool CanUse() => !isUsed;
     public void MakeUsable() => isUsed = false;
     public Sprite GetSprite() => sprite;

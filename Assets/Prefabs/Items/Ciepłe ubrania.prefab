@@ -50,7 +50,7 @@ MonoBehaviour:
   continousEffect: 1
   expires: 0
   weight: 7
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 3857c03de38615b4aae071378a6491f8, type: 3}
 --- !u!1 &9119264910971944414
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class HudController : MonoBehaviour
     [SerializeField] GameObject statBarPrefab;
     [Space]
     [SerializeField] GameObject[] statContainers;
+    [SerializeField] bool displayCharactersNames;
 
     void Awake()
     {
@@ -17,10 +18,13 @@ public class HudController : MonoBehaviour
 
     public void BindStats(Character character, int statContainerId)
     {
-        var characterNameTextField = statContainers[statContainerId].transform.parent.GetComponentInChildren<TMP_Text>();
-        if (characterNameTextField != null)
+        if (displayCharactersNames)
         {
-            characterNameTextField.text = character.name;
+            var characterNameTextField = statContainers[statContainerId].transform.parent.GetComponentInChildren<TMP_Text>();
+            if (characterNameTextField != null)
+            {
+                characterNameTextField.text = character.name;
+            }
         }
 
         var stats = character.GetComponent<StatController>().stats;

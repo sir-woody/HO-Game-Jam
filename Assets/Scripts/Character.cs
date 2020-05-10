@@ -101,7 +101,7 @@ public class Character : MonoBehaviour
 
             foreach (Item item in GetItems().Where(x => x.continousEffect))
             {
-                item.Use(this);
+                item.UseOn(this);
             }
         }
         //temporary solution to test putting items into backpack during debuging

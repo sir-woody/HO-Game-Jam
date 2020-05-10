@@ -98,9 +98,16 @@ public class ItemFrame : MonoBehaviour, IPointerDownHandler
                         {
                             if (seat.Character == this.item.Owner)
                             {
-                                Debug.Log($"Character {seat.Character.name} tries to use the item {this.item.name}");
-                                BackpackManager.Instance.UseItem(this.item);
-                                RemoveFromBackpack();
+                                if (this.item.CanUse())
+                                {
+                                    Debug.Log($"Character {seat.Character.name} tries to use the item {this.item.name}");
+                                    this.item.UseOn(seat.Character);
+                                    RemoveFromBackpack();
+                                }
+                                else
+                                {
+                                    CancelGrab();
+                                }
                             }
                             else
                             {
@@ -165,6 +172,7 @@ public class ItemFrame : MonoBehaviour, IPointerDownHandler
     }
     private void RemoveFromBackpack()
     {
+        print("RemoveFromBackpack");
         backpack.RemoveEmptyFrame(grab.emptyFramePlaceholder);
         Destroy(this.gameObject);
     }

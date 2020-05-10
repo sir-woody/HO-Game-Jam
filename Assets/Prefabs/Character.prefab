@@ -50,7 +50,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   description: 
-  sprites: []
+  sprites:
+    keyData: 
+    valueData: []
   backpackSize: 3
   baseSpeed: 1
   minSpeed: 0.1
@@ -99,18 +101,21 @@ MonoBehaviour:
     maxValue: 100
     usePerSecond: 0
     startingFull: 1
+    sprite: {fileID: 21300000, guid: 2229332588b0646438fc8e6482761395, type: 3}
   - name: Energia
     description: 
     overflowTo: Zdrowie
     maxValue: 100
     usePerSecond: 7
     startingFull: 1
+    sprite: {fileID: 21300000, guid: 6de6fbb49b361574ba6427d2631dea3d, type: 3}
   - name: "G\u0142\xF3d"
     description: 
     overflowTo: Zdrowie
     maxValue: 100
     usePerSecond: 5
     startingFull: 0
+    sprite: {fileID: 21300000, guid: 03963f524dda9fe4ba124e1f307fc30e, type: 3}
 --- !u!114 &150105089965149655
 MonoBehaviour:
   m_ObjectHideFlags: 0
