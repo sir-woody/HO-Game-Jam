@@ -11,8 +11,6 @@ public class MainMenu : MonoBehaviour
 {
 
     [SerializeField]
-    private GameplayManager gameplayManager = null;
-    [SerializeField]
     private CanvasGroup menuVisuals = null;
     [SerializeField]
     private Button startGameButton = null;
@@ -43,6 +41,6 @@ public class MainMenu : MonoBehaviour
         SoundManager.Instance.PlaySound(SoundManager.SoundType.Event, SoundManager.Instance.EventSounds[random]);
         yield return StartCoroutine(FadeManager.Instance.FadeOut(2));
         menuVisuals.gameObject.SetActive(false);
-        gameplayManager.StartGame();
+        GameplayManager.Instance.StartGame();
     }
 }

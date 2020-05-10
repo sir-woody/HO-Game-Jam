@@ -15,23 +15,24 @@ public class SoundManager : Singleton<SoundManager>
     {
         Inside,
         Outside,
+        WalkOnSnow,
 
-        Sound_Music         = 0x0000100,
-        Sound_Voice         = 0x0000200,
-        Sound_Event         = 0x0000300,
+        Music         = 0x0000100,
+        Voice         = 0x0000200,
+        Event         = 0x0000300,
     }
     public enum AmbientType
     {
         Undefined = -1,
-        Unchanged = -2,
         Inside = AudioType.Inside,
         Outside = AudioType.Outside,
+        WalkOnSnow = AudioType.WalkOnSnow,
     }
     public enum SoundType
     {
-        Music = AudioType.Sound_Music,
-        Voice = AudioType.Sound_Voice,
-        Event = AudioType.Sound_Event,
+        Music = AudioType.Music,
+        Voice = AudioType.Voice,
+        Event = AudioType.Event,
     }
 
     [Serializable]
@@ -44,6 +45,8 @@ public class SoundManager : Singleton<SoundManager>
         [HideInInspector]
         public float currentVolume;
         public float fadeDuration;
+        [HideInInspector]
+        public float currentFadeDuration;
     }
 
     [SerializeField]
@@ -63,7 +66,8 @@ public class SoundManager : Singleton<SoundManager>
     public AudioClip MainTheme => mainTheme;
     public IReadOnlyList<AudioClip> EventSounds => eventSounds;
 
-    private AmbientType currentAmbientType = AmbientType.Undefined;
+    //private AmbientType currentAmbientType = AmbientType.Undefined;
+    private Dictionary<AmbientType, SoundModel> playingAmbients = new Dictionary<AmbientType, SoundModel>();
 
 
     private void Update()
@@ -73,30 +77,34 @@ public class SoundManager : Singleton<SoundManager>
         {
             AudioType type = list[i];
             SoundModel model = soundModelDictionary[type];
-            if (model.fadeDuration <= 0)
+            if (model.currentFadeDuration <= 0)
             {
                 model.currentVolume = model.targetVolume * this.masterVolume * model.maxVolume;
             }
             else
             {
-                model.currentVolume = Mathf.MoveTowards(model.currentVolume, model.targetVolume * this.masterVolume * model.maxVolume, Time.deltaTime / model.fadeDuration);
+                model.currentVolume = Mathf.MoveTowards(model.currentVolume, model.targetVolume * this.masterVolume * model.maxVolume, Time.deltaTime / model.currentFadeDuration);
             }
-            soundModelDictionary[type] = model;
             model.source.volume = model.currentVolume;
+            soundModelDictionary[type] = model;
+            if (playingAmbients.ContainsKey((AmbientType)type) == true)
+            {
+                playingAmbients[(AmbientType)type] = model;
+            }
         }
         for (int i = 0; i < playingSounds.Count; i++)
         {
             SoundModel model = playingSounds[i];
-            if (model.fadeDuration <= 0)
+            if (model.currentFadeDuration <= 0)
             {
                 model.currentVolume = model.targetVolume * masterVolume * model.maxVolume;
             }
             else
             {
-                model.currentVolume = Mathf.MoveTowards(model.currentVolume, model.targetVolume * masterVolume * model.maxVolume, Time.deltaTime / model.fadeDuration);
+                model.currentVolume = Mathf.MoveTowards(model.currentVolume, model.targetVolume * masterVolume * model.maxVolume, Time.deltaTime / model.currentFadeDuration);
             }
-            playingSounds[i] = model;
             model.source.volume = model.currentVolume;
+            playingSounds[i] = model;
         }
     }
 
@@ -107,47 +115,50 @@ public class SoundManager : Singleton<SoundManager>
             Debug.LogError($"Trying to play AmbientType.Undefined");
             return;
         }
-        if (ambientType == AmbientType.Unchanged || ambientType == currentAmbientType)
+        if (playingAmbients.TryGetValue(ambientType, out SoundModel existingModel) == true)
         {
-            Debug.Log($"Playing ambient: {currentAmbientType} (unchanged)");
+            Debug.Log($"Playing ambients: (unchanged)");
             return;
         }
         if (soundModelDictionary.TryGetValue((AudioType)ambientType, out SoundModel model) == true)
         {
-            if (fadeDuration != -1)
+            if (fadeDuration >= 0)
             {
-                model.fadeDuration = fadeDuration;
+                model.currentFadeDuration = fadeDuration;
+            }
+            else
+            {
+                model.currentFadeDuration = model.fadeDuration;
             }
             model.targetVolume = 1;
-            AmbientType lastAmbientType = currentAmbientType;
-            if (currentAmbientType != AmbientType.Undefined)
-            {
-                StopAmbient(currentAmbientType, fadeDuration);
-            }
-            currentAmbientType = ambientType;
+            playingAmbients.Add(ambientType, model);
             soundModelDictionary[(AudioType)ambientType] = model;
-            Debug.Log($"Playing ambient: {currentAmbientType} previously: {lastAmbientType}");
+            Debug.Log($"Playing ambient: {ambientType}");
         }
         else
         {
             Debug.LogError($"Sound {ambientType} not found in SoundManager");
         }
     }
-    private void StopAmbient(AmbientType ambientType, float fadeDuration = -1)
+    public void StopAmbient(AmbientType ambientType, float fadeDuration = -1)
     {
-        if (soundModelDictionary.TryGetValue((AudioType)ambientType, out SoundModel model) == true)
+        if (playingAmbients.TryGetValue(ambientType, out SoundModel model) == false)
         {
-            if (fadeDuration != -1)
-            {
-                model.fadeDuration = fadeDuration;
-            }
-            model.targetVolume = 0;
-            soundModelDictionary[(AudioType)ambientType] = model;
+            Debug.Log($"Trying to stop an ambient of type {ambientType} which is not currently playing.");
+            return;
+        }
+        if (fadeDuration >= 0)
+        {
+            model.currentFadeDuration = fadeDuration;
         }
         else
         {
-            Debug.Log($"Sound {ambientType} not found in SoundManager");
+            model.currentFadeDuration = model.fadeDuration;
         }
+        model.targetVolume = 0;
+        soundModelDictionary[(AudioType)ambientType] = model;
+        playingAmbients.Remove(ambientType);
+        Debug.Log($"Stopping ambient: {ambientType}");
     }
 
     public SoundModel PlaySound(SoundType soundType, AudioClip clip)
@@ -159,15 +170,15 @@ public class SoundManager : Singleton<SoundManager>
         }
         if (soundModelDictionary.TryGetValue((AudioType)soundType, out SoundModel model) == true)
         {
-            SoundModel newModel = model;
-            newModel.source = Instantiate(model.source, model.source.transform, false).GetComponent<AudioSource>();
-            newModel.source.clip = clip;
-            newModel.source.Play();
-            newModel.targetVolume = 1;
-            newModel.currentVolume = 1;
-            playingSounds.Add(newModel);
-            StartCoroutine(OnSoundFinished(newModel));
-            return newModel;
+            model.source = Instantiate(model.source, model.source.transform, false).GetComponent<AudioSource>();
+            model.source.clip = clip;
+            model.source.Play();
+            model.targetVolume = 1;
+            model.currentFadeDuration = model.fadeDuration;
+            model.currentVolume = 1;
+            playingSounds.Add(model);
+            StartCoroutine(OnSoundFinished(model));
+            return model;
         }
         else
         {

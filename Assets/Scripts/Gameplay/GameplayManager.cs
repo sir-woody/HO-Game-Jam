@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameplayManager : MonoBehaviour
+public class GameplayManager : Singleton<GameplayManager>
 {
     public class ClimbResult
     {
@@ -35,6 +35,8 @@ public class GameplayManager : MonoBehaviour
     private MapManager mapManager = null;
     [SerializeField]
     private Transform marker = null;
+    [SerializeField]
+    private float markerLerp = 0.1f;
 
     private float distancePerSecond = 1;
     private bool restWasIssued;
@@ -58,11 +60,13 @@ public class GameplayManager : MonoBehaviour
     {
         /// Initialize Map
         mapManager.InitializeRoad();
+        mapManager.Hide();
         marker.transform.position = mapManager.Move(0);
-
 
         /// Begin character selection
         yield return StartCoroutine(EventCoroutine(null, characterSelectionEventPrefab, true));
+
+        mapManager.Show();
 
         /// Begin climb
         IEnumerator<ClimbResult> enumerator = ClimbCoroutine();
@@ -71,7 +75,7 @@ public class GameplayManager : MonoBehaviour
             ClimbResult climbResult = enumerator.Current;
 
             /// Update marker's position
-            marker.transform.position = climbResult.markerPosition;
+            marker.transform.position = Vector3.Lerp(marker.transform.position, climbResult.markerPosition, markerLerp);
 
 
 
@@ -167,18 +171,21 @@ public class GameplayManager : MonoBehaviour
             restWasIssued = true;
         }
 
-        var teamSpeed = TeamManager.Instance.GetTeamSpeed();
+        float previousDistance = distancePerSecond;
+        float teamSpeed = TeamManager.Instance.GetTeamSpeed();
 
         distancePerSecond =
             (Input.GetKey(KeyCode.UpArrow) == true ? teamSpeed : 0) +
             (Input.GetKey(KeyCode.DownArrow) == true ? -teamSpeed : 0);
 
-        if (distancePerSecond != 0)
+        if (previousDistance == 0 && distancePerSecond != 0)
         {
+            SoundManager.Instance.PlayAmbient(SoundManager.AmbientType.WalkOnSnow);
             TeamManager.Instance.StartClimbing();
         }
-        else
+        else if (previousDistance != 0 && distancePerSecond == 0)
         {
+            SoundManager.Instance.StopAmbient(SoundManager.AmbientType.WalkOnSnow);
             TeamManager.Instance.StopClimbing();
         }
     }
@@ -191,11 +198,19 @@ public class GameplayManager : MonoBehaviour
         EventBase eventObject = Instantiate(eventPrefab, eventParent);
         eventObject.gameObject.SetActive(false);
         eventObject.PreShow();
-        TeamManager.Instance.StopClimbing();
+
+        /// Stop movement if it was in progress
+        if (distancePerSecond != 0)
+        {
+            distancePerSecond = 0;
+            SoundManager.Instance.StopAmbient(SoundManager.AmbientType.WalkOnSnow);
+            TeamManager.Instance.StopClimbing();
+        }
 
         if (skipFirstFade == false)
         {
             yield return StartCoroutine(FadeManager.Instance.FadeOut());
+            SoundManager.Instance.StopAmbient(SoundManager.AmbientType.Outside, FadeManager.Instance.FadeDuration * 2);
             SoundManager.Instance.PlayAmbient(eventPrefab.AmbientSoundType, FadeManager.Instance.FadeDuration * 2);
         }
 
@@ -210,6 +225,7 @@ public class GameplayManager : MonoBehaviour
         yield return StartCoroutine(eventObject.Perform(this, climbResult));
 
 
+        SoundManager.Instance.StopAmbient(eventPrefab.AmbientSoundType, FadeManager.Instance.FadeDuration * 2);
         SoundManager.Instance.PlayAmbient(SoundManager.AmbientType.Outside, FadeManager.Instance.FadeDuration * 2);
         eventObject.PreHide();
 

@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class GameOverEvent : EventBase
 {
-    public override SoundManager.AmbientType AmbientSoundType => SoundManager.AmbientType.Unchanged;
+    public override SoundManager.AmbientType AmbientSoundType => SoundManager.AmbientType.Outside;
     public override IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult)
     {
         Debug.Log("Game over");
