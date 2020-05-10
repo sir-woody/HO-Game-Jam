@@ -46,6 +46,7 @@ public class Backpack : MonoBehaviour
 
     public void ShowWithoutCharacter(Item[] items, GraphicRaycaster raycaster, bool draggable)
     {
+        backpackOwnerImage.transform.parent.gameObject.SetActive(false);
         restActionSearchToggle.gameObject.SetActive(false);
         restActionSleepToggle.gameObject.SetActive(false);
         InitializeItems(items, raycaster, draggable);

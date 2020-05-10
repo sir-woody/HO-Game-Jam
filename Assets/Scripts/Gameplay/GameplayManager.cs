@@ -155,6 +155,11 @@ public class GameplayManager : Singleton<GameplayManager>
         while (true);
     }
 
+    public void IssueRest()
+    {
+        restWasIssued = true;
+    }
+
     private void HandleMapInput()
     {
         if (restWasIssued == false && Input.GetKeyDown(KeyCode.Space))
@@ -166,8 +171,8 @@ public class GameplayManager : Singleton<GameplayManager>
         float teamSpeed = TeamManager.Instance.GetTeamSpeed();
 
         distancePerSecond =
-            (Input.GetKey(KeyCode.UpArrow) == true ? teamSpeed : 0) +
-            (Input.GetKey(KeyCode.DownArrow) == true ? -teamSpeed : 0);
+            ((Input.GetKey(KeyCode.UpArrow) == true || Input.GetKey(KeyCode.W) == true) ? teamSpeed : 0) +
+            ((Input.GetKey(KeyCode.DownArrow) == true || Input.GetKey(KeyCode.S) == true) ? -teamSpeed : 0);
 
         if (previousDistance == 0 && distancePerSecond != 0)
         {
