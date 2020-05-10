@@ -191,6 +191,7 @@ public class GameplayManager : MonoBehaviour
         EventBase eventObject = Instantiate(eventPrefab, eventParent);
         eventObject.gameObject.SetActive(false);
         eventObject.PreShow();
+        TeamManager.Instance.StopClimbing();
 
         if (skipFirstFade == false)
         {
@@ -198,7 +199,6 @@ public class GameplayManager : MonoBehaviour
             SoundManager.Instance.PlayAmbient(eventPrefab.AmbientSoundType, FadeManager.Instance.FadeDuration * 2);
         }
 
-        TeamManager.Instance.StopClimbing();
         mapManager.Hide();
         hudController.Hide();
         eventObject.gameObject.SetActive(true);
