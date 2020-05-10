@@ -33,6 +33,10 @@ public class GameplayManager : Singleton<GameplayManager>
     private Transform marker = null;
     [SerializeField]
     private float markerLerp = 0.1f;
+    [SerializeField]
+    private MovementArrow upArrow = null;
+    [SerializeField]
+    private MovementArrow downArrow = null;
 
     private float distancePerSecond = 1;
     private bool restWasIssued;
@@ -171,8 +175,8 @@ public class GameplayManager : Singleton<GameplayManager>
         float teamSpeed = TeamManager.Instance.GetTeamSpeed();
 
         distancePerSecond =
-            ((Input.GetKey(KeyCode.UpArrow) == true || Input.GetKey(KeyCode.W) == true) ? teamSpeed : 0) +
-            ((Input.GetKey(KeyCode.DownArrow) == true || Input.GetKey(KeyCode.S) == true) ? -teamSpeed : 0);
+            ((Input.GetKey(KeyCode.UpArrow) == true || Input.GetKey(KeyCode.W) == true || upArrow.IsPressed == true) ? teamSpeed : 0) +
+            ((Input.GetKey(KeyCode.DownArrow) == true || Input.GetKey(KeyCode.S) == true || downArrow.IsPressed == true) ? -teamSpeed : 0);
 
         if (previousDistance == 0 && distancePerSecond != 0)
         {

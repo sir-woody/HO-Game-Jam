@@ -489,6 +489,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1573441438 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1573441438, guid: 8040e7f026052644e99e9e4a5b3b2d43,
+    type: 3}
+  m_PrefabInstance: {fileID: 7165129438572425464}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63e4dc36d9d374f479973e2365f1ecd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1612118669
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,6 +542,8 @@ MonoBehaviour:
   mapManager: {fileID: 842511816}
   marker: {fileID: 397181741802428017}
   markerLerp: 0.1
+  upArrow: {fileID: 1573441438}
+  downArrow: {fileID: 1806263300}
 --- !u!4 &1612118671
 Transform:
   m_ObjectHideFlags: 0
@@ -2215,6 +2229,18 @@ RectTransform:
   m_AnchoredPosition: {x: 440, y: 123}
   m_SizeDelta: {x: 560, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1806263300 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1806263300, guid: 8040e7f026052644e99e9e4a5b3b2d43,
+    type: 3}
+  m_PrefabInstance: {fileID: 7165129438572425464}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63e4dc36d9d374f479973e2365f1ecd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1949463616
 GameObject:
   m_ObjectHideFlags: 0
@@ -2505,6 +2531,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1949463617}
     m_Modifications:
+    - target: {fileID: 275449191, guid: 8040e7f026052644e99e9e4a5b3b2d43, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1708103984, guid: 8040e7f026052644e99e9e4a5b3b2d43, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2381083111915752297, guid: 8040e7f026052644e99e9e4a5b3b2d43,
         type: 3}
       propertyPath: m_SizeDelta.y
