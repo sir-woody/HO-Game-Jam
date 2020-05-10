@@ -20,7 +20,7 @@ public class GameplayManager : Singleton<GameplayManager>
 
     [Header("Events")]
     [SerializeField]
-    private RectTransform eventParent = null;
+    internal RectTransform eventParent = null;
     [SerializeField]
     private RestEvent restEventPrefab = null;
     [SerializeField]

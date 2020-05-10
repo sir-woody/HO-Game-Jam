@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RestEvent : EventBase
@@ -18,6 +19,8 @@ public class RestEvent : EventBase
     private AudioClip tentUnpackSound = null;
     [SerializeField]
     private bool isDone = false;
+    [SerializeField]
+    private DeadAlpinistEvent scoutResultEventPrefab = null;
     private bool restIssued = false;
     private bool isRested = false;
     private Character[] scouts;
@@ -32,6 +35,7 @@ public class RestEvent : EventBase
 
     public override IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult)
     {
+        scouts = new[] { TeamManager.Instance.characters[0] };
         while (isDone == false)
         {
             if(!isRested && restIssued)
@@ -68,6 +72,7 @@ public class RestEvent : EventBase
             {
                 continue;
             }
+            
             seats.RemoveRandom(out Seat seat);
             restHudController.BindStats(character, seatsCopy.IndexOf(seat));
             seat.SetCharacter(character);
@@ -98,7 +103,13 @@ public class RestEvent : EventBase
     {
         yield return StartCoroutine(FadeManager.Instance.FadeOut());
 
-        TeamManager.Instance.characters.ForEach(x => x.Rest());
+        TeamManager.Instance.characters.Except(scouts).ToList().ForEach(x => x.Rest());
+
+        var foundItems = scouts.SelectMany(x => x.Scout());
+
+        var foundItemsEvent = Instantiate(scoutResultEventPrefab, GameplayManager.Instance.eventParent);
+        foundItemsEvent.AddLeftItems(foundItems);
+        yield return StartCoroutine(foundItemsEvent.Perform(GameplayManager.Instance, null));
         isRested = true;
 
         yield return StartCoroutine(FadeManager.Instance.FadeIn());

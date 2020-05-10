@@ -82,8 +82,4 @@ public class BackpackManager : Singleton<BackpackManager>
         from.Unequip(item);
         to.Equip(item);
     }
-    //public void UseItem(Item item, Character character)
-    //{
-    //    item.Use();
-    //}
 }

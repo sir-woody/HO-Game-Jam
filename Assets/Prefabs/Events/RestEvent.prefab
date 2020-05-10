@@ -285,6 +285,8 @@ MonoBehaviour:
   seatTopRight: {fileID: 664995347364737925}
   tentUnpackSound: {fileID: 8300000, guid: 961653723b4efb44dbcc3bd16cc64e95, type: 3}
   isDone: 0
+  scoutResultEventPrefab: {fileID: 6986839037668208975, guid: ff1d9e50cf4a2124eba2efbb9a8fba0f,
+    type: 3}
 --- !u!114 &1022702374294218561
 MonoBehaviour:
   m_ObjectHideFlags: 0

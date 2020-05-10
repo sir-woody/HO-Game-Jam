@@ -120,6 +120,39 @@ public class Character : MonoBehaviour
         stats.ForEach(x => x.Regenerate());
     }
 
+    internal IEnumerable<BackpackManager.ItemType> Scout()
+    {
+        stats.ForEach(x => x.Deplete());
+        stats.ForEach(x => x.Deplete());
+
+        int itemCount = UnityEngine.Random.Range(1, 3);
+
+        return GetRandomItems(itemCount);
+    }
+
+    List<BackpackManager.ItemType> scoutItems =
+        new List<BackpackManager.ItemType>
+        {
+            BackpackManager.ItemType.Food,
+            BackpackManager.ItemType.Food,
+            BackpackManager.ItemType.Food,
+            BackpackManager.ItemType.Herbs,
+            BackpackManager.ItemType.Herbs,
+            BackpackManager.ItemType.Herbs,
+            BackpackManager.ItemType.BandageAndPills,
+            BackpackManager.ItemType.CandyBar,
+
+        };
+
+    IEnumerable<BackpackManager.ItemType> GetRandomItems(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            var rnd = new System.Random((int)DateTime.Now.Ticks).Next(0, scoutItems.Count());
+            yield return scoutItems.ElementAt(rnd);
+        }
+    }
+
     private void Die()
     {
         isDead = true;
