@@ -14,10 +14,18 @@ public class Backpack : MonoBehaviour
     private Image backpackOwnerImage = null;
     [SerializeField]
     private GridLayoutGroup gridLayoutGroup = null;
+    [SerializeField]
+    private float lerpRatio = 0.2f;
 
     private List<ItemFrame> itemFrames = new List<ItemFrame>();
 
     public Character Owner { get; private set; }
+
+    private void Update()
+    {
+        transform.localPosition = Vector3.Lerp(transform.localPosition, Vector3.zero, lerpRatio);
+    }
+
     public void Show(Character character, GraphicRaycaster raycaster)
     {
         this.Owner = character;

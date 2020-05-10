@@ -30,6 +30,8 @@ public class BackpackManager : Singleton<BackpackManager>
     [SerializeField]
     private RectTransform backpackSlot = null;
     [SerializeField]
+    private Vector3 backpackSpawnOffset = Vector3.down * 100;
+    [SerializeField]
     private GraphicRaycaster raycaster = null;
 
     [SerializeField]
@@ -43,6 +45,7 @@ public class BackpackManager : Singleton<BackpackManager>
         /// Hide previously shown backpack
         HideBackpack();
         Backpack = Instantiate(backpackPrefab, backpackSlot, false);
+        Backpack.transform.localPosition = backpackSpawnOffset;
         Backpack.Show(character, raycaster);
     }
     public void HideBackpack()
