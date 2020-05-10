@@ -48,7 +48,7 @@ public class BackpackManager : Singleton<BackpackManager>
         HideBackpack();
 
         SoundManager.SoundModel model = SoundManager.Instance.PlaySound(SoundManager.SoundType.Event, backpackSound);
-        model.source.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+        //model.source.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
         Backpack = Instantiate(backpackPrefab, backpackSlot, false);
         Backpack.transform.localPosition = backpackSpawnOffset;
         Backpack.Show(character, raycaster);

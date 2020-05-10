@@ -25,6 +25,7 @@ public class Stat
     public string overflowTo;
     Stat overflowToStat;
     float value;
+    [SerializeField] float regeneration = 70f;
     [SerializeField] float maxValue = 100f;
     float maxValueModifier;
     [SerializeField] internal float usePerSecond = 1f;
@@ -123,5 +124,10 @@ public class Stat
     internal void Refresh()
     {
         OnChange?.Invoke(value, MaxValue);
+    }
+
+    internal void Regenerate()
+    {
+        Replenish(regeneration);
     }
 }

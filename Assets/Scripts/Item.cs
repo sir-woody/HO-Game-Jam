@@ -15,6 +15,8 @@ public class Item : MonoBehaviour
 
     public void UseOn(Character character)
     {
+        if (string.IsNullOrEmpty(affectedStat)) return;
+
         var value = continousEffect ? Time.deltaTime * effect : effect;
         character.GetStat(affectedStat).Replenish(value);
         if (expires)

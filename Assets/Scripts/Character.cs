@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sirenix.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -112,6 +113,11 @@ public class Character : MonoBehaviour
         {
             Die();
         }
+    }
+
+    internal void Rest()
+    {
+        stats.ForEach(x => x.Regenerate());
     }
 
     private void Die()

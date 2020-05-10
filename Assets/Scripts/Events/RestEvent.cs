@@ -18,6 +18,9 @@ public class RestEvent : EventBase
     private AudioClip tentUnpackSound = null;
     [SerializeField]
     private bool isDone = false;
+    private bool restIssued = false;
+    private bool isRested = false;
+    private Character[] scouts;
 
     public override SoundManager.AmbientType AmbientSoundType
     {
@@ -29,9 +32,12 @@ public class RestEvent : EventBase
 
     public override IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult)
     {
-
         while (isDone == false)
         {
+            if(!isRested && restIssued)
+            {
+                yield return StartCoroutine(PerformActions());
+            }
             yield return null;
         }
     }
@@ -83,9 +89,19 @@ public class RestEvent : EventBase
         isDone = true;
     }
 
-    public void PerformActions()
+    public void Rest()
     {
-        Debug.LogError($"{nameof(PerformActions)} not implemented");
+        restIssued = true;
+    }
+
+    private IEnumerator PerformActions()
+    {
+        yield return StartCoroutine(FadeManager.Instance.FadeOut());
+
+        TeamManager.Instance.characters.ForEach(x => x.Rest());
+        isRested = true;
+
+        yield return StartCoroutine(FadeManager.Instance.FadeIn());
     }
 
 }
