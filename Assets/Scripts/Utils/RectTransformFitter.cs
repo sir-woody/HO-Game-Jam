@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 
 public static class RectTransformFitter
@@ -53,3 +54,5 @@ public static class RectTransformFitter
     }
 
 }
+
+#endif

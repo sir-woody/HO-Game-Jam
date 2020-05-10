@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class FadeManager : Singleton<FadeManager>
