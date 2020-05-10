@@ -33,6 +33,8 @@ public class BackpackManager : Singleton<BackpackManager>
     private Vector3 backpackSpawnOffset = Vector3.down * 100;
     [SerializeField]
     private GraphicRaycaster raycaster = null;
+    [SerializeField]
+    private AudioClip backpackSound = null;
 
     [SerializeField]
     private ItemSerializedDictionary itemPrefabs = null;
@@ -44,6 +46,9 @@ public class BackpackManager : Singleton<BackpackManager>
     {
         /// Hide previously shown backpack
         HideBackpack();
+
+        SoundManager.SoundModel model = SoundManager.Instance.PlaySound(SoundManager.SoundType.Event, backpackSound);
+        model.source.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
         Backpack = Instantiate(backpackPrefab, backpackSlot, false);
         Backpack.transform.localPosition = backpackSpawnOffset;
         Backpack.Show(character, raycaster);
