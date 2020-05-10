@@ -28,7 +28,11 @@ public class CharacterSelectionEvent : EventBase
         }
 
         Debug.Log("TODO: add character selection implementation");
-        yield return new WaitForSeconds(1);
+
+        while (Input.GetKeyDown(KeyCode.Space) == false)
+        {
+            yield return null;
+        }
     }
 
     public override void Show()

@@ -11,7 +11,8 @@ public class TooltipController : MonoBehaviour,
                              IPointerEnterHandler,
                              IPointerExitHandler
 {
-    [SerializeField] string description;
+    
+    [Multiline, SerializeField] string description;
     [SerializeField] GameObject toolTipPrefab;
     GameObject toolTip;
     [SerializeField] float tooltipDelay = 1f;

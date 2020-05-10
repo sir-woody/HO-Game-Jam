@@ -39,8 +39,13 @@ public class MapManager : Singleton<MapManager>
     public Vector2 Move(float distancePerSecond)
     {
         float distance = distancePerSecond * Time.deltaTime;
+        float previousDistance = currentDistance;
         Vector2 currentPoint = (Vector2)currentRoad.roadCurve.MoveAlongSpline(ref currentDistance, distance) + map.mapOffset;
-        //currentDistance = currentDistance + distance;
+        //if (currentDistance - previousDistance > 2 * distance)
+        //{
+        //    Debug.LogWarning("Crossed distance was greater than twice the distance it should. Hotfixing.");
+        //    currentDistance = 2 * distance;
+        //}
 
         if (currentNode == map.Nodes[0])
         {
