@@ -51,7 +51,7 @@ public class BackpackManager : Singleton<BackpackManager>
         model.source.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
         Backpack = Instantiate(backpackPrefab, backpackSlot, false);
         Backpack.transform.localPosition = backpackSpawnOffset;
-        Backpack.Show(character, raycaster);
+        Backpack.ShowForCharacter(character, raycaster);
     }
     public void HideBackpack()
     {

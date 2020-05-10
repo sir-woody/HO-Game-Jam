@@ -26,15 +26,20 @@ public class Backpack : MonoBehaviour
         transform.localPosition = Vector3.Lerp(transform.localPosition, Vector3.zero, lerpRatio);
     }
 
-    public void Show(Character character, GraphicRaycaster raycaster)
+    public void ShowForCharacter(Character character, GraphicRaycaster raycaster)
     {
         this.Owner = character;
         backpackOwnerImage.sprite = character.GetSprite(Character.SpriteType.FrameDefault);
         Item[] items = character.GetItems();
-        Show(items, raycaster);
+        InitializeItems(items, raycaster, true);
     }
 
-    public void Show(Item[] items, GraphicRaycaster raycaster, bool draggable = true)
+    public void ShowWithoutCharacter(Item[] items, GraphicRaycaster raycaster, bool draggable)
+    {
+        InitializeItems(items, raycaster, draggable);
+    }
+
+    private void InitializeItems(Item[] items, GraphicRaycaster raycaster, bool draggable)
     {
         foreach (Item item in items)
         {

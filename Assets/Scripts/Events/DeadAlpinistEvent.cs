@@ -23,7 +23,7 @@ public class DeadAlpinistEvent : EventBase
     private void SpawnBackpack(Item[] items)
     {
         backpack = Instantiate(backpackPrefab, backpackSlot, false);
-        backpack.Show(items, raycaster, false);
+        backpack.ShowWithoutCharacter(items, raycaster, false);
     }
 
     private bool isDone;

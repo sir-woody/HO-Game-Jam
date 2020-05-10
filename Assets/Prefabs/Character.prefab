@@ -98,6 +98,7 @@ MonoBehaviour:
   - name: Zdrowie
     description: 
     overflowTo: 
+    regeneration: 10
     maxValue: 100
     usePerSecond: 0
     startingFull: 1
@@ -105,6 +106,7 @@ MonoBehaviour:
   - name: Energia
     description: 
     overflowTo: Zdrowie
+    regeneration: 70
     maxValue: 100
     usePerSecond: 7
     startingFull: 1
@@ -112,6 +114,7 @@ MonoBehaviour:
   - name: "G\u0142\xF3d"
     description: 
     overflowTo: Zdrowie
+    regeneration: -20
     maxValue: 100
     usePerSecond: 5
     startingFull: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RestEvent : EventBase
 {
@@ -13,8 +14,13 @@ public class RestEvent : EventBase
     private AudioClip tentUnpackSound = null;
     [SerializeField]
     private bool isDone = false;
-    private bool restIssued = false;
-    private bool isRested = false;
+    [SerializeField]
+    private Button sleepButton = null;
+    [SerializeField]
+    private Button searchButton = null;
+
+    private bool shouldPerformAction = false;
+    private bool restActionPerformed = false;
     private Character[] scouts;
 
     public override SoundManager.AmbientType AmbientSoundType
@@ -29,7 +35,7 @@ public class RestEvent : EventBase
     {
         while (isDone == false)
         {
-            if(!isRested && restIssued)
+            if(!restActionPerformed && shouldPerformAction)
             {
                 yield return StartCoroutine(PerformActions());
             }
@@ -80,7 +86,7 @@ public class RestEvent : EventBase
 
     public void Rest()
     {
-        restIssued = true;
+        shouldPerformAction = true;
     }
 
     private IEnumerator PerformActions()
@@ -88,7 +94,9 @@ public class RestEvent : EventBase
         yield return StartCoroutine(FadeManager.Instance.FadeOut());
 
         TeamManager.Instance.characters.ForEach(x => x.Rest());
-        isRested = true;
+        restActionPerformed = true;
+        sleepButton.interactable = false;
+        searchButton.interactable = false;
 
         yield return StartCoroutine(FadeManager.Instance.FadeIn());
     }

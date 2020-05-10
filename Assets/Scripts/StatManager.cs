@@ -36,6 +36,10 @@ public class StatManager : Singleton<StatManager>
         }
 
         Stat[] stats = character.GetComponent<StatController>().stats;
+        character.OnDeath += (x) =>
+        {
+            statGroup.CharacterFrame.sprite = character.GetSprite(Character.SpriteType.FrameDeath);
+        };
 
         if (character.IsDead() == true)
         {
@@ -52,6 +56,7 @@ public class StatManager : Singleton<StatManager>
             statBar.GetComponent<StatBar>().Initialize(stat);
         }
     }
+
 
     private void Clear(StatGroup statContainer)
     {

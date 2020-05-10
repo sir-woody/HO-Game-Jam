@@ -20,6 +20,8 @@ public class Character : MonoBehaviour
         FrameWarning1,
     }
 
+    public event Action<Character> OnDeath;
+
     public new string name;
     public string description;
     public SpriteGroupSerializedDictionary sprites;
@@ -125,7 +127,11 @@ public class Character : MonoBehaviour
 
     private void Die()
     {
-        isDead = true;
+        if (isDead == false)
+        {
+            isDead = true;
+            OnDeath?.Invoke(this);
+        }
 
         //TODO Change sprite to gray,
         //Debug.LogError($"{nameof(Die)} not implemented");

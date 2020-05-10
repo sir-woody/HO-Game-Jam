@@ -100,7 +100,6 @@ public class Stat
 
     internal void Deplete(float val)
     {
-        //Debug.Log($"Deplete {name} {val}");
         if (startingFull)
         {
             if (value <= 0)
@@ -143,11 +142,59 @@ public class Stat
 
     internal void Replenish(float amount)
     {
-        value += startingFull
+        if (amount < 0)
+        {
+            Deplete(-amount);
+        }
+        else
+        {
+            value += startingFull
             ? Math.Min(amount, MaxValue - value)
             : -Math.Min(amount, value);
+        }
+        
         OnChange?.Invoke(value, MaxValue);
     }
+
+    //bool IsHigh() => startingFull ? value >= MaxValue : value <= 0;
+    //bool IsLow() => startingFull ? value <= 0 : value >= MaxValue;
+
+    //internal void ReplenishWithOverflow(float val)
+    //{
+
+
+    //    if (startingFull)
+    //    {
+    //        if (value >= MaxValue)
+    //        {
+    //            return;
+    //        }
+    //        else if (value <= 0)
+    //        {
+    //            overflowToStat?.ReplenishWithOverflow(val);
+    //        }
+    //        else
+    //        {
+    //            value += val;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if (value <= 0)
+    //        {
+    //            return;
+    //        }
+    //        else if(value >= MaxValue)
+    //        {
+    //            overflowToStat?.ReplenishWithOverflow(val);
+    //        }
+    //        else
+    //        {
+    //            value -= val;
+    //        }
+    //    }
+    //    OnChange?.Invoke(value, MaxValue);
+    //}
 
     internal void Refresh()
     {
@@ -156,6 +203,7 @@ public class Stat
 
     internal void Regenerate()
     {
+
         Replenish(regeneration);
     }
 }
