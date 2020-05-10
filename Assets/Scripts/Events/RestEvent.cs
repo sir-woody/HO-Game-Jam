@@ -74,7 +74,7 @@ public class RestEvent : EventBase
     }
 
 
-    public void FinishRest()
+    public void Done()
     {
         isDone = true;
     }

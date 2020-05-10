@@ -23,12 +23,22 @@ public class Backpack : MonoBehaviour
         this.Owner = character;
         backpackOwnerImage.sprite = character.GetSprite(Character.SpriteType.FrameDefault);
         Item[] items = character.GetItems();
+        Show(items, raycaster);
+    }
+
+    public void Show(Item[] items, GraphicRaycaster raycaster, bool draggable = true)
+    {
         foreach (Item item in items)
         {
             ItemFrame frame = Instantiate(itemFramePrefab, gridLayoutGroup.transform, false);
-            frame.Initialize(this, item, raycaster);
+            frame.Initialize(this, item, raycaster, draggable);
             itemFrames.Add(frame);
         }
+    }
+
+    public bool IsEmpty()
+    {
+        return !itemFrames.Any() || itemFrames.All(x=>x==null);
     }
 
     public void Hide()

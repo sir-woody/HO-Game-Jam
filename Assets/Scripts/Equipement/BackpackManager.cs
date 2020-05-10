@@ -60,6 +60,10 @@ public class BackpackManager : Singleton<BackpackManager>
         character.Equip(item);
         return item;
     }
+    public Item SpawnItem(ItemType itemType)
+    {
+        return Instantiate(itemPrefabs[itemType], backpackSlot.transform, false);
+    }
     public void DestroyItem(Character character, Item item)
     {
         character.Unequip(item);

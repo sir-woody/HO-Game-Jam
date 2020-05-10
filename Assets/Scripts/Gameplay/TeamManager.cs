@@ -41,6 +41,9 @@ public class TeamManager : Singleton<TeamManager>
         return 0f;
     }
 
+    public bool CanEquip() => Instance.characters.Any(x => x.CanEquip());
+    public void Equip(Item item) => Instance.characters.OrderBy(x => x.GetItems().Count()).FirstOrDefault().Equip(item);
+
     public List<Sprite> GetCharacterSprites(Character.SpriteType spriteType)
     {
         List<Sprite> sprites = new List<Sprite>(characters.Count);

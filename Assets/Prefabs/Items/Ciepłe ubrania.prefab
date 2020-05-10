@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9119264909746494849
 Transform:
   m_ObjectHideFlags: 0
@@ -50,6 +50,7 @@ MonoBehaviour:
   continousEffect: 1
   expires: 0
   weight: 7
+  sprite: {fileID: 0}
 --- !u!1 &9119264910971944414
 GameObject:
   m_ObjectHideFlags: 0
