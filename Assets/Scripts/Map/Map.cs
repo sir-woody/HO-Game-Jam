@@ -85,15 +85,27 @@ public class Map : MonoBehaviour
                     {
                         DestroyImmediate(road.roadCurve.gameObject);
                     }
-                    UnityEditor.Undo.RecordObject(gameObject, "Setting bezier curve");
-                    road.roadCurve = new GameObject($"Curve {i}:{road.nextNodeIndex}").AddComponent<BezierSolution.BezierSpline>();
-                    road.roadCurve.gizmoColor = road.color;
-                    road.roadCurve.transform.SetParent(this.transform, false);
-                    road.roadCurve[0].localPosition = (Vector3)beg.localPosition;
-                    road.roadCurve[1].localPosition = (Vector3)end.localPosition;
-                    road.roadCurve[0].followingControlPointLocalPosition = (road.roadCurve[1].localPosition - road.roadCurve[0].localPosition) * 0.3f;
-                    road.roadCurve[1].followingControlPointLocalPosition = (road.roadCurve[1].localPosition - road.roadCurve[0].localPosition) * 0.3f;
-                    UnityEditor.Undo.RegisterCreatedObjectUndo(road.roadCurve, $"Undo adding bezier curve {road}");
+                    string curveName = $"Curve {i}:{road.nextNodeIndex}";
+                    foreach (Transform child in this.transform)
+                    {
+                        if (child.name == curveName)
+                        {
+                            UnityEditor.Undo.RecordObject(gameObject, "Setting bezier curve");
+                            road.roadCurve = child.GetComponent<BezierSolution.BezierSpline>();
+                            break;
+                        }
+                    }
+                    if (road.roadCurve == null)
+                    {
+                        road.roadCurve = new GameObject(curveName).AddComponent<BezierSolution.BezierSpline>();
+                        road.roadCurve.gizmoColor = road.color;
+                        road.roadCurve.transform.SetParent(this.transform, false);
+                        road.roadCurve[0].localPosition = (Vector3)beg.localPosition;
+                        road.roadCurve[1].localPosition = (Vector3)end.localPosition;
+                        road.roadCurve[0].followingControlPointLocalPosition = (road.roadCurve[1].localPosition - road.roadCurve[0].localPosition) * 0.3f;
+                        road.roadCurve[1].followingControlPointLocalPosition = (road.roadCurve[1].localPosition - road.roadCurve[0].localPosition) * 0.3f;
+                        UnityEditor.Undo.RegisterCreatedObjectUndo(road.roadCurve, $"Undo adding bezier curve {road}");
+                    }
                 }
                 if (j < 0 || j >= nodes.Count)
                 {
