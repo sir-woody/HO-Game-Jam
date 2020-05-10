@@ -22,7 +22,8 @@ public class TooltipController : MonoBehaviour,
 
     void Start()
     {
-        toolTip = Instantiate(toolTipPrefab, transform);
+        toolTip = Instantiate(toolTipPrefab, GameplayManager.Instance.tooltipParent);
+        toolTip.transform.SetAsLastSibling();
         textField = toolTip.GetComponentInChildren<TMP_Text>();
         textField.text = description;
     }
@@ -37,7 +38,7 @@ public class TooltipController : MonoBehaviour,
             }
             else
             {
-                toolTip.SetActive(true);
+                toolTip?.SetActive(true);
 
                 Vector3 mousePosition = Input.mousePosition + GetOffset(Input.mousePosition, (RectTransform)toolTip.transform);
                 Vector3 position = Camera.main.ScreenToWorldPoint(mousePosition) ;
@@ -47,7 +48,7 @@ public class TooltipController : MonoBehaviour,
         }
         else
         {
-            toolTip.SetActive(false);
+            toolTip?.SetActive(false);
         }
     }
 
