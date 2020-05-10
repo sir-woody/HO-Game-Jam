@@ -20,6 +20,11 @@ public class DeadAlpinistEvent : EventBase
 
     private Backpack backpack;
 
+    public void AddLeftItems(IEnumerable<BackpackManager.ItemType> items)
+    {
+        leftItems.AddRange(items);
+    }
+
     private void SpawnBackpack(Item[] items)
     {
         backpack = Instantiate(backpackPrefab, backpackSlot, false);

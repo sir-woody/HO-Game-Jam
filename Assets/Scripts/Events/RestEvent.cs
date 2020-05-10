@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,8 @@ public class RestEvent : EventBase
     private bool isDone = false;
     [SerializeField]
     private Button performButton = null;
+    [SerializeField]
+    private DeadAlpinistEvent scoutResultEventPrefab = null;
 
     private bool shouldPerformAction = false;
     private bool restActionPerformed = false;
@@ -31,6 +34,7 @@ public class RestEvent : EventBase
 
     public override IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult)
     {
+        scouts = new[] { TeamManager.Instance.characters[0] };
         while (isDone == false)
         {
             if(!restActionPerformed && shouldPerformAction)
@@ -66,6 +70,7 @@ public class RestEvent : EventBase
             }
             Seat seat = seats[character.seatPosition];
             seat.gameObject.SetActive(true);
+
             seat.SetCharacter(character);
         }
 
@@ -91,6 +96,7 @@ public class RestEvent : EventBase
     {
         yield return StartCoroutine(FadeManager.Instance.FadeOut());
 
+        List<BackpackManager.ItemType> foundItems = new List<BackpackManager.ItemType>();
         foreach (Character character in TeamManager.Instance.characters)
         {
             if (character.IsRestActionSleep() == true)
@@ -99,9 +105,21 @@ public class RestEvent : EventBase
             }
             else
             {
-                Debug.LogError("Invoke Search action here");
+                IEnumerable<BackpackManager.ItemType> scoutedItems = character.Scout();
+                foundItems.AddRange(scoutedItems);
             }
         }
+
+        if (foundItems.Count > 0)
+        {
+            DeadAlpinistEvent foundItemsEvent = Instantiate(scoutResultEventPrefab, GameplayManager.Instance.eventParent, false);
+            foundItemsEvent.AddLeftItems(foundItems);
+            yield return StartCoroutine(FadeManager.Instance.FadeIn());
+            yield return StartCoroutine(foundItemsEvent.Perform(GameplayManager.Instance, null));
+            yield return StartCoroutine(FadeManager.Instance.FadeOut());
+            Destroy(foundItemsEvent.gameObject);
+        }
+
         restActionPerformed = true;
         performButton.interactable = false;
 

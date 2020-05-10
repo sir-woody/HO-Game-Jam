@@ -156,46 +156,6 @@ public class Stat
         OnChange?.Invoke(value, MaxValue);
     }
 
-    //bool IsHigh() => startingFull ? value >= MaxValue : value <= 0;
-    //bool IsLow() => startingFull ? value <= 0 : value >= MaxValue;
-
-    //internal void ReplenishWithOverflow(float val)
-    //{
-
-
-    //    if (startingFull)
-    //    {
-    //        if (value >= MaxValue)
-    //        {
-    //            return;
-    //        }
-    //        else if (value <= 0)
-    //        {
-    //            overflowToStat?.ReplenishWithOverflow(val);
-    //        }
-    //        else
-    //        {
-    //            value += val;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (value <= 0)
-    //        {
-    //            return;
-    //        }
-    //        else if(value >= MaxValue)
-    //        {
-    //            overflowToStat?.ReplenishWithOverflow(val);
-    //        }
-    //        else
-    //        {
-    //            value -= val;
-    //        }
-    //    }
-    //    OnChange?.Invoke(value, MaxValue);
-    //}
-
     internal void Refresh()
     {
         OnChange?.Invoke(value, MaxValue);
