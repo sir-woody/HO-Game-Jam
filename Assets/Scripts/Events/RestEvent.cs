@@ -70,7 +70,7 @@ public class RestEvent : EventBase
     }
     public override void Hide()
     {
-
+        BackpackManager.Instance.HideBackpack();
     }
 
 

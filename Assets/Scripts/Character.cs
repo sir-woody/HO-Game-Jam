@@ -119,6 +119,14 @@ public class Character : MonoBehaviour
     public void OnCharacterClicked()
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundType.Voice, VoiceController.GetOnClickSound());
+        if (BackpackManager.Instance.Backpack != null && BackpackManager.Instance.Backpack.Owner == this)
+        {
+            BackpackManager.Instance.HideBackpack();
+        }
+        else
+        {
+            BackpackManager.Instance.SpawnBackpack(this);
+        }
     }
 
     /// <summary>

@@ -15,8 +15,10 @@ public class Backpack : MonoBehaviour
 
     private List<ItemFrame> itemFrames = new List<ItemFrame>();
 
+    public Character Owner { get; private set; }
     public void Show(Character character, GraphicRaycaster raycaster)
     {
+        this.Owner = character;
         Item[] items = character.GetItems();
         foreach (Item item in items)
         {

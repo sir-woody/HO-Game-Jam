@@ -54,6 +54,7 @@ MonoBehaviour:
   baseSpeed: 1
   minSpeed: 0.1
   equipment: {fileID: 4060027099972010804}
+  startingItems: 
 --- !u!114 &2009405334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0efd7cc2cd34624b9af3fe8bbd35f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minInterval: 5
+  minInterval: 2
   onClickSounds: []
 --- !u!1 &4060027098812233519
 GameObject:

@@ -81,11 +81,13 @@ public class ItemFrame : MonoBehaviour, IPointerDownHandler
                         {
                             Debug.Log($"Character {seat.Character.name} tries to use the item {this.item.name}");
                             BackpackManager.Instance.UseItem(this.item);
+                            RemoveFromBackpack();
                         }
                         else
                         {
                             Debug.Log($"Moved item {this.item.name} from {this.item.Owner.name} to {seat.Character.name}");
                             BackpackManager.Instance.MoveItem(this.item.Owner, seat.Character, this.item);
+                            RemoveFromBackpack();
                         }
                         return;
                     }
@@ -121,5 +123,10 @@ public class ItemFrame : MonoBehaviour, IPointerDownHandler
         layoutElement.ignoreLayout = false;
         canvasGroup.blocksRaycasts = true;
         grab = null;
+    }
+    private void RemoveFromBackpack()
+    {
+        backpack.RemoveEmptyFrame(grab.emptyFramePlaceholder);
+        Destroy(this.gameObject);
     }
 }

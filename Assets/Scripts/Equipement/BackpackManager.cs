@@ -35,17 +35,23 @@ public class BackpackManager : Singleton<BackpackManager>
     [SerializeField]
     private ItemSerializedDictionary itemPrefabs = null;
 
+    public Backpack Backpack { get; private set; }
+
+
     public void SpawnBackpack(Character character)
     {
-        Backpack backpack = Instantiate(backpackPrefab, backpackSlot, false);
-        backpack.Show(character, raycaster);
+        /// Hide previously shown backpack
+        HideBackpack();
+        Backpack = Instantiate(backpackPrefab, backpackSlot, false);
+        Backpack.Show(character, raycaster);
     }
-
-    [Button]
-    private void ShowRandom()
+    public void HideBackpack()
     {
-        Character character = TeamManager.Instance.characters.GetRandom();
-        SpawnBackpack(character);
+        if (Backpack != null)
+        {
+            Destroy(Backpack.gameObject);
+            Backpack = null;
+        }
     }
 
     public Item SpawnItem(Character character, ItemType itemType)
