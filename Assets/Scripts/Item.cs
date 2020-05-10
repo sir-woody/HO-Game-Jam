@@ -15,8 +15,6 @@ public class Item : MonoBehaviour
 
     public void UseOn(Character character)
     {
-        if (string.IsNullOrEmpty(affectedStat)) return;
-
         var value = continousEffect ? Time.deltaTime * effect : effect;
         character.GetStat(affectedStat).Replenish(value);
         if (expires)
@@ -25,7 +23,7 @@ public class Item : MonoBehaviour
         }
     }
     
-    public bool CanUse() => !isUsed;
+    public bool CanUse() => !isUsed && !string.IsNullOrEmpty(affectedStat);
     public void MakeUsable() => isUsed = false;
     public Sprite GetSprite() => sprite;
 }
