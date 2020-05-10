@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326ad6d05c0472c47a0473cec9e52b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: "Zawr\xF3\u0107"
+  description: "Wspinaj si\u0119"
   toolTipPrefab: {fileID: 3234914953724897287, guid: 714fc88b42bbef741be53f8c949351da,
     type: 3}
   tooltipDelay: 1
@@ -378,7 +378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326ad6d05c0472c47a0473cec9e52b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: "Wspinaj si\u0119"
+  description: "Zawr\xF3\u0107"
   toolTipPrefab: {fileID: 3234914953724897287, guid: 714fc88b42bbef741be53f8c949351da,
     type: 3}
   tooltipDelay: 1
