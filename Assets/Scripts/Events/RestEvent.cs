@@ -15,9 +15,7 @@ public class RestEvent : EventBase
     [SerializeField]
     private bool isDone = false;
     [SerializeField]
-    private Button sleepButton = null;
-    [SerializeField]
-    private Button searchButton = null;
+    private Button performButton = null;
 
     private bool shouldPerformAction = false;
     private bool restActionPerformed = false;
@@ -93,10 +91,19 @@ public class RestEvent : EventBase
     {
         yield return StartCoroutine(FadeManager.Instance.FadeOut());
 
-        TeamManager.Instance.characters.ForEach(x => x.Rest());
+        foreach (Character character in TeamManager.Instance.characters)
+        {
+            if (character.IsRestActionSleep() == true)
+            {
+                character.Rest();
+            }
+            else
+            {
+                Debug.LogError("Invoke Search action here");
+            }
+        }
         restActionPerformed = true;
-        sleepButton.interactable = false;
-        searchButton.interactable = false;
+        performButton.interactable = false;
 
         yield return StartCoroutine(FadeManager.Instance.FadeIn());
     }

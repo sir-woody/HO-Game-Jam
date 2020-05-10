@@ -28,4 +28,15 @@ public static class EnumeratorExtension
         return item;
     }
 
+    public static void Randomize<T>(this List<T> list)
+    {
+        List<T> tempList = new List<T>(list);
+        list.Clear();
+        while (tempList.Count > 0)
+        {
+            tempList.RemoveRandom(out T element);
+            list.Add(element);
+        }
+    }
+
 }

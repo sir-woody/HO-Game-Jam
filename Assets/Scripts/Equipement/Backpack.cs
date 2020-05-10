@@ -17,6 +17,12 @@ public class Backpack : MonoBehaviour
     [SerializeField]
     private float lerpRatio = 0.2f;
 
+    [SerializeField]
+    private Toggle restActionSleepToggle = null;
+    [SerializeField]
+    private Toggle restActionSearchToggle = null;
+
+
     private List<ItemFrame> itemFrames = new List<ItemFrame>();
 
     public Character Owner { get; private set; }
@@ -31,11 +37,17 @@ public class Backpack : MonoBehaviour
         this.Owner = character;
         backpackOwnerImage.sprite = character.GetSprite(Character.SpriteType.FrameDefault);
         Item[] items = character.GetItems();
+        //restActionSearchToggle.onValueChanged.AddListener(character.SetRestAction);
+        restActionSleepToggle.isOn = character.IsRestActionSleep();
+        restActionSearchToggle.isOn = !character.IsRestActionSleep();
+        restActionSleepToggle.onValueChanged.AddListener(character.SetRestAction);
         InitializeItems(items, raycaster, true);
     }
 
     public void ShowWithoutCharacter(Item[] items, GraphicRaycaster raycaster, bool draggable)
     {
+        restActionSearchToggle.gameObject.SetActive(false);
+        restActionSleepToggle.gameObject.SetActive(false);
         InitializeItems(items, raycaster, draggable);
     }
 

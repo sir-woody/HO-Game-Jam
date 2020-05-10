@@ -31,6 +31,7 @@ public class Character : MonoBehaviour
     VoiceController VoiceController;
 
     bool isDead;
+    private bool isRestAstionSleep = true;
     [SerializeField] float backpackSize = 10;
     [SerializeField] float baseSpeed = 1;
     [SerializeField] float minSpeed = .1f;
@@ -67,6 +68,14 @@ public class Character : MonoBehaviour
         item.gameObject.SetActive(true);
     }
 
+    public bool IsRestActionSleep()
+    {
+        return isRestAstionSleep;
+    }
+    public void SetRestAction(bool isSleep)
+    {
+        isRestAstionSleep = isSleep;
+    }
     //Stats
     internal Stat GetStat(string name)
     {

@@ -16,6 +16,7 @@ public class CharacterSelectionEvent : EventBase
     public override IEnumerator Perform(GameplayManager gameplayManager, GameplayManager.ClimbResult climbResult)
     {
         List<Character> availableCharacters = TeamManager.Instance.GetPrefabs();
+        availableCharacters.Randomize();
         for (int i = 0; i < Mathf.Min(availableCharacters.Count, maxTeamSize); i++)
         {
             Character characterPrefab = availableCharacters[i];
