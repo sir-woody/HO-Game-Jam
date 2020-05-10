@@ -23,6 +23,7 @@ public class StatBar : MonoBehaviour
     {
         _slider.maxValue = maxValue;
         _slider.value = value;
+        if (!fill) return;
         if (_stat.startingFull == true)
         {
             fill.color = _color.Evaluate(value / maxValue);
