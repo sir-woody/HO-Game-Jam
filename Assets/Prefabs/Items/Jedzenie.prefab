@@ -80,4 +80,4 @@ MonoBehaviour:
   continousEffect: 0
   expires: 1
   weight: 4
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: aad019372fec2d54ba2e2da7d6fafda7, type: 3}

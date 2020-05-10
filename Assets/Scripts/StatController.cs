@@ -30,8 +30,11 @@ public class Stat
     [SerializeField] internal float usePerSecond = 1f;
     [SerializeField] internal bool startingFull;
     private bool isInitialized;
+    [SerializeField] Sprite sprite;
 
     public event Action<float, float> OnChange;
+
+    public Sprite GetSprite() => sprite;
 
     internal void Initialize(Stat[] stats)
     {

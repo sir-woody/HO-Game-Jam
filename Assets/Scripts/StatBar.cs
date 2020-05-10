@@ -7,10 +7,12 @@ public class StatBar : MonoBehaviour
     Stat _stat;
     [SerializeField] Slider _slider;
     [SerializeField] TMP_Text statNameField;
+    [SerializeField] Image statIcon;
 
     internal void Initialize(Stat stat)
     {
         _stat = stat;
+        statIcon.sprite = stat.GetSprite();
         _stat.OnChange += Stat_OnChange;
         _stat.Refresh();
         statNameField.text = stat.name;
