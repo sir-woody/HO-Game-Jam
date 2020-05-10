@@ -140,6 +140,15 @@ public class Stat
         Deplete(usePerSecond * Time.deltaTime);
     }
 
+    internal void DepleteConst(int times)
+    {
+        for (int i = 0; i < times; i++)
+        {
+            Deplete(usePerSecond);
+
+        }
+    }
+
     internal void Replenish(float amount)
     {
         if (amount < 0)

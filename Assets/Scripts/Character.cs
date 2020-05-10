@@ -136,8 +136,7 @@ public class Character : MonoBehaviour
 
     internal IEnumerable<BackpackManager.ItemType> Scout()
     {
-        stats.ForEach(x => x.Deplete());
-        stats.ForEach(x => x.Deplete());
+        stats.ForEach(x => x.DepleteConst(4));
 
         int itemCount = UnityEngine.Random.Range(1, 3);
 
@@ -150,12 +149,13 @@ public class Character : MonoBehaviour
             BackpackManager.ItemType.Food,
             BackpackManager.ItemType.Food,
             BackpackManager.ItemType.Food,
-            BackpackManager.ItemType.Herbs,
+            BackpackManager.ItemType.Food,
+            BackpackManager.ItemType.Food,
             BackpackManager.ItemType.Herbs,
             BackpackManager.ItemType.Herbs,
             BackpackManager.ItemType.BandageAndPills,
             BackpackManager.ItemType.CandyBar,
-
+            BackpackManager.ItemType.CandyBar,
         };
 
     IEnumerable<BackpackManager.ItemType> GetRandomItems(int count)
